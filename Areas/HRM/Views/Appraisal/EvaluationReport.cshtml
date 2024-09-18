@@ -1,0 +1,76 @@
+﻿<script src="~/Scripts/moment.js"></script>
+<script src="~/Areas/HRM/Scripts/EmployeeEvaluation/EvaluationReport.js"></script>
+@{
+    ViewBag.Title = "EvaluationReport";
+    Layout = "~/Views/Shared/_LayoutjqGrid.cshtml";
+}
+<div class="evaluationReport">
+    <form class="form-horizontal" role="form">
+        <div class="form-group row row_design">
+            <div class="col-sm-2">
+                <label for="DesignationId" class="control-label">Designation<span class="required">*</span></label>
+            </div>
+            <div class="col-sm-3" data-bind="validationElement: DesignationId">
+                <select id="designation" data-bind="
+                                            options:DesignationList,
+                                            optionsValue: 'Id',
+                                            optionsText:'Name',
+                                            optionsCaption:'--Select--',
+                                            value:DesignationId
+                                        "></select>
+            </div>
+            <div class="col-sm-2">
+                <label for="EmployeeId" class="control-label">Employee<span class="required">*</span></label>
+            </div>
+            <div class="col-sm-3" data-bind="validationElement: EmployeeId">
+                <select id="employee" data-bind="
+                                            options:EmployeeList,
+                                            optionsValue: 'Id',
+                                            optionsText:'Name',
+                                            optionsCaption:'--Select--',
+                                            value:EmployeeId
+                                        "></select>
+            </div>
+
+        </div>
+        <div class="form-group row row_design">
+            <div class="col-sm-2">
+                <label for="PeriodFrom" class="control-label">Evaluation From<span class="required">*</span></label>
+            </div>
+            <div class="col-sm-3" data-bind="validationElement: PeriodFrom">
+                <input data-bind="date:PeriodFrom" id="PeriodFromtext" class="form-control dob" type="date" placeholder="Evaluation From">
+            </div>
+            <div class="col-sm-2">
+                <label for="PeriodTo" class="control-label">Evaluation To<span class="required">*</span></label>
+            </div>
+            <div class="col-sm-3" data-bind="validationElement: PeriodTo">
+                <input data-bind="date:PeriodTo" id="PeriodFromtext" class="form-control dob" type="date" placeholder="Evaluation To">
+            </div>
+            <div class="sol-sm-1">
+                <button type="reset" class="btn btn-primary">Clean</button>
+            </div>
+        </div>
+    </form>
+        
+        
+        <table class="table table-responsive table-striped">
+            <thead style="background-color:steelblue;text-transform:fullwidth;">
+                <tr>
+                    <th>Evaluator Name</th>
+                    <th>Marks</th>
+                    <!--<input type="hidden" name="hiddenPhone" />-->
+                </tr>
+            </thead>
+            <tbody data-bind="foreach:Evaluations">
+                <tr>
+                    <td class="center" data-bind="text:EvaluatorName"></td>
+                    <td class="center" data-bind="text:KPIMarks"></td>
+                </tr>
+            </tbody>
+
+
+        </table>
+</div>
+
+
+

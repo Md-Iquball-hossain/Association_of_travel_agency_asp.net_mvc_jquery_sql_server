@@ -1,0 +1,171 @@
+﻿
+@{
+    ViewBag.Title = "Category";
+    Layout = "~/Views/Shared/_LayoutjqGrid.cshtml";
+}
+<script src="~/Areas/FAMS/Scripts/Category/category_create.js"></script>
+@*<script src="~/Content/customassets/js/knockout.validation.js"></script>*@
+<link href="~/Content/customassets/css/Cart.css" rel="stylesheet" />
+
+<style>
+    .form-control {
+        width: 100% !important;
+    }
+
+    .btnLarge {
+        width: 140px !important;
+    }
+
+    .input-group-addon {
+        padding: 0 5px;
+    }
+
+    .rm {
+        background-color: #F8F8F8;
+        border-radius: 0px 0px 0px 0px !important;
+    }
+</style>
+
+<section class="rm">
+    <div class="panel-body">
+        <div class="container-fluid">
+            <div class="row">
+
+                <!---vvvvvvv----Body Main Starts here---vvvvvv----->
+
+                <div class="col-sm-12">
+                    <div class="row">
+                        <div class="col-sm-12">
+
+                            @*<section class="panel bodycontent">*@
+                            <div id="CategoryDiv">
+
+
+                                
+                                <div class="form-group row row_design">
+                                    <label class="control-label col-sm-2 col-sm-offset-1" for="CategoryName">Category Name</label>
+                                    <div class="col-sm-3" data-bind="validationElement: CategoryName">
+                                        <input type="text" data-bind="value:CategoryName, valueUpdate: 'keyup'" class="form-control" placeholder="Category Name" />
+                                    </div>
+                                    <label class="control-label col-sm-2" for="Level">Level</label>
+                                    <div class="col-sm-3" data-bind="validationElement: Level">
+                                        <select data-bind="options: Levels, value: Level,optionsValue:'Id',optionsText: 'Name', optionsCaption: '...Select Level...', event:{ change: getParents}, valueUpdate: 'keyup'"
+                                                class="form-control"></select>
+
+                                    </div>
+                                    
+                                </div>
+
+                                <div class="form-group row row_design">
+                                    <label class="control-label col-sm-2 col-sm-offset-1" for="ParentID">Parent</label>
+                                    <div class="col-sm-3" data-bind="validationElement: ParentId">
+                                        <select data-bind="options: CategoryList, value: ParentId,optionsValue:'Id',optionsText: 'CategoryName',optionsCaption: '...Select Parent...'"
+                                                class="form-control"></select>
+                                    </div>
+                                    <label class="control-label col-sm-2" for="Code">Code</label>
+                                    <div class="col-sm-3" data-bind="validationElement: Code">
+                                        <input type="text" data-bind="value:Code" class="form-control" placeholder="Code" />
+
+                                    </div>
+
+                                </div>
+
+                                <div class="form-group row row_design">
+                                    <label class="control-label col-sm-2 col-sm-offset-1" for="Details">Details</label>
+                                    <div class="col-sm-3" data-bind="validationElement: Details">
+                                        <input type="text" data-bind="value:Details" class="form-control" placeholder="Details" />
+                                    </div>
+                                    <div class="col-sm-3 col-sm-offset-8" style="text-align:left">
+                                        <button type="button" class="btn btn-success" data-bind="enable: IsValid" data-toggle="modal" data-target="#myModal">Save</button>
+
+                                    </div>
+                                </div>
+
+                                    <br/>
+
+                                    <div class="form-group table-responsive">
+
+                                        <div class="PrintReport" align="right">
+
+                                            <table class="table table-striped table-bordered">
+                                                <thead class="headcolor">
+                                                    <tr class="thead ">
+                                                        <th> Name </th>
+                                                        <th> Code </th>
+                                                        <th> Parent </th>
+                                                        <th> Level </th>
+                                                        <th> Action </th>
+                                                    </tr>
+                                                </thead>
+
+                                                <tbody data-bind="foreach:Categories">
+                                                    <tr>
+                                                        <td class="center" data-bind="text: CategoryName"></td>
+                                                        <td class="center" data-bind="text: Code"></td>
+                                                        <td class="center" data-bind="text: ParentName"></td>
+                                                        <td class="center" data-bind="text: LevelName"></td>
+                                                        <td class="center"><a data-bind="click:$parent.editCategory">Edit</a></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div id="successModal" class="modal fade" role="dialog">
+                                            <div class="modal-dialog modal-sm">
+                                                <!-- Modal content-->
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                        <h4 class="modal-title">Response</h4>
+                                                    </div>
+                                                    <div class="modal-body" align="center">
+                                                        <p id="successModalText"></p>
+                                                        <button type="button" class="btn btn-success" data-dismiss="modal">Ok</button>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div id="myModal" class="modal fade" role="dialog">
+                                            <div class="modal-dialog modal-sm">
+
+                                                <!-- Modal content-->
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                        <h4 class="modal-title">Confirmation</h4>
+                                                    </div>
+                                                    <div class="modal-body" align="center">
+                                                        <p>Do you want to add this item?</p>
+                                                        <button data-bind="click: SaveCategory" class="btn btn-success" data-dismiss="modal">Yes</button>
+                                                        <button type="button" class="btn btn-success" data-dismiss="modal">No</button>
+
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        @*<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>*@
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            @*</section>*@
+                            <!---^^^^^^^----Body Main Ends here----^^^^^^^---->
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+

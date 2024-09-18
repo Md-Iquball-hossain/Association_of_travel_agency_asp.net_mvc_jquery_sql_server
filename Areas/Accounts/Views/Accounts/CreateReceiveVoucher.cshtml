@@ -1,0 +1,258 @@
+﻿@*@using App.Finix.WebUI.Helpers*@
+@{
+    ViewBag.Title = "Receive Voucher";
+}
+
+<link href="~/customassets/css/customStyle.css" rel="stylesheet"/>
+<script src="~/Scripts/moment.js"></script>
+<script src="~/Scripts/knockout-date-bindings.js"></script>
+<script src="~/Scripts/Accounts/create-receive-voucher.js"></script>
+
+<section>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-5" style="padding: 0 !important">
+                <div class="col-sm-2" style="padding: 0 0 0 5px !important">
+
+                    <figure class="profile-picture">
+                        <img src="#" alt="User Image" height="40" class="img-circle" />@*@Url.Action("GetImage", "Employee")*@
+                    </figure>
+                </div>
+                <div class="col-sm-10" style="padding: 0 !important">
+
+                    <h5>@*@SessionHelper.UserProfile.UserName*@ User</h5>
+                    <h6>@*@SessionHelper.UserProfile.Employee.Designation*@ Designation</h6>
+                </div>
+            </div>
+            <div class="col-sm-7" align="right">
+                <div class="right-wrapper pull-right">
+                    <ol class="breadcrumb">
+                        <li><a href="#">Administrative</a></li>
+                        <li class="active">Receive Voucher</li>
+                    </ol>
+                </div>
+            </div>
+
+
+            <!---vvvvvvvvv----Menu Left Starts here----vvvvvv---->
+            <div class="col-sm-2 " style="padding: 0 !important;">
+
+
+                <aside id="sidebar-left">
+                    @*sidebar-left*@
+                    <div class="nano">
+                        <div class="nano-content  ">
+                            <nav id="menu" class="nav-main " role="navigation">
+                                <ul class="nav nav-main">
+                                    <li class="panel-heading bodytitle" style="font-size: 16px;">Accounts</li>
+                                    <li class="left_nav1"><a href="/Accounts/ChartOfAccountCombo">Chart Of Account</a></li>
+                                    @*<li class="left_nav1"><a href="/Accounts/CreatePaymentVoucher">Payment Voucher</a></li>
+                                    <li class="left_nav1"><a href="/Accounts/CreateReceiveVoucher">Receive Voucher</a></li>*@
+                                    <li class="left_nav1"><a href="/Accounts/AccountAdjustment">Account Adjustment</a></li>
+                                    <li class="left_nav1"><a href="/Accounts/VoucherSearch">Voucher Search</a></li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </aside>
+            </div>
+            <!---^^^^^^^----Menu Left Ends here---^^^^^^^----->
+            <!---vvvvvvv----Body Main Starts here---vvvvvv----->
+
+            <div class="col-sm-10">
+
+                <div class="row">
+                    <div class="col-sm-12">
+
+                        <section class="panel bodycontent">
+                            <header class="panel-heading bodytitle ">
+                                <h2 class="panel-title font ">
+                                    <b>Receive Voucher Entry</b>
+                                </h2>
+
+                            </header>
+
+                            <br />
+
+                            <div id="accountDiv" class="purchase1">
+
+                                <div class="form-group">
+                                    <div class="col-sm-2"></div>
+                                    <div class="col-sm-8">
+                                        <div class="row">
+                                            <div class="form-group">
+                                                <label class="col-sm-3"></label>
+                                                <div class="col-sm-2">
+                                                    <label><input type="radio" data-bind="checked:selectedPaytype" value="cash" name="payType" />Cash</label>
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <label><input type="radio" data-bind="checked:selectedPaytype" value="cheque" name="payType" />Cheque</label>
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <label><input type="radio" data-bind="checked:selectedPaytype" value="other" name="payType" />Others</label>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <hr />
+
+                                        <div class="form-group">
+                                            <label class="col-sm-2">Voucher Date</label>
+                                            <div class="col-sm-4">
+                                                <input type="date" data-bind="date:VoucherDate" readonly="readonly" class="form-control" />
+                                            </div>
+                                        </div>
+                                        <div data-bind="visible:IsCash">
+                                            <div id="payTypeAccHead" class="form-group">
+                                                <label class="col-sm-2">Account Head</label>
+                                                <div class="col-sm-10">
+                                                    <select data-bind="options: accountHeads, value: selectedAccountHeadCode,
+                                                optionsValue:'AccountHeadCode',
+                                                optionsText: 'name',
+                                                optionsCaption: 'Choose one...'"
+                                                            class="form-control"></select>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div data-bind="visible:IsCheque">
+                                            <div id="payTypeBank" data-bind="visible: selectedPaytype">
+                                                <div class="form-group">
+                                                    <br/>
+                                                    <label class=" col-sm-2">Bank Account</label>
+                                                    <div class="col-sm-10">
+                                                        @*<input type="text" data-bind="value:BankName" class="form-control" />*@
+                                                        <select data-bind="options: BankAccHeads, value: selectedBankAccHeadCode,
+                                                optionsValue:'AccountHeadCode',
+                                                optionsText: 'name',
+                                                optionsCaption: 'Choose one...'"
+                                                                class="form-control"></select>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-sm-2">Cheque No</label>
+                                                    <div class="col-sm-4">
+                                                        <input type="text" data-bind="value:ChequeNo" class="form-control" />
+                                                    </div>
+                                                    <label class="col-sm-2">Cheque Date</label>
+                                                    <div class="col-sm-4">
+                                                        <input type="date" data-bind="value:ChequeDate" class="form-control" />
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <br/>
+                                        <div class="form-group">
+                                            <label class="col-sm-2">Description</label>
+                                            <div class="col-sm-4">
+                                                <textarea data-bind="value:Description" class="form-control"></textarea>
+                                            </div>
+                                            <label class="col-sm-2">Amount</label>
+                                            <div class="col-sm-3">
+                                                <input type="number" data-bind="value:Amount, valueUpdate: 'keyup'" min="0" class="form-control" />
+                                            </div>
+                                            <div class="col-sm-1">
+                                                <button class=" btn btn-success" data-bind="enable: Amount, click: addReceiveVaoucsers.bind($data)">Add</button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    @*<div class="col-sm-2"></div>*@
+
+                                </div>
+                                <hr />
+
+                                <div class="form-group col-sm-12 table-responsive">
+                                    <table class="table table-bordered table-striped mb-none">
+                                        <thead>
+                                            <tr>
+                                                <th>Sl. No.</th>
+                                                <th>Tran. No.</th>
+                                                <th>Pay Type</th>
+                                                <th>Account Head</th>
+                                                <th>Description</th>
+                                                <th>Dr. Amount</th>
+                                                <th>Cr. Amount</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody data-bind="visible:VoucherDetails().length==0">
+                                            <tr>
+                                                <td colspan="8" align="center">
+                                                    <span>No Data Available</span>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                        <tbody class="row" data-bind="foreach: VoucherDetails.slice(0).reverse(), visible:VoucherDetails().length>0">
+                                            <tr>
+                                                <td data-bind="text: $index() + 1"></td>
+                                                <td data-bind="text:TransactionNo"></td>
+                                                <td data-bind="text:paytype"></td>
+                                                <td data-bind="text:accountHeadName"></td>
+                                                <td data-bind="text:Description"></td>
+                                                <td>
+                                                    <div data-bind='if: isEntryTypeDr'>
+                                                        <span data-bind="text:Amount"></span>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div data-bind='if: isEntryTypeCr'>
+                                                        <span data-bind="text:Amount"></span>
+                                                    </div>
+                                                </td>
+                                                <td><a href="#" data-bind="click: $root.removeReceiveVaoucsers">Remove</a></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+
+
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="col-sm-10"></div>
+                                    <div class="col-sm-2" align="right">
+                                        @*<button data-bind="click: saveVoucher" class=" btn btn-success">Save</button>*@
+                                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">Save</button>
+                                    </div>
+                                    <!-- Modal -->
+                                    <div id="myModal" class="modal fade" role="dialog">
+                                        <div class="modal-dialog modal-sm">
+
+                                            <!-- Modal content-->
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                    <h4 class="modal-title">Confirmation</h4>
+                                                </div>
+                                                <div class="modal-body" align="center">
+                                                    <p>Do you want to add this item?</p>
+                                                    <button data-bind="click: saveVoucher" class=" btn btn-success" data-dismiss="modal">Yes</button>
+                                                    <button type="button" class="btn btn-success" data-dismiss="modal">No</button>
+
+                                                </div>
+                                                <div class="modal-footer">
+                                                    @*<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>*@
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+
+                        </section>
+
+                    </div>
+                </div>
+
+            </div>
+
+            <!---^^^^^^^----Body Main Ends here----^^^^^^^---->
+        </div>
+    </div>
+</section>
+

@@ -1,0 +1,160 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutjqGrid.cshtml";
+    ViewBag.Title = "Cheque Register Entry";
+    var CompanyId = ViewBag.CompanyId;
+}
+
+@*<link href="~/Content/customStyle.css" rel="stylesheet" />*@
+<script src="~/Scripts/moment.js"></script>
+<script src="~/Scripts/knockout-date-bindings.js"></script>
+<script>
+    var userCompanyId = parseInt(@CompanyId);
+</script>
+<script src="~/Areas/Accounts/Scripts/Bank/cheque_register_entry.js"></script>
+<link href="~/Content/customassets/css/Cart.css" rel="stylesheet" />
+
+<style>
+    .form-control {
+        width: 100% !important;
+    }
+
+    .btnLarge {
+        width: 140px !important;
+    }
+
+    .input-group-addon {
+        padding: 0 5px;
+    }
+
+    .rm {
+        background-color: #F8F8F8;
+        border-radius: 0px 0px 0px 0px !important;
+    }
+</style>
+
+<section class="rm">
+
+    <div class="row">
+
+        <!---vvvvvvv----Body Main Starts here---vvvvvv----->
+
+        <div class="col-sm-12">
+            <div class="row">
+                <div class="col-sm-12">
+
+                    
+                        <div id="ChequeRegisterDiv">
+
+                            
+                                <div class="form-group row row_design">
+                                    @if (CompanyId == null)
+                                    {
+                                        <label class="control-label col-sm-2 col-sm-offset-1" for="Name">Company</label>
+                                        <div class="col-sm-3">
+                                            <select data-bind="options: CompanyList, value: CompanyProfileId, optionsValue:'Id', optionsText: 'Name', optionsCaption: 'Choose one...', valueUpdate: 'keyup', event:{ change: loadBanks }" class="form-control"></select>
+                                        </div>
+                                    }
+                                    <label class="control-label col-sm-2 col-sm-offset-1" for="BankId">Bank</label>
+                                    <div class="col-sm-3" data-bind="validationElement: BankId">
+                                        <select data-bind="options: Banks, value: SelectedBank, optionsCaption:'Choose One..', optionsText: 'Name' , event: {change: bankChanged} " class="form-control"></select>
+                                    </div>
+                                </div>
+                                <div class="form-group row row_design">
+                                    <label class="control-label col-sm-2 col-sm-offset-1" for="Name">AccountName</label>
+                                    <div class="col-sm-3" data-bind="validationElement: AccountName">
+                                        <input type="text" data-bind="value:AccountName, valueUpdate: 'keyup'" class="form-control" placeholder="Account Name" required />
+                                    </div>
+
+                                    <label class="control-label col-sm-2" for="BranchName">Branch Name</label>
+                                    <div class="col-sm-3" data-bind="validationElement: BranchName">
+                                        <input type="text" data-bind="value:BranchName, valueUpdate: 'keyup'" class="form-control" placeholder="Branch Name" readonly />
+                                    </div>
+                                </div>
+
+                                <div class="form-group row row_design">
+                                    <label class="control-label col-sm-2 col-sm-offset-1" for="BookIssueDate">Book Issue Date</label>
+                                    <div class="col-sm-3" data-bind="validationElement: BookIssueDate">
+                                        <input type="date" data-bind="value:BookIssueDate" class="form-control" />
+                                        @*<textarea class="form-control" data-bind="value:Address"></textarea>*@
+                                    </div>
+                                    <label class="control-label col-sm-2" for="AccountNumber">Account Number</label>
+                                    <div class="col-sm-3" data-bind="validationElement: AccountNumber">
+                                        <input type="text" data-bind="value:AccountNumber, valueUpdate: 'keyup'" class="form-control" placeholder="AccountNumber" />
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group row row_design">
+
+                                    <label class="control-label col-sm-2 col-sm-offset-1" for="ChequePrefix">Cheque Prefix</label>
+                                    <div class="col-sm-3" data-bind="validationElement: ChequePrefix">
+                                        <input type="text" data-bind="value:ChequePrefix, valueUpdate: 'keyup'" class="form-control" placeholder="Cheque Prefix" required />
+                                    </div>
+                                    <label class="control-label col-sm-2" for="StartingNumber">Starting Number</label>
+                                    <div class="col-sm-3" data-bind="validationElement: StartingNumber">
+                                        <input type="email" data-bind="value:StartingNumber, valueUpdate: 'keyup'" class="form-control" placeholder="Starting Number" />
+                                    </div>
+                                </div>
+
+                                <div class="form-group row row_design">
+
+                                    <label class="control-label col-sm-2 col-sm-offset-1" for="TotalCheques">Total Cheques</label>
+                                    <div class="col-sm-3" data-bind="validationElement: TotalCheques">
+                                        <input type="number" data-bind="value:TotalCheques, valueUpdate: 'keyup'" class="form-control" placeholder="Total Cheques" required />
+                                    </div>
+                                    @*<label class="col-xs-2" for="AccountType">Account Type</label>
+                                        <div class="col-xs-4" data-bind="validationElement: AccountType">
+                                            <select data-bind=" options: AccountTypes, value: AccountType, optionsCaption:'Choose One..', optionsValue:'Id', optionsText: 'Name' " class=" form-control"></select>
+                                        </div>*@
+                                </div>
+
+                                <div class="form-group row row_design">
+                                    @*<label class="col-xs-2" for="Signatories">Signatories</label>
+                                        <div class="col-xs-4" data-bind="validationElement: Signatories">
+                                            <input type="text" data-bind="value:Signatories, valueUpdate: 'keyup'" class="form-control" placeholder="Signatories" required />
+                                        </div>*@
+                                </div>
+
+                                <div class="form-group row row_design">
+                                    <div class="col-sm-offset-10 col-sm-2">
+                                        @*<button type="submit" class="btn btn-success" data-toggle="modal" data-target="#myModal">Submit</button>*@
+                                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">Save</button>
+                                    </div>
+                                    
+                                    <div id="myModal" class="modal fade" role="dialog">
+                                        <div class="modal-dialog modal-sm">
+                                            <!-- Modal content-->
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                    <h4 class="modal-title">Confirmation</h4>
+                                                </div>
+                                                <div class="modal-body" align="center">
+                                                    <p>Do you want to add this item?</p>
+                                                    <button data-bind="click: saveChequeBook" class=" btn btn-success" data-dismiss="modal">Yes</button>
+                                                    <button type="button" class="btn btn-success" data-dismiss="modal">No</button>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    @*<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>*@
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            <br />
+                            
+                        </div>
+                    
+                    <!---^^^^^^^----Body Main Ends here----^^^^^^^---->
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+
+

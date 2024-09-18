@@ -1,0 +1,255 @@
+﻿
+@{
+    ViewBag.Title = "IUO Slip";
+    Layout = "~/Views/Shared/_LayoutjqGrid.cshtml";
+    var CompanyId = ViewBag.CompanyId;
+    var jss = new System.Web.Script.Serialization.JavaScriptSerializer();
+    var Companies = jss.Serialize(ViewBag.Companies);
+}
+<link href="~/Content/bootstrap-datetimepicker.css" rel="stylesheet" />
+<script src="~/Scripts/bootstrap-datetimepicker.js"></script>
+<script src="~/Scripts/KoCustomDateTimePicker.js"></script>
+<link href="~/Content/customassets/css/Cart.css" rel="stylesheet" />
+<script src="~/Areas/Accounts/Scripts/IuoSlip/iuoSlip.js"></script>
+<script>
+    var userCompanyId = parseInt(@CompanyId);
+    var Companies = JSON.parse('@Html.Raw(Companies)');
+</script>
+<style>
+    .form-control {
+        width: 100% !important;
+    }
+
+    .btnLarge {
+        width: 140px !important;
+        border-radius: 4px !important;
+    }
+
+    .input-group-addon {
+        padding: 0 5px;
+    }
+
+    .rm {
+        background-color: #F8F8F8;
+        border-radius: 0px 0px 0px 0px !important;
+    }
+</style>
+
+<div class="Panel" id="purchaseRequisitionId">
+
+    <br />
+
+    <div class="container-fluid rm">
+
+
+        <div class="row">
+            <div class="col-sm-12">
+
+                <div class="form-group row row_design">
+                    <div class="col-sm-2 col-sm-offset-1">
+                        <label class="control-label" style="text-align: left;">Receiver Name :</label>
+                    </div>
+                    <div class="col-sm-2">
+                        @*<div class="col-sm-3" data-bind="text: ReceiverName"></div>*@
+                        <input class="form-control" type="text" data-bind="value:ReceiverName">
+                    </div>
+                    <div class="col-sm-2 col-sm-offset-1">
+                        <label class="control-label" style="text-align: left;">Designation :</label>
+                    </div>
+                    <div class="col-sm-2">
+                        @*<div class="col-sm-3" data-bind="text: Designation"></div>*@
+                        <input class="form-control" type="text" data-bind="value:Designation">
+                    </div>
+                </div>
+                <div class="form-group row row_design">
+                    <div class="col-sm-2 col-sm-offset-1">
+                        <label class="control-label" style="text-align: left;">Amount :</label>
+                    </div>
+                    <div class="col-sm-2">
+                        @*<div class="col-sm-3" data-bind="text: Amount"></div>*@
+                        <input class="form-control" type="number" min="0" data-bind="value:Amount, valueUpdate:'keyup'" />
+                    </div>
+                    <div class="col-sm-2 col-sm-offset-1">
+                        <label class="control-label">Receive Date :</label>
+                    </div>
+
+                    <div class="col-sm-2" style="padding-left: 15px; padding-right: 15px;" data-bind="validationElement: ReceiveDate">
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="ReceiveDate" data-bind="datepicker:ReceiveDate, datepickerOptions: {format: 'DD/MM/YYYY'}, valueUpdate:'keyup'">
+                            <span class="help-block" style="display: none;"></span>
+                            <div class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group row row_design">
+                    <div class="col-sm-2 col-sm-offset-1">
+                        <label class="control-label" style="text-align: left;">Remarks :</label>
+                    </div>
+                    <div class="col-sm-2">
+                        @*<div class="col-sm-3" data-bind="text: Remarks"></div>*@
+                        <input class="form-control" type="text" data-bind="value:Remarks">
+                    </div>
+                    <div class="col-sm-2 col-sm-offset-1">
+                        <label class="control-label" style="text-align: left;">Status :</label>
+                    </div>
+                    <div class="col-sm-2">
+                        <select class="form-control" data-bind="options:IuoSlipStatusList,optionsValue: 'Id', optionsText:'Name',optionsCaption:'--Select--',value:IuoSlipStatus "></select>
+                    </div>
+                </div>
+                <div class="form-group row row_design">
+                 
+                    <div class="col-sm-2 col-sm-offset-1">
+                        <label class="control-label" style="text-align: left;">IUO Purpose :</label>
+                    </div>
+                    <div class="col-sm-2">
+                        <select class="form-control" data-bind="options:IuoPurposeList,optionsValue: 'Id', optionsText:'Name',optionsCaption:'--Select--',value:IuoPurpose"></select>
+                    </div>
+                </div>
+
+                <div class="form-group row row_design">
+
+                    <div class="col-sm-2 col-sm-offset-1">
+                        <label class="control-label">Pay Type</label>
+                    </div>
+                    <div class="col-sm-1">
+                        <label class="radio-inline"><input type="radio" data-bind="checked:selectedPaytype" value="cash" name="pType" />Cash</label>
+                    </div>
+                    <div class="col-sm-1 ">
+                        <label class="radio-inline"><input type="radio" data-bind="checked:selectedPaytype" value="bank" name="pType" />Bank</label>
+                    </div>
+                    <div class="col-sm-2 col-sm-offset-1" data-bind="visible:IsBank">
+                        <label class="control-label">Bank</label>
+                    </div>
+                    <div class="col-sm-2" data-bind="visible:IsBank">
+                        <select data-bind="options: Banks, value:BankId , optionsValue:'Id', optionsText: 'Name', optionsCaption: 'Choose one...', valueUpdate:'keyup'"
+                                class="form-control"></select>
+                    </div>
+                </div>
+                <div class="form-group row row_design" data-bind="visible:IsBank">
+                    <div class="col-sm-2 col-sm-offset-1">
+                        <label class="control-label">Cheque Date</label>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="ChequeDate" data-bind="datepicker:ChequeDate, datepickerOptions: {format: 'DD/MM/YYYY'}, valueUpdate:'keyup'">
+                            <span class="help-block" style="display: none;"></span>
+                            <div class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-2 col-sm-offset-1">
+                        <label class="control-label">Cheque No</label>
+                    </div>
+                    <div class="col-sm-2">
+                        <input class="form-control" type="text" data-bind="value:ChequeNo">
+                        @*<input type="text" data-bind="value:ChequeNo" class="form-control" />*@
+                    </div>
+                </div>
+                <div class="form-group row row_design">
+                    <div class="col-sm-2 col-sm-offset-1">
+                        <label class="control-label" style="text-align: left;">Company :</label>
+                    </div>
+                    <div class="col-sm-2">
+                        @*<select class="form-control" data-bind="options:IuoSlipStatusList,optionsValue: 'Id', optionsText:'Name',optionsCaption:'--Select--',value:IuoSlipStatus "></select>*@
+                        <select data-bind="options: CompanyList, value: CompanyProfileId, optionsValue:'Id', optionsText: 'Name', optionsCaption: 'Choose one...', event:{ change: function() {getAccHeads()}}, valueUpdate: 'keyup'" class="form-control"></select>
+                    </div>
+
+                    <div class="col-sm-2 col-sm-offset-1">
+                        <label class="control-label">Debit Account Head</label>
+                    </div>
+                    <div class="col-sm-2">
+                        <select data-bind="options: AccountHeads, value:DebitAccHeadCode , optionsValue:'AccountHeadCode', optionsText: 'name', optionsCaption: 'Choose one...', valueUpdate:'keyup'"
+                                class="form-control"></select>
+                    </div>
+
+                </div>
+                <div class="form-group row row_design">
+                    <div class="col-sm-8"></div>
+                    <div class="col-sm-2" align="right">
+                        @*<button data-bind="click: reset" class="btn btn-info">Reset</button>*@
+                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">Save</button>
+                    </div>
+
+                    <!-- Modal -->
+                    <div id="myModal" class="modal fade" role="dialog">
+                        <div class="modal-dialog modal-sm">
+
+                            <!-- Modal content-->
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h4 class="modal-title">Confirmation</h4>
+                                </div>
+                                <div class="modal-body" align="center">
+                                    <p>Do you want to add this item?</p>
+                                    <button data-bind="click: Save" class=" btn btn-success" data-dismiss="modal">Yes</button>
+                                    <button type="button" class="btn btn-success" data-dismiss="modal">No</button>
+
+                                </div>
+                                <div class="modal-footer">
+                                    @*<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>*@
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <!-- loading Modal -->
+                    <div id="loadingModal" class="modal fade" role="dialog">
+                        <div class="modal-dialog">
+
+                            <!-- Modal content-->
+                            <div class="loading-modal-content">
+
+                                <div class="loading" align="center">
+                                    <img src="~/Images/loadingTwo.gif" style="max-width: 100%;" />
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                    <!-- loading modal ends-->
+
+                    <div id="SuccessModal" class="modal fade" role="dialog">
+                        <div class="modal-dialog modal-sm">
+                            <!-- Modal content-->
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h4 class="modal-title">Response</h4>
+                                </div>
+                                <div class="modal-body" align="center">
+                                    <p id="SuccessModalText"></p>
+                                    <button type="button" class="btn btn-success" data-dismiss="modal">Ok</button>
+                                </div>
+                                <div class="modal-footer">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- loading modal ends-->
+                </div>
+                <br />
+
+            </div>
+
+            <br />
+        </div>
+        <br />
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+

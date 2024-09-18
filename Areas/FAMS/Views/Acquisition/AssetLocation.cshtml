@@ -1,0 +1,163 @@
+﻿
+@{
+    ViewBag.Title = "Asset Distribution";
+    Layout = "~/Views/Shared/_LayoutjqGrid.cshtml";
+}
+
+<link href="~/Content/bootstrap-datetimepicker.css" rel="stylesheet" />
+<script src="~/Scripts/bootstrap-datetimepicker.js"></script>
+<script src="~/Scripts/KoCustomDateTimePicker.js"></script>
+<link href="~/Content/customassets/css/Cart.css" rel="stylesheet" />
+<script src="~/Areas/FAMS/Scripts/Acquisition/Distribution.js"></script>
+
+<style>
+    .form-control {
+        width: 100% !important;
+    }
+
+    .btnLarge {
+        width: 140px !important;
+    }
+
+    .input-group-addon {
+        padding: 0 5px;
+    }
+
+    .rm {
+        background-color: #F8F8F8;
+        border-radius: 0px 0px 0px 0px !important;
+    }
+
+    .number {
+        text-align: right;
+    }
+</style>
+
+
+
+<section class="rm">
+    <div class="panel-body">
+        <div class="container-fluid">
+            <div class="row">
+                <!---vvvvvvv----Body Main Starts here---vvvvvv----->
+                <div class="col-sm-12">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            @*<section class="panel bodycontent">*@
+                            <div id="AssetsDiv">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                <h6 class="panel-title">
+                                                    Un-Assigned Assets
+                                                    <select data-bind="options: Offices, value: OfficeID, optionsCaption:'     <--Office-->', optionsValue:'Id',optionsText: 'LocationTitle', valueUpdate: 'keyup', event:{change: getUnAssignedAssets}" class="form-control"></select>
+                                                    <select data-bind="options: Levels, value: Level,optionsValue:'Id',optionsText: 'Name', optionsCaption: '...Select Level...', event:{ change: getAllCategories}, valueUpdate: 'keyup'" class="form-control"></select>
+                                                    <select data-bind="options: Categories, value: Id, optionsCaption:'      <--Category-->', optionsValue:'Id',optionsText: 'CategoryName', valueUpdate: 'keyup', event:{change:getUnAssignedAssets}" class="form-control"></select>
+                                                </h6>
+                                            </div>
+                                            <div class="panel-body">
+                                                <div class="fixed-panel">
+                                                    <table class="table table-striped">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Select</th>
+                                                                <th>Asset</th>
+                                                                <th>Asset Code</th>
+                                                                <th>Action</th>
+                                                            </tr>
+                                                        </thead>
+
+                                                        <tbody data-bind="foreach: UnAssignedAssets">
+                                                            <tr>
+                                                                <td>
+                                                                    <input type="checkbox" data-bind="value: AssetID, checked: Pass" />
+                                                                </td>
+                                                                <td data-bind="text: AssetName"></td>
+                                                                <td data-bind="text: AssetCode"></td>
+                                                                <td>
+                                                                    <a href='#' data-bind='click: $parent.SaveAssetAcquisition'>Assign</a>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                <h6 class="panel-title">
+                                                    Custodian
+                                                    <select data-bind="options: Employees, value: CustodianID, optionsCaption:'      <--Custodian-->', optionsValue:'Id',optionsText: 'Name', event:{change:getDestinationAssets}" class="form-control"></select>
+                                                </h6>
+                                            </div>
+                                            <div class="panel-body">
+                                                <div class="fixed-panel">
+                                                    <table class="table table-striped">
+                                                        <thead>
+                                                            <tr>
+
+                                                                <th>Code</th>
+                                                                <th>Assets</th>
+                                                            </tr>
+                                                        </thead>
+
+                                                        <tbody data-bind="foreach: DestinationAssets">
+                                                            <tr>
+
+                                                                <td data-bind="text: AssetCode"></td>
+                                                                <td data-bind="text: AssetName"></td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row row_design">
+                                    <div class="col-sm-2 col-sm-offset-4" style="text-align:left">
+                                        <button type="button" class="btn btn-success" data-bind="click:SaveSelcetedAssetAcquisition">Assign Selected</button> @*, enable :IsValid*@
+
+                                    </div>
+                                </div>
+
+                                <br />
+                                
+
+                                <div class="form-group">
+                                    <div id="successModal" class="modal fade" role="dialog">
+                                        <div class="modal-dialog modal-sm">
+                                            <!-- Modal content-->
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                    <h4 class="modal-title">Response</h4>
+                                                </div>
+                                                <div class="modal-body" align="center">
+                                                    <p id="successModalText"></p>
+
+                                                    <button type="button" class="btn btn-success" data-dismiss="modal">Ok</button>
+
+                                                </div>
+                                                <div class="modal-footer">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        @*</section>*@
+                        <!---^^^^^^^----Body Main Ends here----^^^^^^^---->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+

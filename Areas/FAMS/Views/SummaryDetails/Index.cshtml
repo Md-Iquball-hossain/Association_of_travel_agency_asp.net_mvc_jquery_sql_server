@@ -1,0 +1,184 @@
+﻿
+@{
+    ViewBag.Title = "Summary Details";
+    Layout = "~/Views/Shared/_LayoutjqGrid.cshtml";
+}
+
+
+<link href="~/Content/bootstrap-datetimepicker.css" rel="stylesheet" />
+<script src="~/Scripts/bootstrap-datetimepicker.js"></script>
+<script src="~/Scripts/KoCustomDateTimePicker.js"></script>
+<link href="~/Content/customassets/css/Cart.css" rel="stylesheet" />
+<script src="~/Areas/FAMS/Scripts/Depreciation/CategorySummary.js"></script>
+
+<style>
+    .form-control {
+        width: 100% !important;
+    }
+
+    .btnLarge {
+        width: 140px !important;
+    }
+
+    .input-group-addon {
+        padding: 0 5px;
+    }
+
+    .rm {
+        background-color: #F8F8F8;
+        border-radius: 0px 0px 0px 0px !important;
+    }
+</style>
+
+<section class="rm">
+    <div class="panel-body">
+        <div class="container-fluid">
+            <div class="row">
+
+                <!---vvvvvvv----Body Main Starts here---vvvvvv----->
+
+                <div class="col-sm-12">
+                    <div class="row">
+                        <div class="col-sm-12">
+
+                            @*<section class="panel bodycontent">*@
+                            <div id="DepreciationDiv">
+                                <div class="panel bodycontent">
+                                    <br/>
+                                    <div class="body-main-padding">
+                                        <div class="form-group row row_design">
+                                            <label class="control-label col-sm-2 col-sm-offset-1" for="FromDate">Report From :</label>
+                                            <div class="col-sm-3" style="padding-left: 15px; padding-right: 15px;" data-bind="validationElement: FromDate">
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control" id="FromDate" data-bind="datepicker:FromDate, datepickerOptions: {format: 'DD/MM/YYYY'}, valueUpdate:'keyup', event:{ change:setUrl}">
+                                                    @*<input type="date" data-bind="value:FromDate,  valueUpdate: 'keyup', event:{ change:setUrl}" class="form-control">*@
+                                                    <span class="help-block" style="display: none;"></span>
+                                                    <div class="input-group-addon">
+                                                        <span class="glyphicon glyphicon-calendar"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <label class="control-label col-sm-2" for="EndDate">Report To :</label>
+                                            <div class="col-sm-3" style="padding-left: 15px; padding-right: 15px;" data-bind="validationElement: EndDate">
+                                                <div class="input-group">
+                                                    <input type="text" id="endDate" data-bind="datepicker:EndDate, datepickerOptions: {format: 'DD/MM/YYYY'}, valueUpdate: 'keyup', event:{ change:setUrl}" class="form-control" />
+                                                    <span class="help-block" style="display: none;"></span>
+                                                    <div class="input-group-addon">
+                                                        <span class="glyphicon glyphicon-calendar"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <br />
+                                        <div class="form-group row row_design">
+                                            <div class="col-sm-2 col-sm-offset-9" style="text-align:left">
+                                                <button type="button" class="btn btn-success" data-bind="click: getInsidesSummary">Summary In Details</button>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br />
+
+                                </div>
+
+                                <div class="form-group table-responsive">
+                                    <div class="col-sm-12">
+
+                                        <div class="PrintReport" align="right">
+
+                                            <div class="form-group">
+                                                <h4>Export Report</h4>
+
+                                                <a target="_blank" data-bind="attr: { href: Link7, title1: 'PDF' }">PDF</a>
+                                                <a target="_blank" data-bind="attr: { href: Link8, title2: 'Excel' }">Excel</a>
+                                                <a target="_blank" data-bind="attr: { href: Link9, title3: 'Word' }">Word</a>
+
+                                            </div>
+                                            <br />
+
+                                            <table class="table table-striped table-bordered">
+                                                <thead class="headcolor">
+                                                    <tr class="thead ">
+                                                        <th> ID </th>
+                                                        <th> Asset Name </th>
+                                                        <th> Opening Value </th>
+                                                        <th> Additional Value</th>
+                                                        <th> Revaluation Surplus</th>
+                                                        <th> Disposed Value</th>
+                                                        <th> Closing Value </th>
+                                                        <th> Rate</th>
+                                                        <th> Opening Depeciation</th>
+                                                        <th> Adjusted Depreciation</th>
+                                                        <th> Closing Depreciation</th>
+                                                        <th> WDV</th>
+                                                    </tr>
+                                                </thead>
+
+                                                <tbody data-bind="foreach:InsideSummary">
+                                                    <tr>
+                                                        <td class="center" data-bind="text: AssetID"></td>
+                                                        <td class="center" data-bind="text: AssetName"></td>
+                                                        <td class="center" data-bind="numericText: OpeningValue, precision: 3"></td>
+                                                        <td class="center" data-bind="numericText: AdditionalValue, precision: 3"></td>
+                                                        <td class="center" data-bind="numericText: RevaluationSurplus, precision: 3"></td>
+                                                        <td class="center" data-bind="numericText: DisposedValue, precision: 3"></td>
+                                                        <td class="center" data-bind="numericText: ClosingValue, precision: 3"></td>
+                                                        <td class="center" data-bind="numericText: DepriciationRate, precision: 2"></td>
+                                                        <td class="center" data-bind="numericText: DepreciatedAmount, precision: 3"></td>
+                                                        <td class="center" data-bind="numericText: AdjustedDepreciation, precision: 3"></td>
+                                                        <td class="center" data-bind="numericText: ClosingDepreciation, precision: 3"></td>
+                                                        <td class="center" data-bind="numericText: WrittenDownValue, precision: 3"></td>
+
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            <br />
+
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+
+
+
+
+                                <div class="form-group">
+                                    <div id="successModal" class="modal fade" role="dialog">
+                                        <div class="modal-dialog modal-sm">
+                                            <!-- Modal content-->
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                    <h4 class="modal-title">Response</h4>
+                                                </div>
+                                                <div class="modal-body" align="center">
+                                                    <p id="successModalText"></p>
+
+                                                    <button type="button" class="btn btn-success" data-dismiss="modal">Ok</button>
+
+                                                </div>
+                                                <div class="modal-footer">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+
+
+                        @*</section>*@
+                        <!---^^^^^^^----Body Main Ends here----^^^^^^^---->
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+

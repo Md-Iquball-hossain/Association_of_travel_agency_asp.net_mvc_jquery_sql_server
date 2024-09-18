@@ -1,0 +1,286 @@
+﻿
+@{
+    ViewBag.Title = "Asset Entry";
+    Layout = "~/Views/Shared/_LayoutjqGrid.cshtml";
+}
+
+
+<link href="~/Content/bootstrap-datetimepicker.css" rel="stylesheet" />
+<script src="~/Scripts/bootstrap-datetimepicker.js"></script>
+<script src="~/Scripts/KoCustomDateTimePicker.js"></script>
+<link href="~/Content/customassets/css/Cart.css" rel="stylesheet" />
+<script src="~/Areas/FAMS/Scripts/Asset/asset_entry.js"></script>
+
+<style>
+    .form-control {
+        width: 100% !important;
+    }
+
+    .btnLarge {
+        width: 140px !important;
+    }
+
+    .input-group-addon {
+        padding: 0 5px;
+    }
+
+    .rm {
+        background-color: #F8F8F8;
+        border-radius: 0px 0px 0px 0px !important;
+    }
+    .number {
+    text-align:right;
+    }
+</style>
+
+
+<section class="rm">
+    <div class="panel-body">
+        <div class="container-fluid">
+            <div class="row">
+
+                <!---vvvvvvv----Body Main Starts here---vvvvvv----->
+
+                <div class="col-sm-12">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            @*<section class="panel bodycontent">*@
+                            <div id="AssetsDiv">
+                                <div class="form-group row row_design">
+                                    <label class="control-label col-sm-2 col-sm-offset-1" for="AssetName">Asset Name</label>
+                                    <div class="col-sm-3" data-bind="validationElement: AssetName">
+                                        <input type="text" data-bind="value:AssetName, valueUpdate: 'keyup'" class="form-control" placeholder="Asset Name" />
+                                    </div>
+
+                                    <label class="control-label col-sm-2" for="AssetCategoryID">Category</label>
+                                    <div class="col-sm-3" data-bind="validationElement: AssetCategoryID">
+                                        <select data-bind="options: Categories, value: AssetCategoryID, optionsCaption:'      <--Category-->', optionsValue:'Id',optionsText: 'CategoryName'"
+                                                class="form-control"></select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row row_design">
+                                    <label class="control-label col-sm-2 col-sm-offset-1" for="Supplier">Supplier</label>
+                                    <div class="col-sm-3" data-bind="validationElement: SupplierID">
+                                        <select data-bind="options: Suppliers, value: SupplierID, optionsCaption:'      <--Supplier-->', optionsValue:'Id',optionsText: 'Name'"
+                                                class="form-control"></select>
+                                    </div>
+                                    <label class="control-label col-sm-2" for="AssetCode">Asset Code</label>
+                                    <div class="col-sm-3" data-bind="validationElement: AssetCode">
+                                        <input type="text" data-bind="value:AssetCode, valueUpdate: 'keyup', visible: CodeVisible"  class="form-control" placeholder="Asset Code" />
+                                    </div>
+                                </div>
+
+                                <div class="form-group row row_design">
+                                    <label class="control-label col-sm-2 col-sm-offset-1" for="VAT">Service Type</label>
+                                    <div class="col-sm-3" data-bind="validationElement: ServiceTypes">
+                                        <select data-bind="options: ServiceTypeList, value: ServiceTypes, optionsCaption:'      <--Service Type-->', optionsValue:'Id',optionsText: 'Name'"
+                                                class="form-control"></select>
+                                    </div>
+                                    <label class="control-label col-sm-2" for="Tax">Serivce Period(Months)</label>
+                                    <div class="col-sm-3" data-bind="validationElement: ServicePeriod">
+                                        <input type="text" data-bind="value:ServicePeriod, valueUpdate: 'keyup'" class="form-control" placeholder="24" required />
+                                    </div>
+                                </div>
+                                <div class="form-group row row_design">
+                                    <label class="control-label col-sm-2 col-sm-offset-1" for="PurchaseDate">Purchase Date</label>
+                                    <div class="col-sm-3" style="padding-left: 15px; padding-right: 15px;" data-bind="validationElement: PurchaseDate">
+                                        <div class="input-group">
+                                            <input type="text" id="PurchaseDate" data-bind="datepicker:PurchaseDate, datepickerOptions: {format: 'DD/MM/YYYY'}, valueUpdate: 'keyup'" class="form-control"  />
+                                            <span class="help-block" style="display: none;"></span>
+                                            <div class="input-group-addon">
+                                                <span class="glyphicon glyphicon-calendar"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <label class="control-label col-sm-2" for="Description">Description</label>
+                                    <div class="col-sm-3" data-bind="validationElement: Description">
+                                        <input type="text" data-bind="value:Description, valueUpdate: 'keyup'" class="form-control" placeholder="Details about Asset" required />
+
+                                    </div>
+                                </div>
+                                @*<div class="form-group row row_design">
+                                    <label class="control-label col-sm-2 col-sm-offset-1" for="VoucherCode">Voucher Code</label>
+                                    <div class="col-sm-3" data-bind="validationElement: VoucherCode">
+                                        <input type="text" data-bind="value:VoucherCode, valueUpdate: 'keyup'" class="form-control" placeholder="CP0001" required />
+                                    </div>
+                                    <label class="control-label col-sm-2" for="Location">Asset Location</label>
+                                    <div class="col-sm-3" data-bind="validationElement: Location">
+                                        <input type="text" data-bind="value:Location, valueUpdate: 'keyup'" class="form-control" placeholder="MD Room" required />
+                                    </div>
+                                </div>*@
+                                <br />
+                                <div class="form-group row row_design">
+                                    <label class="control-label col-sm-2 col-sm-offset-1" for="DepriciationModel">Depriciation Model</label>
+                                    <div class="col-sm-3" data-bind="validationElement: DepriciationModel">
+                                        <select id="ddlDepreModel" data-bind="options: DepriciationModels, value: DepriciationModel, optionsCaption:'      <--Depriciation Model-->', optionsValue:'Id',optionsText: 'Name'"
+                                                class="form-control model"></select>
+                                    </div>
+                                    <label class="control-label col-sm-2" for="DepriciationRate">Depriciation Rate</label>
+                                    <div class="col-sm-3" data-bind="validationElement: DepriciationRate">
+                                        <input id="txtRate" type="text" data-bind="value:DepriciationRate, valueUpdate: 'keyup'" class="form-control" placeholder="00.0" required />
+                                    </div>
+                                </div>
+                                @*<div class="form-group row row_design">
+                                    <label class="control-label col-sm-2 col-sm-offset-1" for="OpeningDepreciation">Opening Depreciation</label>
+                                    <div class="col-sm-3" data-bind="validationElement: OpeningDepreciation">
+                                        <input id="txtOpenDepre" type="text" data-bind="value:OpeningDepreciation, valueUpdate: 'keyup'" class="form-control" placeholder="00.0" />
+                                    </div>
+                                    <label class="control-label col-sm-2" for="UsefulLife">Useful Life</label>
+                                    <div class="col-sm-3" data-bind="validationElement: UsefulLife">
+                                        <input id="txtUsefulLife" type="text" data-bind="value:UsefulLife, valueUpdate: 'keyup'" class="form-control" placeholder="Useful Life(years)" required />
+                                    </div>
+                                </div>*@
+                                <br />
+
+                                <div class="form-group row row_design" style="display:none;">
+                                    <label class="control-label col-sm-2 col-sm-offset-1"></label>
+                                    <div class="col-sm-3">
+                                        <div class="col-sm-6">
+                                            <label class="radio-inline"><input type="radio" value="pmnt" name="vType" />Include Tax</label>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <label class="radio-inline"><input type="radio" value="pmnt" name="vType" />Exclude Tax</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group row row_design">
+                                    <label class="control-label col-sm-2 col-sm-offset-1" for="BaseValue">Base Value</label>
+                                    <div class="col-sm-3" data-bind="validationElement: BaseValue">
+                                        <input id="txtBase" type="text" data-bind="value:BaseValue, valueUpdate: 'keyup'" class="form-control number" placeholder="0.00" required  />
+                                    </div>
+
+                                </div>
+                                <div class="form-group row row_design">
+
+                                    <label class="control-label col-sm-2 col-sm-offset-1" for="Tax">Tax</label>
+                                    <div class="col-sm-1">
+                                        <input id="txtTaxRate" type="text" class="form-control taxrate" placeholder="Rate" />
+                                    </div>
+                                    <div class="col-sm-2" data-bind="validationElement: Tax">
+                                        <input id="txtTax" type="text" data-bind="value:Tax, valueUpdate: 'keyup'" class="form-control number" placeholder="0.00" required />
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group row row_design">
+
+
+                                    <label class="control-label col-sm-2 col-sm-offset-1" for="VAT">VAT</label>
+                                    <div class="col-sm-1">
+                                        <input id="txtVATRate" type="text" class="form-control vatrate" placeholder="Rate" />
+                                    </div>
+                                    <div class="col-sm-2" data-bind="validationElement: VAT">
+                                        <input id="txtVAT" type="text" data-bind="value:VAT, valueUpdate: 'keyup'" class="form-control number" placeholder="0.00" required />
+                                    </div>
+
+                                </div>
+                                <div class="form-group row row_design">
+                                    <label class="control-label col-sm-2 col-sm-offset-1" for="Tax">Total Value</label>
+                                    <div class="col-sm-3" data-bind="validationElement: TotalValue">
+                                        <input id="txtTotal" type="text" data-bind="value:TotalValue, valueUpdate: 'keyup'" class="form-control number" placeholder="0.00" required />
+                                    </div>
+                                </div>
+                                    <br />
+                                    <div class="form-group row row_design">
+                                        <div class="col-sm-2 col-sm-offset-9" style="text-align:left">
+                                            <button type="button" class="btn btn-success" data-bind="enable: IsValid" data-toggle="modal" data-target="#myModal">Save</button> 
+
+                                        </div>
+                                    </div>
+
+                                    <br />
+
+                                    @*<div class="form-group table-responsive">
+
+                                        <div class="PrintReport" align="right">
+
+                                            <table class="table table-striped table-bordered">
+                                                <thead class="headcolor">
+                                                    <tr class="thead ">
+                                                        <th> Name </th>
+                                                        <th> Code </th>
+                                                        <th> Category </th>
+                                                        <th> Supplier </th>
+                                                        <th> Depreciation Model </th>
+                                                        <th> Depreciation Rate </th>
+                                                        <th> Asset Cost </th>
+                                                        <th> Purchase Date </th>
+                                                        <th> Action </th>
+                                                    </tr>
+                                                </thead>
+
+                                                <tbody data-bind="foreach:Assets">
+                                                    <tr>
+                                                        <td class="center" data-bind="text: AssetName"></td>
+                                                        <td class="center" data-bind="text: AssetCode"></td>
+                                                        <td class="center" data-bind="text: CategoryName"></td>
+                                                        <td class="center" data-bind="text: SupplierName"></td>
+                                                        <td class="center" data-bind="text: ModelName"></td>
+                                                        <td class="center" data-bind="text: DepriciationRate"></td>
+                                                        <td class="center" data-bind="text: TotalValue"></td>
+                                                        <td class="center" data-bind="text: moment(PurchaseDate).format('DD/MM/YYYY')"></td>
+                                                        <td class="center"><a data-bind="click:$parent.editAssets">Edit</a></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+
+                                        </div>
+                                    </div>*@
+
+                                    <div class="form-group">
+                                        <div id="successModal" class="modal fade" role="dialog">
+                                            <div class="modal-dialog modal-sm">
+                                                <!-- Modal content-->
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                        <h4 class="modal-title">Response</h4>
+                                                    </div>
+                                                    <div class="modal-body" align="center">
+                                                        <p id="successModalText"></p>
+
+                                                        <button type="button" class="btn btn-success" data-dismiss="modal">Ok</button>
+
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div id="myModal" class="modal fade" role="dialog">
+                                            <div class="modal-dialog modal-sm">
+
+                                                <!-- Modal content-->
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                        <h4 class="modal-title">Confirmation</h4>
+                                                    </div>
+                                                    <div class="modal-body" align="center">
+                                                        <p>Do you want to add this item?</p>
+                                                        <button data-bind="click: SaveAsset" class="btn btn-success" data-dismiss="modal">Yes</button>
+                                                        <button type="button" class="btn btn-success" data-dismiss="modal">No</button>
+
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        @*<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>*@
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                        </div>
+                        @*</section>*@
+                        <!---^^^^^^^----Body Main Ends here----^^^^^^^---->
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+ </section>
+

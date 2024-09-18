@@ -1,0 +1,118 @@
+﻿@{
+    ViewBag.Title = "Many To Many Assignment(s)";
+    Layout = "~/Views/Shared/_LayoutjqGrid.cshtml";
+}
+<script src="~/Scripts/bootstrap-table.js"></script>
+<script src="~/Areas/Auth/Scripts/many2many.js"></script>
+<style type="text/css">
+    .row {
+        /*margin-top: 40px;*/
+        padding: 0 10px;
+    }
+
+    .clickable {
+        cursor: pointer;
+    }
+
+    .panel-heading span {
+        margin-top: -20px;
+        font-size: 15px;
+        float: right;
+    }
+
+    .fixed-panel {
+        min-height: 500px;
+        max-height: 500px;
+        overflow-y: auto;
+    }
+
+    .right-align {
+        float: right;
+    }
+</style>
+<div id="dvMany2Many">
+    <div class="row">
+        <div class="col-md-3">
+            <select data-bind="options: leftDdlData, value: leftDdlSelectedItem,optionsValue:'key',optionsText: 'value',optionsCaption: '...Select One...'" class=" form-control"></select>
+        </div>
+        <div class="col-md-3">
+            <select data-bind="options: rightDdlData, value: rightDdlSelectedItem,optionsValue:'key',optionsText: 'value',optionsCaption: '...Select One...'" class=" form-control"></select>
+        </div>
+        <div class="col-md-3">
+            <button type="button" class="btn btn-success btn-sm" data-bind="click: loadData">
+                Load Data
+            </button>
+        </div>
+        <div class="col-md-3">
+
+            <button type="button" class="btn btn-success btn-success pull-right" data-bind="click: saveMany2ManyAssignments" style="margin-right: 10px">
+                Save
+            </button>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="panel panel-success">
+                <div class="panel-heading">
+                    <h6 class="panel-title">
+                        <!--ko text: leftDdlSelectedItem--><!--/ko-->
+                    </h6>
+                </div>
+                <div class="panel-body">
+                    <div class="fixed-panel">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Select</th>
+                                    <th>Id</th>
+                                    <th>Description</th>
+                                </tr>
+                            </thead>
+
+                            <tbody data-bind="foreach: leftTableData">
+                                <tr data-bind="css:{warning:($parent.leftTableSelectedItemId()==$data.id)}">
+                                    <td>
+                                        <input type="radio" name="leftTableData" data-bind="value:$data.id, checked:$parent.leftTableSelectedItemId" />
+                                    </td>
+                                    <td data-bind="text: $data.id"></td>
+                                    <td data-bind="text: $data.description"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="panel panel-success">
+                <div class="panel-heading">
+                    <h6 class="panel-title">
+                        <!--ko text: rightDdlSelectedItem--><!--/ko-->
+                    </h6>
+                </div>
+                <div class="panel-body">
+                    <div class="fixed-panel">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th><input type="checkbox" data-bind="click: selectRightTablesAllData" /></th>
+                                    <th>Id</th>
+                                    <th>Description</th>
+                                </tr>
+                            </thead>
+
+                            <tbody data-bind="foreach: rightTableData">
+                                <tr data-bind="css: {warning:selected }">
+                                    <td><input type="checkbox" data-bind="checked: selected" /></td>
+                                    <td data-bind="text: $data.id"></td>
+                                    <td data-bind="text: $data.description"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

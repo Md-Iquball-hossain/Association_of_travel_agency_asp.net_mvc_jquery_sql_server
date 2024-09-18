@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="EventParticipant" targetNamespace="http://tempuri.org/EventParticipant.xsd" xmlns:mstns="http://tempuri.org/EventParticipant.xsd" xmlns="http://tempuri.org/EventParticipant.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="EventParticipant" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="EventParticipant" msprop:Generator_UserDSName="EventParticipant">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="EventParticipant" msprop:Generator_TableClassName="EventParticipantDataTable" msprop:Generator_TableVarName="tableEventParticipant" msprop:Generator_RowChangedName="EventParticipantRowChanged" msprop:Generator_TablePropName="_EventParticipant" msprop:Generator_RowDeletingName="EventParticipantRowDeleting" msprop:Generator_RowChangingName="EventParticipantRowChanging" msprop:Generator_RowEvHandlerName="EventParticipantRowChangeEventHandler" msprop:Generator_RowDeletedName="EventParticipantRowDeleted" msprop:Generator_RowClassName="EventParticipantRow" msprop:Generator_UserTableName="EventParticipant" msprop:Generator_RowEvArgName="EventParticipantRowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="MemberName" msprop:Generator_ColumnVarNameInTable="columnMemberName" msprop:Generator_ColumnPropNameInRow="MemberName" msprop:Generator_ColumnPropNameInTable="MemberNameColumn" msprop:Generator_UserColumnName="MemberName" type="xs:string" minOccurs="0" />
+              <xs:element name="EventTittle" msprop:Generator_ColumnVarNameInTable="columnEventTittle" msprop:Generator_ColumnPropNameInRow="EventTittle" msprop:Generator_ColumnPropNameInTable="EventTittleColumn" msprop:Generator_UserColumnName="EventTittle" type="xs:string" minOccurs="0" />
+              <xs:element name="MemberNo" msprop:Generator_ColumnVarNameInTable="columnMemberNo" msprop:Generator_ColumnPropNameInRow="MemberNo" msprop:Generator_ColumnPropNameInTable="MemberNoColumn" msprop:Generator_UserColumnName="MemberNo" type="xs:string" minOccurs="0" />
+              <xs:element name="NameOfOrganization" msprop:Generator_ColumnVarNameInTable="columnNameOfOrganization" msprop:Generator_ColumnPropNameInRow="NameOfOrganization" msprop:Generator_ColumnPropNameInTable="NameOfOrganizationColumn" msprop:Generator_UserColumnName="NameOfOrganization" type="xs:string" minOccurs="0" />
+              <xs:element name="EventDate" msprop:Generator_ColumnVarNameInTable="columnEventDate" msprop:Generator_ColumnPropNameInRow="EventDate" msprop:Generator_ColumnPropNameInTable="EventDateColumn" msprop:Generator_UserColumnName="EventDate" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

@@ -1,0 +1,22 @@
+﻿@*@model dynamic
+
+@{
+    ViewBag.Title = "title";
+    Layout = "_Layout";
+}
+<h2>title</h2>*@
+
+<script src="~/Scripts/AppScripts/validate.js"></script>
+<script src="~/Areas/HRM/Scripts/Employee/employeeTrasferIndex.js"></script>
+@{
+    ViewBag.Title = "Employee Transfer Information";
+    Layout = "~/Views/Shared/_LayoutjqGrid.cshtml";
+}
+
+<h2>Employee Transfer Information</h2>
+
+<div>
+    <table id="jqGrid"></table>
+    <div id="jqGridPager"></div>
+    <div id="jqControls"></div>
+</div>

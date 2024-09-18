@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="AssetStock" targetNamespace="http://tempuri.org/AssetStock.xsd" xmlns:mstns="http://tempuri.org/AssetStock.xsd" xmlns="http://tempuri.org/AssetStock.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="AssetStock" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="AssetStock" msprop:Generator_UserDSName="AssetStock">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="AssetStock" msprop:Generator_TableClassName="AssetStockDataTable" msprop:Generator_TableVarName="tableAssetStock" msprop:Generator_TablePropName="_AssetStock" msprop:Generator_RowDeletingName="AssetStockRowDeleting" msprop:Generator_RowChangingName="AssetStockRowChanging" msprop:Generator_RowEvHandlerName="AssetStockRowChangeEventHandler" msprop:Generator_RowDeletedName="AssetStockRowDeleted" msprop:Generator_UserTableName="AssetStock" msprop:Generator_RowChangedName="AssetStockRowChanged" msprop:Generator_RowEvArgName="AssetStockRowChangeEvent" msprop:Generator_RowClassName="AssetStockRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="CategoryID" msprop:Generator_ColumnVarNameInTable="columnCategoryID" msprop:Generator_ColumnPropNameInRow="CategoryID" msprop:Generator_ColumnPropNameInTable="CategoryIDColumn" msprop:Generator_UserColumnName="CategoryID" type="xs:string" minOccurs="0" />
+              <xs:element name="CategoryName" msprop:Generator_ColumnVarNameInTable="columnCategoryName" msprop:Generator_ColumnPropNameInRow="CategoryName" msprop:Generator_ColumnPropNameInTable="CategoryNameColumn" msprop:Generator_UserColumnName="CategoryName" type="xs:string" minOccurs="0" />
+              <xs:element name="AssetCount" msprop:Generator_ColumnVarNameInTable="columnAssetCount" msprop:Generator_ColumnPropNameInRow="AssetCount" msprop:Generator_ColumnPropNameInTable="AssetCountColumn" msprop:Generator_UserColumnName="AssetCount" type="xs:string" minOccurs="0" />
+              <xs:element name="TotalWDV" msprop:Generator_ColumnVarNameInTable="columnTotalWDV" msprop:Generator_ColumnPropNameInRow="TotalWDV" msprop:Generator_ColumnPropNameInTable="TotalWDVColumn" msprop:Generator_UserColumnName="TotalWDV" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

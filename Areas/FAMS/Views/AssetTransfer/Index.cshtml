@@ -1,0 +1,208 @@
+﻿
+
+
+<script src="~/Scripts/moment.js"></script>
+<script src="~/Scripts/knockout-date-bindings.js"></script>
+<script src="~/Scripts/bootstrap-table.js"></script>
+<script src="~/Areas/FAMS/Scripts/AssetTransfer/Transfer.js"></script>
+<link href="~/Content/customassets/css/Cart.css" rel="stylesheet" />
+<link href="~/Content/PagedList.css" rel="stylesheet" />
+@{
+    ViewBag.Title = "Transfer";
+    Layout = "~/Views/Shared/_LayoutjqGrid.cshtml";
+    var jss = new System.Web.Script.Serialization.JavaScriptSerializer();
+    var trnlogSourceJson = jss.Serialize(Model);
+    var trnlogDestJson = jss.Serialize(Model);
+}
+<script>
+    var trnlogSource = JSON.parse('@Html.Raw(trnlogSourceJson)');
+    var leftDataJson = "";
+    var trnlogDest = JSON.parse('@Html.Raw(trnlogDestJson)');
+    var DestDataJson = "";
+</script>
+
+<style>
+    .form-control {
+        width: 100% !important;
+    }
+
+    .btnLarge {
+        width: 140px !important;
+    }
+
+    .input-group-addon {
+        padding: 0 5px;
+    }
+
+    .rm {
+        background-color: #F8F8F8;
+        border-radius: 0px 0px 0px 0px !important;
+    }
+</style>
+
+<section class="rm">
+    <div class="panel-body">
+        <div class="container-fluid">
+            <fieldset>
+                @*<div class="row">*@
+
+                <!---vvvvvvv----Body Main Starts here---vvvvvv----->
+                @*<div class="col-sm-12">*@
+
+                <div @*id="rptLedgerDiv"*@ id="AssetsDiv" class="row ">
+
+                    <div class="col-sm-12">
+                        <div class="row">
+                            <div class="form-group row row_design" style="margin: 2px 30px;" align="right">
+
+                                <div class="PrintReport">
+
+                                    <br />
+
+                                    <div class="form-group row row_design">
+                                        <div class="col-md-2">
+                                            <label for="SourceType">
+                                                Transfer From
+                                            </label>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <select data-bind="options: LocationLevel, value: SourceType,optionsValue:'Id',optionsText: 'Name',optionsCaption: '...Select One...', event:{ change: LoadSources}, valueUpdate: 'keyup'" class="form-control"></select>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <button type="button" class="btn btn-success btn-success pull-right" data-bind="click: TransferSelectedAssets" style="margin-right: 10px">
+                                                Transfer Selected
+                                            </button>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <label for="DestinationType">
+                                                Transfer To
+                                            </label>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <select data-bind="options: LocationLevel, value: DestinationType, optionsValue:'Id',optionsText: 'Name',optionsCaption: '...Select One...', event:{ change: LoadDestinations}, valueUpdate: 'keyup'" class="form-control"></select>
+                                        </div>
+                                    </div>
+
+                                    <br />
+                                    @*<div class="panel-body">*@
+
+                                    <div class="row">
+                                        @using (Ajax.BeginForm("TransferlogSourcePagedList", "AssetTransfer", null))
+                                        {
+                                            <div class="col-md-7">
+                                                <div class="panel panel-default">
+                                                    
+                                                    <div class="panel-heading">
+                                                        <h6 class="panel-title">
+                                                            Source
+                                                            <select id="empsource" data-bind="options: SourceEmployees, value: SourceEmployeeID,optionsValue:'Id',optionsText: 'Name',optionsCaption: '...Select One...', event:{ change: getDestEmployees}, valueUpdate: 'keyup', visible:showemployee" class="form-control"></select>
+                                                            <select id="offices" data-bind="options: Offices, value: OfficeID,optionsValue:'Id',optionsText: 'LocationTitle',optionsCaption: '...Select Source Office...', event:{ change: getBuildings}, valueUpdate: 'keyup', visible:showoffice" class="form-control"></select>
+                                                            <select id="buildings" data-bind="options: Buildings, value: BuildingID,optionsValue:'Id',optionsText: 'LocationTitle',optionsCaption: '...Select Source Building...', event:{ change: getFloors}, valueUpdate: 'keyup',visible:showebuilding" class="form-control"></select>
+                                                            <select id="floors" data-bind="options: Floors, value: FloorID,optionsValue:'Id',optionsText: 'LocationTitle',optionsCaption: '...Select Source Floor...', event:{ change: getRooms}, valueUpdate: 'keyup',visible:showfloor" class="form-control"></select>
+                                                            <select id="rooms" data-bind="options: Rooms, value: RoomID,optionsValue:'Id',optionsText: 'LocationTitle',optionsCaption: '...Select Source Room...', event:{ change: getSourceAssets}, valueUpdate: 'keyup',visible:showroom" class="form-control"></select>
+
+                                                        </h6>
+                                                    </div>
+                                                    <hr class="horizontal">
+                                                    <div class="form-group row row_design">
+                                                        <div class="col-sm-offset-3 col-sm-1">
+                                                            <label for="test" class="control-label">Search</label>
+                                                        </div>
+                                                        <div class="col-sm-3">
+                                                            <input type="text" name="searchString" class="form-control" id="searchString" placeholder="Application No./Title/Product" value="@(ViewBag.SearchString ?? String.Empty)">
+                                                        </div>
+                                                        <div class="col-sm-2">
+                                                            <button type="submit" class="btn btn-deepgreen" id="searchleft">Search</button> 
+                                                        </div>
+                                                    </div>
+                                                    <hr class="horizontal">
+                                                    <div class="panel-body">
+                                                        <div class="fixed-panel">
+                                                            <table class="table table-striped">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>Select</th>
+                                                                        <th>Asset</th>
+                                                                        <th>Asset Code</th>
+                                                                        <th>Current Location</th>
+                                                                        <th>Action</th>
+                                                                    </tr>
+                                                                </thead>
+
+                                                                <tbody data-bind="foreach: SourceAssets">
+                                                                    <tr>
+                                                                        <td>
+                                                                            <input type="checkbox" data-bind="value: AssetID, checked: Pass" />
+                                                                        </td>
+                                                                        <td data-bind="text: AssetName"></td>
+                                                                        <td data-bind="text: AssetCode"></td>
+                                                                        <td data-bind="text: LocationName"></td>
+                                                                        <td>
+                                                                            <a href='#' data-bind='click: $parent.SaveTransfer'>Transfer</a>
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                            <div class="pagination-centered" id="partialViewLeft">
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        }
+                                        @using (Ajax.BeginForm("TransferlogDestinationPagedList", "AssetTransfer", null))
+                                        {
+                                            <div class="col-md-5">
+                                                <div class="panel panel-default">
+                                                    <div class="panel-heading">
+                                                        <h6 class="panel-title">
+                                                            Destination
+                                                            <select data-bind="options: DestEmployees, value: DestinationEmployeeID,optionsValue:'Id',optionsText: 'Name',optionsCaption: '...Select Custodian...', event:{ change: getDestAssets}, valueUpdate: 'keyup' , visible:showemployee" class="form-control"></select>
+                                                            <select data-bind="options: DestOffices, value: DestOfficeID,optionsValue:'Id',optionsText: 'LocationTitle',optionsCaption: '...Select Office...', event:{ change: getDestBuildings}, valueUpdate: 'keyup', visible:showdestoffice" class="form-control"></select>
+                                                            <select data-bind="options: DestBuildings, value: DestBuildingID,optionsValue:'Id',optionsText: 'LocationTitle',optionsCaption: '...Select Building...', event:{ change: getDestFloors}, valueUpdate: 'keyup',visible:showdestbuilding" class="form-control"></select>
+                                                            <select data-bind="options: DestFloors, value: DestFloorID,optionsValue:'Id',optionsText: 'LocationTitle',optionsCaption: '...Select Floor...', event:{ change: getDestRooms}, valueUpdate: 'keyup',visible:showdestfloor" class="form-control"></select>
+                                                            <select data-bind="options: DestRooms, value: DestRoomID,optionsValue:'Id',optionsText: 'LocationTitle',optionsCaption: '...Select Room...', event:{ change: getDestAssets}, valueUpdate: 'keyup',visible:showdestroom" class="form-control"></select>
+                                                        </h6>
+                                                    </div>
+
+                                                    <div class="panel-body">
+                                                        <div class="fixed-panel">
+                                                            <table class="table table-striped">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>Assets</th>
+                                                                        <th>Code</th>
+
+                                                                    </tr>
+                                                                </thead>
+
+                                                                <tbody data-bind="foreach: DestAssets">
+                                                                    <tr>
+                                                                        <td data-bind="text: AssetName"></td>
+                                                                        <td data-bind="text: AssetCode"></td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                            <div class="pagination-centered" id="partialViewRight">
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        }
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </fieldset>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,31 @@
+﻿<script src="~/Areas/HRM/Scripts/AppScripts/officelayer.js"></script>
+<script src="~/Scripts/AppScripts/validate.js"></script>
+@{
+    ViewBag.Title = "OfficeLayer Information";
+    Layout = "~/Views/Shared/_LayoutjqGrid.cshtml";
+}
+
+<h2>@ViewBag.Title</h2>
+
+@*<div class="alert alert-warning fade in">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    <strong>Attention!</strong>//Officelayer definition to be added//
+    
+</div>*@
+<div>
+    <table id="jqGrid"></table>
+    <div id="jqGridPager"></div>
+    <div id="jqControls"></div>
+</div>
+
+<br /><br />
+<div id="detailsPlaceholder">
+    <table id="jqGridDetails"></table>
+    <div id="jqGridDetailsPager"></div>
+</div>
+
+<br /><br />
+<div id="unitsPlaceholder">
+    <table id="jqGridUnitDetails"></table>
+    <div id="jqGridUnitDetailsPager"></div>
+</div>

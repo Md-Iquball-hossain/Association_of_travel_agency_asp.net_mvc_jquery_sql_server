@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="dsRetainedEarningsSchedule" targetNamespace="http://tempuri.org/dsRetainedEarningsSchedule.xsd" xmlns:mstns="http://tempuri.org/dsRetainedEarningsSchedule.xsd" xmlns="http://tempuri.org/dsRetainedEarningsSchedule.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="dsRetainedEarningsSchedule" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="dsRetainedEarningsSchedule" msprop:Generator_UserDSName="dsRetainedEarningsSchedule">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="RetainedEarningsSchedule" msprop:Generator_TableClassName="RetainedEarningsScheduleDataTable" msprop:Generator_TableVarName="tableRetainedEarningsSchedule" msprop:Generator_TablePropName="RetainedEarningsSchedule" msprop:Generator_RowDeletingName="RetainedEarningsScheduleRowDeleting" msprop:Generator_RowChangingName="RetainedEarningsScheduleRowChanging" msprop:Generator_RowEvHandlerName="RetainedEarningsScheduleRowChangeEventHandler" msprop:Generator_RowDeletedName="RetainedEarningsScheduleRowDeleted" msprop:Generator_UserTableName="RetainedEarningsSchedule" msprop:Generator_RowChangedName="RetainedEarningsScheduleRowChanged" msprop:Generator_RowEvArgName="RetainedEarningsScheduleRowChangeEvent" msprop:Generator_RowClassName="RetainedEarningsScheduleRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Particular" msprop:Generator_ColumnVarNameInTable="columnParticular" msprop:Generator_ColumnPropNameInRow="Particular" msprop:Generator_ColumnPropNameInTable="ParticularColumn" msprop:Generator_UserColumnName="Particular" type="xs:string" minOccurs="0" />
+              <xs:element name="ShareCapital" msprop:Generator_ColumnVarNameInTable="columnShareCapital" msprop:Generator_ColumnPropNameInRow="ShareCapital" msprop:Generator_ColumnPropNameInTable="ShareCapitalColumn" msprop:Generator_UserColumnName="ShareCapital" type="xs:string" minOccurs="0" />
+              <xs:element name="RetainedEarnings" msprop:Generator_ColumnVarNameInTable="columnRetainedEarnings" msprop:Generator_ColumnPropNameInRow="RetainedEarnings" msprop:Generator_ColumnPropNameInTable="RetainedEarningsColumn" msprop:Generator_UserColumnName="RetainedEarnings" type="xs:string" minOccurs="0" />
+              <xs:element name="Reserve" msprop:Generator_ColumnVarNameInTable="columnReserve" msprop:Generator_ColumnPropNameInRow="Reserve" msprop:Generator_ColumnPropNameInTable="ReserveColumn" msprop:Generator_UserColumnName="Reserve" type="xs:string" minOccurs="0" />
+              <xs:element name="Total" msprop:Generator_ColumnVarNameInTable="columnTotal" msprop:Generator_ColumnPropNameInRow="Total" msprop:Generator_ColumnPropNameInTable="TotalColumn" msprop:Generator_UserColumnName="Total" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

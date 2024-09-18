@@ -1,0 +1,171 @@
+﻿<link href="~/Content/bootstrap-datepicker.min.css" rel="stylesheet" />
+<link href="~/Content/bootstrap-datepicker3.min.css" rel="stylesheet" />
+<script src="~/Scripts/bootstrap-datepicker.min.js"></script>
+<script src="~/Areas/HRM/Scripts/AppScripts/appraisalViewModel.js"></script>
+@{
+    ViewBag.Title = "Performance Appraisal";
+    Layout = "~/Views/Shared/_LayoutjqGrid.cshtml";
+}
+
+<h2>Performance Appraisal</h2>
+<style>
+    .well {
+        background-color: lightblue;
+        border-radius: 5px;
+        border-style: ridge;
+        margin-left:40px;
+        margin-right:40px;
+    }
+    .list-item{padding-left:45px;}
+</style>
+<div class="well">Performance appraisal for the year of <span data-bind="text:FiscalYear"></span></div>
+<div class="row row_design">
+    <div class="col-sm-1"></div>
+    <div class="col-sm-2">
+        <label for="EmployeeName">Name<span class="required"></span></label>
+    </div>
+    <div class="col-sm-3">
+        <text data-bind="text:EmployeeName"></text>
+    </div>
+
+    <div class="col-sm-1"></div>
+    <div class="col-sm-5"></div>
+</div>
+<div class="row row_design">
+    <div class="col-sm-1"></div>
+    <div class="col-sm-2">
+        <label for="OfficeUnitName">Office Unit<span class="required"></span></label>
+    </div>
+    <div class="col-sm-3">
+        <text data-bind="text:OfficeUnitName"></text>
+    </div>
+
+    <div class="col-sm-1"></div>
+    <div class="col-sm-5"></div>
+</div>
+
+<div class="row row_design">
+    <div class="col-sm-1"></div>
+    <div class="col-sm-2">
+        <label for="OfficeName">Office Name<span class="required"></span></label>
+    </div>
+    <div class="col-sm-3">
+        <text data-bind="text:OfficeUnitName"></text>
+    </div>
+
+    <div class="col-sm-1"></div>
+    <div class="col-sm-5"></div>
+</div>
+
+<form class="form-horizontal" role="form">
+    <div class="form-group">
+        <div class="col-sm-1"></div>
+        <label class="col-sm-1 control-label">From Date</label>
+        <div class="col-sm-3 date">
+            <div class="input-group input-append date" id="datePicker">
+                <input type="date" data-bind="date:PeriodFrom" class="form-control" name="PeriodFrom" />
+                <span class="input-group-addon add-on"><span class="glyphicon glyphicon-calendar"></span></span>
+            </div>
+        </div>
+        <label class="col-sm-1 control-label">To Date</label>
+        <div class="col-sm-3 date">
+            <div class="input-group input-append date" id="datePicker1">
+                <input type="date" data-bind="date:PeriodFrom" class="form-control" name="PeriodTo" />
+                <span class="input-group-addon add-on"><span class="glyphicon glyphicon-calendar"></span></span>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-1"></div>
+        <div class="col-sm-3">
+            <label>Indicators</label>
+        </div>
+        <div class="col-sm-3">
+            <label>Scores</label>
+        </div>
+        <div class="col-sm-5"></div>
+    </div>
+    <div class="row">
+        <div class="col-sm-3"></div>
+        
+        <div class="col-sm-1">
+            <text>Self</text>
+        </div>
+        <div class="col-sm-1">
+            <text>Evaluator 1</text>
+        </div>
+        <div class="col-sm-1">
+            <text>Evaluator 2</text>
+        </div>
+        <div class="col-sm-5"></div>
+    </div>
+    <div data-bind="foreach:KPIGroupList">
+        <div class="row list-group">
+            <div class="col-sm-1"></div>
+            <div class="col-sm-2 list-group-item list-group-item-success">
+                <label data-bind="text:Name"></label>
+            </div>
+            <div class="col-sm-1">(<span data-bind="text:Weight"></span>)%</div>
+            <div class="col-sm-7"></div>
+        </div>
+        <div data-bind="foreach:KPI">
+            <div class="row" style="margin-bottom:3px; padding-left:45px;">
+                <div class="col-sm-1"></div>
+                <div class="col-sm-2">
+                    <label data-bind="text:Name"></label>
+                </div>
+                <div class="col-sm-1">
+                    <input type="text" class="form-control" name="sub indicator" data-bind="attr:{id: 'self_' + Id + '_' + $parent.Id}" />
+                </div>
+                <div class="col-sm-1">
+                    <input type="text" class="form-control" name="sub indicator" data-bind="attr:{id:'evaluator1_'+Id+'_'+$parent.Id} " />
+                </div>
+                <div class="col-sm-1">
+                    <input type="text" class="form-control" name="sub indicator" data-bind="attr:{id:'evaluator2_'+Id+'_'+$parent.Id},disable:false" />
+                </div>
+                <div class="col-sm-1">(<span data-bind="text:Weight"></span>)%</div>
+                <div class="col-sm-5"></div>
+            </div>
+        </div>
+        
+        @*<div class="row" style="margin-bottom:1px;">
+            <div class="col-sm-1"></div>
+            <div class="col-sm-2">
+                <label>Sub Indicator 1</label>
+            </div>
+
+            <div class="col-sm-1">
+                <input type="text" class="form-control" name="sub indicator" />
+            </div>
+            <div class="col-sm-1">
+                <input type="text" class="form-control" name="sub indicator" />
+            </div>
+            <div class="col-sm-1">
+                <input type="text" class="form-control" name="sub indicator" />
+            </div>
+            <div class="col-sm-1">(50%)</div>
+            <div class="col-sm-5"></div>
+        </div>*@
+    </div>
+    <div class="row row_design" style="margin-left:40px;margin-top:20px;">
+        <div class="col-sm-4">
+            <button type="submit" class="btn btn-info" data-bind="click: Submit ">Submit</button>
+            <button type="reset" class="btn btn-info">Clean</button>
+        </div>
+        <div class="col-sm-8">
+
+        </div>
+    </div>
+</form>
+<script>
+    $(document).ready(function () {
+        $('#datePicker')
+            .datepicker({
+                format: 'mm/dd/yyyy'
+            });
+        $('#datePicker1')
+            .datepicker({
+                format: 'mm/dd/yyyy'
+            });
+    });
+</script>

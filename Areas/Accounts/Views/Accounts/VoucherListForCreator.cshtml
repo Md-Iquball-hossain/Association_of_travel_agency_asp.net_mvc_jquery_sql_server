@@ -1,0 +1,111 @@
+﻿@using PagedList.Mvc;
+@model PagedList.IPagedList<Finix.Accounts.DTO.VoucherDto >
+
+@{
+    ViewBag.Title = "Voucher List for Creator";
+    Layout = "~/Views/Shared/_LayoutjqGrid.cshtml";
+    var jss = new System.Web.Script.Serialization.JavaScriptSerializer();
+    var voucherList = jss.Serialize(Model);
+    var CompanyId = ViewBag.CompanyId;
+    var Companies = jss.Serialize(ViewBag.Companies);
+    var CompanySelectedIds = jss.Serialize(ViewBag.companyIds);
+    var count = ViewBag.CompanyCount;
+}
+<link href="~/Content/bootstrap-datetimepicker.css" rel="stylesheet" />
+<link href="~/Content/layout-modifications.css" rel="stylesheet" />
+<link href="~/Content/PagedList.css" rel="stylesheet" />
+<link href="~/Content/customStyle.css" rel="stylesheet" />
+<script src="~/Scripts/bootstrap-datetimepicker.js"></script>
+<script src="~/Areas/Accounts/Scripts/Accounts/voucherListForCreator.js"></script>
+<link href="~/Content/bootstrap-multiselect.css" rel="stylesheet" />
+<script src="~/Scripts/bootstrap-multiselect.js"></script>
+<script>
+    var voucherList = JSON.parse('@Html.Raw(voucherList)');
+    var userCompanyId = parseInt(@CompanyId);
+    var Companies = JSON.parse('@Html.Raw(Companies)');
+    var CompanySelectedIds = JSON.parse('@Html.Raw(CompanySelectedIds)');
+</script>
+<div class="panel" id="VoucherListForCreator">
+    <div class="panel-body">
+        <div class="container-fluid">
+            @using (Ajax.BeginForm("VoucherListForCreator", "Accounts", null,new { id="voucherCreatorForm"}))
+            {
+
+                <div class="row">
+                    <div class="col-sm-12">
+
+                        <div class="form-group row row_design">
+                            <div class="col-sm-offset-2 col-sm-2">
+                                <label for="test" class="control-label">Search Date :</label>
+                            </div>
+                            <div class="col-sm-3" data-bind="validationElement:test">
+
+                                <input type="date" style="height:20px" name="Date" class="form-control" id="searchDate" value="@(ViewBag.SearchDate ?? String.Empty)">
+                                <input type="text" style="display:none" name="searchDate" class="form-control" id="searchDateTxt" value="@(ViewBag.CurrentFilter ?? String.Empty)">
+                                <script>
+                                        $("#searchDate").change(function () {
+                                            $("#searchDateTxt").val(moment($("#searchDate").val()).format("DD/MM/YYYY"));
+                                        })
+                                </script>
+                            </div>
+                            <div class="col-sm-2">
+                                <button type="submit" id="submit" class="btn btn-deepgreen">Search</button>
+                                @*<a target="_blank" class="btn btn-info" data-bind="attr:{href:setUrl}">Export PDF</a>*@
+
+                            </div>
+                        </div>
+                        @if (count > 1)
+                        {
+                            <div class="row">
+                                <div class="form-group row row_design">
+                                    <label class="control-label col-sm-2 col-sm-offset-1">Company</label>
+                                    <div class="col-sm-3">
+                                        <select multiple="multiple" id="companySelection" class="form-control" data-bind="options: CompanyList, optionsText: 'Name', optionsValue: 'Id', selectedOptions: CompanyProfileIds, multiselect: { includeSelectAllOption: true }"></select>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        <hr class="horizontal">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <table class="table table-striped table-bordered">
+                                    <thead class="headcolor">
+                                        <tr>
+                                            <th class="center">Voucher No</th>
+                                            <th class="center">Voucher Date</th>
+                                            <th class="center">Record Status</th>
+                                            <th class="right right-align">Debit (BDT)</th>
+                                            <th class="right right-align">Credit (BDT)</th>
+                                            <th class="center">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody data-bind="foreach:VoucherListData">
+                                        <tr>
+                                            <td class="center" data-bind="text: VoucherNo"></td>
+                                            <td class="center" data-bind="text: moment(VoucherDate).format('DD/MM/YYYY')"></td>
+                                            <td class="center" data-bind="text: RecordStatusName"></td>
+                                            <td class="center" data-bind="text: Debit"></td>
+                                            <td class="center" data-bind="text: Credit"></td>
+                                            <td>
+                                                <a href='#' data-bind='click: $parent.Details'>Details</a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <div class="pagination-centered">
+                                    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+                                    @Html.PagedListPager(Model, page => Url.Action("VoucherListForCreator",
+                                    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter, searchDate = ViewBag.CurrentFilter }))
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            }
+        </div>
+    </div>
+
+</div>
+

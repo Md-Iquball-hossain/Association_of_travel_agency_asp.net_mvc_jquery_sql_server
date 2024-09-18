@@ -1,0 +1,280 @@
+﻿@using PagedList.Mvc;
+@model PagedList.IPagedList<Finix.Membership.DTO.TraineeDto>
+
+@{
+    ViewBag.Title = "Active Trainee List";
+    Layout = "~/Views/Shared/_LayoutjqGrid.cshtml";
+    var jss = new System.Web.Script.Serialization.JavaScriptSerializer();
+    var pageDataJson = jss.Serialize(Model);
+    var coursesJson = jss.Serialize(ViewBag.Courses);
+
+}
+<link href="~/Content/bootstrap-datetimepicker.css" rel="stylesheet" />
+<script src="~/Scripts/bootstrap-datetimepicker.js"></script>
+<script src="~/Scripts/jquery-ui-1.11.4.min.js"></script>
+<script src="~/Scripts/moment.js"></script>
+<script src="~/Scripts/KoCustomDateTimePicker.js"></script>
+<link href="~/Content/customassets/css/Cart.css" rel="stylesheet" />
+<link href="~/Content/PagedList.css" rel="stylesheet" />
+
+<script src="~/Areas/Membership/Scripts/Students/ActiveStudents.js"></script>
+
+<script>
+    @*var pageData = JSON.parse('@Html.Raw(pageDataJson)');*@
+    var courses = JSON.parse('@Html.Raw(coursesJson)');
+    var course = '@ViewBag.Course'
+    var fromDate = '@ViewBag.FromDateText'
+    var toDate = '@ViewBag.ToDateText'
+</script>
+<script>
+
+    var a = ('@Html.Raw(pageDataJson)').replace(/\\n/g, "\\n")
+        .replace(/\\'/g, "\\'")
+        .replace(/\\"/g, '\\"')
+        .replace(/\\&/g, "\\&")
+        .replace(/\\r/g, "\\r")
+        .replace(/\\t/g, "\\t")
+        .replace(/\\b/g, "\\b")
+        .replace(/\\f/g, "\\f");
+    a = a.replace(/[\u0000-\u0019]+/g, "");
+    var pageData = JSON.parse(a);
+
+</script>
+<style>
+    .form-control {
+        width: 100% !important;
+        padding: 2px 3px;
+    }
+
+    .btnLarge {
+        width: 140px !important;
+    }
+
+    .input-group-addon {
+        padding: 0 5px;
+    }
+</style>
+
+<section class="rm">
+    <div class="panel-body">
+        <div class="container-fluid">
+            <div class="row">
+
+                <!---vvvvvvv----Body Main Starts here---vvvvvv----->
+
+                <div class="col-sm-12">
+
+
+
+                    <div id="activeList">
+                        <div class="panel bodycontent">
+                            @using (Ajax.BeginForm("ActiveStudents", "Students", null))
+                            {
+                                <div class="form-group row row_design">
+                                    <div class="col-sm-offset-1 col-sm-2">
+                                        <label class="control-label">Name :</label>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <input type="text" name="searchString" class="form-control" id="searchString" placeholder="Name" value="@(ViewBag.SearchString ?? String.Empty)">
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <label class="control-label">Course :</label>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <select class="form-control" name="course" data-bind="options: Courses, value: Course, optionsCaption:'Choose One..', optionsValue:'Id', optionsText: 'Name'"><option value="">Choose One..</option></select>
+                                    </div>
+
+                                </div>
+                                <div class="form-group row row_design">
+                                    <div class="col-sm-offset-1 col-sm-2">
+                                        <label class="control-label">Batch :</label>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <input type="text" name="batch" class="form-control" id="batch" placeholder="Batch" value="@(ViewBag.Batch ?? String.Empty)">
+                                    </div>
+                                  </div>
+                                    <div class="form-group row row_design" data-bind="visible:Visibility">
+                                        <div class="col-sm-2 col-sm-offset-1">
+                                            <label class="control-label">From Date :</label>
+                                        </div>
+                                        <div class="col-sm-3" style="padding-left: 15px; padding-right: 15px;">
+                                            <div class="input-group">
+                                                <input type="text" id="fromDateField" data-bind="datepicker:FromDate, datepickerOptions: {format: 'DD/MM/YYYY'}, valueUpdate: 'keyup'" class="form-control" />
+                                                <input type="hidden" name="fromDate" id="fromDate" value="@ViewBag.FromDateText" />
+                                                <span class="help-block" style="display: none;"></span>
+                                                <div class="input-group-addon">
+                                                    <span class="glyphicon glyphicon-calendar"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <label class="control-label">To Date :</label>
+                                        </div>
+                                        <div class="col-sm-3" style="padding-left: 15px; padding-right: 15px;">
+                                            <div class="input-group">
+                                                <input type="text" id="toDateField" data-bind="datepicker:ToDate, datepickerOptions: {format: 'DD/MM/YYYY'}, valueUpdate: 'keyup'" class="form-control" />
+                                                <input type="hidden" name="toDate" id="toDate" value="@ViewBag.ToDateText" />
+                                                <span class="help-block" style="display: none;"></span>
+                                                <div class="input-group-addon">
+                                                    <span class="glyphicon glyphicon-calendar"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <br />
+                                    <div class="form-group row row_design">
+                                        <div class="col-sm-2 col-sm-offset-10">
+                                            <button type="submit" class="btn btn-deepgreen">Search</button>
+                                        </div>
+                                    </div>
+                                    }
+                                    <hr class="horizontal">
+
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="table-responsive">
+                                                <table class="table table-striped table-bordered">
+                                                    <thead class="headcolor">
+                                                        <tr>
+                                                            @*<th class="center">Id</th>*@ @*Commented by Maruf*@
+                                                            <th class="center">Trainee No.</th> @*Code by Maruf*@
+                                                            <th class="center">Name</th>
+                                                            <th class="center">Date of Admission</th>
+                                                            <th class="center">Batch No</th>
+
+                                                            <th>Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody data-bind="foreach:PageData">
+                                                        <tr>
+                                                            <td class="center" data-bind="text: TraineeNo"></td>
+                                                            <td class="center" data-bind="text: Name"></td>
+                                                            <td class="center" data-bind="text: moment(DateOfAdmission).format('DD/MM/YYYY')"></td>
+                                                            <td class="center" data-bind="text: Batch"></td>
+
+                                                            <td>
+                                                                <button type="button" class="btn-info" data-bind='click: $parent.Details' title="Details">
+                                                                    Details
+                                                                </button>
+                                                                <button type="button" class="btn-deepgreen" data-bind='click: $parent.FeeCollection, visible:IsFeePending' title="Details">
+                                                                    Collect Fee
+                                                                </button>
+                                                                <button type="button" class="btn-primary" data-bind='click: $parent.PaymentHistory' title="Payment History">
+                                                                    Payment History
+                                                                </button>
+                                                                <button type="button" class="btn-primary" data-bind='click: $parent.MoneyReceipt' title="Money Receipt">
+                                                                    Money Receipts
+                                                                </button>
+                                                                <button type="button" class="btn-primary" data-bind='click: $parent.PrintCertificate' title="Certificate">
+                                                                    Certificate
+                                                                </button>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+
+                                            </div>
+                                            <div class="pagination-centered">
+                                                Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+                                                @Html.PagedListPager(Model, page => Url.Action("ActiveStudents",
+                                                        new
+                                                        {
+                                                            page,
+                                                            sortOrder = ViewBag.CurrentSort,
+                                                            searchString = ViewBag.SearchString,
+                                                            batch = ViewBag.Batch,
+                                                            fromDate = ViewBag.FromDateText,
+                                                            toDate = ViewBag.ToDateText,
+                                                            course = ViewBag.Course,
+
+                                                        }))
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    <div id="successModal" class="modal fade" role="dialog">
+                                        <div class="modal-dialog modal-sm">
+                                            <!-- Modal content-->
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                    <h4 class="modal-title">Response</h4>
+                                                </div>
+                                                <div class="modal-body" align="center">
+                                                    <p id="successModalText"></p>
+                                                    <button type="button" class="btn btn-success" data-dismiss="modal">Ok</button>
+                                                </div>
+                                                <div class="modal-footer">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="confirmModal" class="modal fade" role="dialog">
+                                        <div class="modal-dialog modal-sm">
+                                            <!-- Modal content-->
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                    <h4 class="modal-title">Response</h4>
+                                                </div>
+                                                <div class="modal-body" align="center">
+                                                    <p> Are You sure, to cancel this Application...</p>
+                                                    <button type="button" class="btn btn-success" data-dismiss="modal" data-toggle="modal" data-target="#RejectionModal">Yes</button>
+                                                    <button type="button" class="btn btn-success" data-dismiss="modal">No</button>
+
+                                                </div>
+                                                <div class="modal-footer">
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    <div id="RejectionModal" class="modal fade" role="dialog">
+                                        <div class="modal-dialog modal-md">
+                                            <!-- Modal content-->
+                                            <div class="modal-content modalWidth">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                    <h4 class="modal-title">Response</h4>
+                                                </div>
+                                                <div class="modal-body" align="center">
+                                                    <div class="form-group row row_design">
+                                                        <div class="col-sm-4">
+                                                            <label class="control-label">Rejection Reason</label>
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <textarea type="text" @*data-bind="value: RejectionReason"*@ class="form-control"></textarea>
+                                                        </div>
+                                                    </div>
+                                                    @*<br />*@
+
+
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <div class="col-sm-12">
+                                                        <div class="form-group row row_design">
+                                                            <div>
+                                                                <button type="button" @*data-bind="click:CancelApplication"*@ class="btn-q btn-danger" data-dismiss="modal">Reject</button>
+                                                                <button type="button" class="btn-q btn-default" data-dismiss="modal">Cancel</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                    </div>
+
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>

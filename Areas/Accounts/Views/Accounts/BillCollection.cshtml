@@ -1,0 +1,231 @@
+﻿@{
+    ViewBag.Title = "Bill Collection";
+}
+
+@*<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>*@
+
+<link href="~/customassets/css/customStyle.css" rel="stylesheet" />
+<script src="~/Scripts/moment.js"></script>
+<script src="~/Scripts/knockout-date-bindings.js"></script>
+<script src="~/Scripts/Accounts/bill-collcetion.js"></script>
+<section>
+    <div class="container-fluid">
+        <div class="row row2 ">
+            <div class="col-sm-5" style="padding: 0 !important">
+                <div class="col-sm-2" style="padding: 0 0 0 5px !important">
+
+                    <figure class="profile-picture">
+                        <img src="#" alt="User Image" height="40" class="img-circle" />
+                    </figure>
+                </div>
+                <div class="col-sm-10" style="padding: 0 !important">
+
+                    <h5>@*@SessionHelper.UserProfile.*@UserName</h5>
+                    <h6>@*@SessionHelper.UserProfile.Employee.*@Designation</h6>
+                </div>
+            </div>
+            <div class="col-sm-7" align="right">
+                <div class="right-wrapper pull-right">
+                    <ol class="breadcrumb">
+                        <li><a href="#">Accounts</a></li>
+                        <li><a href="#">Bill</a></li>
+                        <li class="active">Bill Collection</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+
+        <!---vvvvvvvvv----Menu Left Starts here----vvvvvv---->
+        <div class="col-sm-2 span2 " style="padding-right: 0 !important;">
+            <aside id="sidebar-left">
+                @*sidebar-left*@
+                <div class="nano">
+                    <div class="nano-content  ">
+                        <nav id="menu" class="nav-main " role="navigation">
+                            <ul class="nav nav-main">
+                                <li class="panel-heading bodytitle" style="font-size: 16px;">
+                                    Bill
+                                </li>
+                                <li class="left_nav1"><a href="/Accounts/BillCollection">Bill Collection </a></li>
+                                @*<li class="left_nav1"><a href="/CSales/SalesReturn">Sales Return </a></li>*@
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </aside>
+        </div>
+        <!---^^^^^^^----Menu Left Ends here---^^^^^^^----->
+        <!---vvvvvvv----Body Main Starts here---vvvvvv----->
+
+        <div class="col-sm-10">
+            <div class="col-sm-11">
+
+                <section class="panel bodycontent bodycontent1">
+                    <header class="panel-heading bodytitle ">
+                        <h2 class="panel-title font ">
+                            <b>Bill Collection</b>
+                        </h2>
+
+                    </header>
+                    <br />
+
+                    <form id="dvWorkarea" class="form-horizontal">
+                        <div class="form-group">
+                            <label class="control-label col-xs-2">Bill Number</label>
+                            <div class="col-xs-4">
+                                @*<input type="text" data-bind="value:BillNo" class="form-control" placeholder="Search by bill no."/>*@
+                                <input type="text" class="form-control" placeholder="Search By Bill No" required id="auto" data-bind="value:prefix,valueUpdate: ['afterkeyup', 'input'], jqAuto: { autoFocus: true }, jqAutoSource: Bills, jqAutoValue: selectedBillNoKey, jqAutoSourceLabel: 'key', jqAutoSourceInputValue: 'key', jqAutoSourceValue: 'key'" />
+                                    <button data-bind="click: loadData">Reload</button>
+                            </div>
+                            @*<div class="col-xs-3">
+                                <button data-bind="click: getSalesByBillNo" class=" btn btn-success">Find</button>
+                            </div>*@
+                            <label class="control-label col-xs-2">Date</label>
+                            <div class="col-xs-3">
+                                <input type="date" data-bind="value:CollectionDate, valueUpdate: 'keyup'" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-xs-2">Hospital</label>
+                            <div class="col-xs-4">
+                                <input type="text" data-bind="value:HospitalName" class="form-control" readonly="readonly" />
+                            </div>
+                            <label class="control-label col-xs-2">Total Price</label>
+                            <div class="col-xs-3">
+                                <input type="text" data-bind="value:TotalAmount" class="form-control" readonly="readonly" />
+                            </div>
+
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-xs-2">Doctor</label>
+                            <div class="col-xs-4">
+                                <input type="text" data-bind="value:DoctorName" class="form-control" readonly="readonly" />
+                            </div>
+
+                            <label class="control-label col-xs-2">Total Discount</label>
+                            <div class="col-xs-3">
+                                <input type="text" data-bind="value:TotalDiscount" class="form-control" readonly="readonly" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-xs-2">Patient Name</label>
+                            <div class="col-xs-4">
+                                <input type="text" data-bind="value:PatientName" class="form-control" readonly="readonly" />
+                            </div>
+                            <label class="control-label col-xs-2">Total Received</label>
+                            <div class="col-xs-3">
+                                <input type="text" data-bind="value:TotalReceived" class="form-control" placeholder="Age" readonly="readonly" />
+                            </div>
+                        </div>
+
+                        <hr />
+                        <div style="padding: 5px 0; margin: 5px 0; background-color: beige">
+                            <div class="form-group">
+                                <label class="control-label col-xs-2">Discount Amount</label>
+                                <div class="col-xs-2">
+                                    <input type="number" data-bind="value:DiscountAmount, valueUpdate: 'keyup'" min="0" class="form-control"/>
+                                </div>
+                                <div class="col-xs-4">
+                                    
+                                </div>
+                                <label class="control-label col-xs-2">Received Amount</label>
+                                <div class="col-xs-2">
+                                    <input type="number" data-bind="value:CollectionAmount, valueUpdate: 'keyup'" min="0" class="form-control"/>
+                                </div>
+
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-xs-2">VAT</label>
+                                <div class="col-xs-2">
+                                    <input type="number" data-bind="value:Vat, valueUpdate: 'keyup'" min="0" class="form-control"/>
+                                </div>
+                                <label class="control-label col-xs-2">TDS</label>
+                                <div class="col-xs-2">
+                                    <input type="number" data-bind="value:Tds, valueUpdate: 'keyup'" min="0" class="form-control"/>
+                                </div>
+                                <label class="control-label col-xs-2">Hospital Charge</label>
+                                <div class="col-xs-2">
+                                    <input type="number" data-bind="value:HospitalCharge, valueUpdate: 'keyup'" min="0" class="form-control"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-xs-2">Special Discount</label>
+                                <div class="col-xs-2">
+                                    <input type="number" data-bind="value:SpecialDiscount, valueUpdate: 'keyup'" min="0" class="form-control"/>
+                                </div>
+                                <label class="control-label col-xs-2">Promotion</label>
+                                <div class="col-xs-2">
+                                    <input type="number" data-bind="value: Promotion, valueUpdate: 'keyup'" min="0" class="form-control"/>
+                                </div>
+                                <label class="control-label col-xs-2">Enterertainment</label>
+                                <div class="col-xs-2">
+                                    <input type="number" data-bind="value:Enterertainment, valueUpdate: 'keyup'" min="0" class="form-control"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-xs-2">Other Charges</label>
+                                <div class="col-xs-2">
+                                    <input type="number" data-bind="value:OtherCharges, valueUpdate: 'keyup'" min="0" class="form-control" />
+                                </div>
+                                <div class="col-sm-7" align="right">
+                                    <button type="button" class="btn btn-success" data-bind="enable:IsValid" data-toggle="modal" data-target="#myModal">Save</button>
+                                </div>
+                                <div id="myModal" class="modal fade" role="dialog">
+                                    <div class="modal-dialog modal-sm">
+
+                                        <!-- Modal content-->
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                <h4 class="modal-title">Confirmation</h4>
+                                            </div>
+                                            <div class="modal-body" align="center">
+                                                <p>Do you want to save sales order?</p>
+                                                <button type="submit" data-bind="click:saveBillCollection" class="btn btn-success" data-dismiss="modal">Yes</button>
+                                                <button type="button" class="btn btn-success" data-dismiss="modal">No</button>
+
+                                            </div>
+                                            <div class="modal-footer">
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="form-group" align="center" data-bind="visible: IsSaved">
+                            <div class="form-group">
+
+                                <a data-bind="attr: { href: Link1, title1: 'PDF' }">PDF</a>
+                                <a data-bind="attr: { href: Link2, title2: 'Excel' }">Excel</a>
+                                <a data-bind="attr: { href: Link3, title3: 'Word' }">Word</a>
+
+                            </div>
+                        </div>
+                    </form>
+
+                </section>
+
+                <!---^^^^^^^----Body Main Ends here----^^^^^^^---->
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+
+
+
+
+

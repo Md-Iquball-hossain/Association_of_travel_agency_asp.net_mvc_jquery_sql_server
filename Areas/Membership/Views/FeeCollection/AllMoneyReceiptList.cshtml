@@ -1,0 +1,252 @@
+﻿
+@using PagedList.Mvc;
+@model PagedList.IPagedList<Finix.Membership.DTO.MoneyReceiptDto>
+@{
+    ViewBag.Title = "Money Receipts";
+    Layout = "~/Views/Shared/_LayoutjqGrid.cshtml";
+    var jss = new System.Web.Script.Serialization.JavaScriptSerializer();
+    var pageDataJson = jss.Serialize(Model);
+
+}
+<link href="~/Content/bootstrap-datetimepicker.css" rel="stylesheet" />
+<script src="~/Scripts/bootstrap-datetimepicker.js"></script>
+<script src="~/Scripts/jquery-ui-1.11.4.min.js"></script>
+<script src="~/Scripts/moment.js"></script>
+<script src="~/Scripts/KoCustomDateTimePicker.js"></script>
+<link href="~/Content/customassets/css/Cart.css" rel="stylesheet" />
+<link href="~/Content/PagedList.css" rel="stylesheet" />
+<script src="~/Areas/Membership/Scripts/FeeCollection/moneyReceiptList.js"></script>
+@*<script src="~/Areas/Membership/Scripts/CourseFeeCollection/MoneyReceipts.js"></script>*@
+
+<h2>Money Receipts</h2>
+
+<script>
+    var pageData = JSON.parse('@Html.Raw(pageDataJson)');
+    var fromDate = '@ViewBag.FromDateText'
+    var toDate = '@ViewBag.ToDateText'
+    var searchString = '@ViewBag.SearchString'
+</script>
+
+<style>
+    .form-control {
+        width: 100% !important;
+        padding: 2px 3px;
+    }
+
+    .btnLarge {
+        width: 140px !important;
+    }
+
+    .input-group-addon {
+        padding: 0 5px;
+    }
+</style>
+
+<section class="rm">
+    <div class="panel-body">
+        <div class="container-fluid">
+            <div class="row">
+
+                <!---vvvvvvv----Body Main Starts here---vvvvvv----->
+
+                <div class="col-sm-12">
+
+                    <div id="moneyReceipts">
+                        <div class="panel bodycontent">
+                            @using (Ajax.BeginForm("AllMoneyReceiptList", "FeeCollection", null))
+                            {
+                                <div class="form-group row row_design">
+
+                                    <div class="col-sm-2 col-sm-offset-1">
+                                        <label class="control-label">Name Or Number :</label>
+                                    </div>
+                                    <div class="col-sm-3" style="padding-left: 15px; padding-right: 15px;">
+                                            <input type="text" name="searchString" id="searchString" data-bind="searchString" placeholder="Member Name/Trainee Name/MoneyReceiptNo" class="form-control" />
+                                    </div>
+                                    @*<div class="col-sm-2">
+                                        <label class="control-label">MoneyReceiptNo :</label>
+                                    </div>
+                                    <div class="col-sm-3" style="padding-left: 15px; padding-right: 15px;">
+                                            <input type="text" id="" data-bind="" class="form-control" />
+                                            <input type="hidden" name="" id="" value="" />
+                                    </div>*@
+                                </div>
+                                <br />
+                                <div class="form-group row row_design">
+                                    <div class="col-sm-2 col-sm-offset-1">
+                                        <input type="hidden" name="memberId" id="train" value="@ViewBag.MemberId" />
+                                        <label class="control-label">From Date :</label>
+                                    </div>
+                                    <div class="col-sm-3" style="padding-left: 15px; padding-right: 15px;">
+                                        <div class="input-group">
+                                            <input type="text" id="fromDateField" data-bind="datepicker:FromDate, datepickerOptions: {format: 'DD/MM/YYYY'}, valueUpdate: 'keyup'" class="form-control" />
+                                            <input type="hidden" name="fromDate" id="fromDate" value="@ViewBag.FromDateText" />
+                                            <span class="help-block" style="display: none;"></span>
+                                            <div class="input-group-addon">
+                                                <span class="glyphicon glyphicon-calendar"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <label class="control-label">To Date :</label>
+                                    </div>
+                                    <div class="col-sm-3" style="padding-left: 15px; padding-right: 15px;">
+                                        <div class="input-group">
+                                            <input type="text" id="toDateField" data-bind="datepicker:ToDate, datepickerOptions: {format: 'DD/MM/YYYY'}, valueUpdate: 'keyup'" class="form-control" />
+                                            <input type="hidden" name="toDate" id="toDate" value="@ViewBag.ToDateText" />
+                                            <span class="help-block" style="display: none;"></span>
+                                            <div class="input-group-addon">
+                                                <span class="glyphicon glyphicon-calendar"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="form-group row row_design">
+
+                                    <div class="col-sm-2 col-sm-offset-10">
+                                        <button type="submit" class="btn btn-deepgreen">Search</button>
+                                    </div>
+                                </div>
+                            }
+                            <hr class="horizontal">
+
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="table-responsive">
+                                        <table class="table table-striped table-bordered">
+                                            <thead class="headcolor">
+                                                <tr>
+                                                    <th class="center">Type</th>
+                                                    <th class="center">Name</th>
+                                                    <th class="center">Money Receipt No</th>
+                                                    <th class="center">Amount</th>
+
+                                                    <th>Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody data-bind="foreach:PageData">
+                                                <tr>
+                                                    <td class="center" data-bind="text: MRType"></td>
+                                                    <td class="center" data-bind="text: MemberName"></td>
+                                                    <td class="center" data-bind="text: MoneyReceiptNo"></td>
+                                                    <td class="center" data-bind="text: TotalCollectedAmount"></td>
+
+
+                                                    <td>
+                                                        <button type="button" data-bind="click:$parent.PrintMoneyReceipt" title="Approved">
+                                                            Print
+                                                        </button>
+                                                        <button type="button" data-bind="click:$parent.PrintVoucher, enable:IsVoucher" title="Approved">
+                                                            Voucher
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+
+                                    </div>
+                                    <div class="pagination-centered">
+                                        Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+                                        @Html.PagedListPager(Model, page => Url.Action("AllMoneyReceiptList",
+                                                        new
+                                                        {
+                                                            page,
+                                                            sortOrder = ViewBag.CurrentSort,
+                                                            fromDate = ViewBag.FromDateText,
+                                                            toDate = ViewBag.ToDateText,
+                                                            searchString = ViewBag.SearchString,
+
+                                                        }))
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div id="successModal" class="modal fade" role="dialog">
+                                <div class="modal-dialog modal-sm">
+                                    <!-- Modal content-->
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                            <h4 class="modal-title">Response</h4>
+                                        </div>
+                                        <div class="modal-body" align="center">
+                                            <p id="successModalText"></p>
+                                            <button type="button" class="btn btn-success" data-dismiss="modal">Ok</button>
+                                        </div>
+                                        <div class="modal-footer">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="confirmModal" class="modal fade" role="dialog">
+                                <div class="modal-dialog modal-sm">
+                                    <!-- Modal content-->
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                            <h4 class="modal-title">Response</h4>
+                                        </div>
+                                        <div class="modal-body" align="center">
+                                            <p> Are You sure, to cancel this Application...</p>
+                                            <button type="button" class="btn btn-success" data-dismiss="modal" data-toggle="modal" data-target="#RejectionModal">Yes</button>
+                                            <button type="button" class="btn btn-success" data-dismiss="modal">No</button>
+
+                                        </div>
+                                        <div class="modal-footer">
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div id="RejectionModal" class="modal fade" role="dialog">
+                                <div class="modal-dialog modal-md">
+                                    <!-- Modal content-->
+                                    <div class="modal-content modalWidth">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                            <h4 class="modal-title">Response</h4>
+                                        </div>
+                                        <div class="modal-body" align="center">
+                                            <div class="form-group row row_design">
+                                                <div class="col-sm-4">
+                                                    <label class="control-label">Rejection Reason</label>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <textarea type="text" @*data-bind="value: RejectionReason"*@ class="form-control"></textarea>
+                                                </div>
+                                            </div>
+                                            @*<br />*@
+
+
+                                        </div>
+                                        <div class="modal-footer">
+                                            <div class="col-sm-12">
+                                                <div class="form-group row row_design">
+                                                    <div>
+                                                        <button type="button" @*data-bind="click:CancelApplication"*@ class="btn-q btn-danger" data-dismiss="modal">Reject</button>
+                                                        <button type="button" class="btn-q btn-default" data-dismiss="modal">Cancel</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+

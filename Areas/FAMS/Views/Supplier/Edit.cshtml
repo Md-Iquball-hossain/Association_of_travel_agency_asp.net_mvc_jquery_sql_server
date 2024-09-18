@@ -1,0 +1,108 @@
+﻿@{
+    ViewBag.Title = "Edit Supplier";
+    Layout = "~/Views/Shared/_LayoutjqGrid.cshtml";
+}
+
+<script src="~/Areas/FillingStation/Scripts/Supplier/edit_supplier.js"></script>
+<link href="~/Content/customassets/css/Cart.css" rel="stylesheet" />
+
+
+<div class="panel" id="editsupplierDiv">
+    <div class="panel-body">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-12">
+                    <br />
+
+                    
+                        <div class="form-group row row_design">
+                            <label class="control-label col-sm-2 col-sm-offset-1">Name :</label>
+                            <div class="col-sm-3" data-bind="validationElement: Name">
+                                <input type="text" placeholder="Supplier Name" class="form-control" data-bind="value:Name, valueUpdate: 'keyup'" />
+                            </div>
+                            <label class="control-label col-sm-2">Address :</label>
+                            <div class="col-sm-3" data-bind="validationElement: Address">
+                                <input type="text" class="form-control" placeholder="Address" data-bind="value:Address, valueUpdate: 'keyup'" />
+                            </div>
+                        </div>
+                        <div class="form-group row row_design">
+                            <label class="control-label col-sm-2 col-sm-offset-1">Phone :</label>
+                            <div class="col-sm-3" data-bind="validationElement: Phone">
+                                <input type="text" placeholder="Supplier Name" class="form-control" data-bind="value:Phone, valueUpdate: 'keyup'" />
+                            </div>
+                            <label class="control-label col-sm-2">Fax :</label>
+                            <div class="col-sm-3" data-bind="validationElement: Fax">
+                                <input type="text" class="form-control" placeholder="Address" data-bind="value:Fax, valueUpdate: 'keyup'" />
+                            </div>
+                        </div>
+                        <div class="form-group row row_design">
+                            <label class="control-label col-sm-2 col-sm-offset-1">Email :</label>
+                            <div class="col-sm-3" data-bind="validationElement: Email">
+                                <input type="text" placeholder="Supplier Name" class="form-control" data-bind="value:Email, valueUpdate: 'keyup'" />
+                            </div>
+                            <label class="control-label col-sm-2">Contact Person :</label>
+                            <div class="col-sm-3" data-bind="validationElement: ContactPerson">
+                                <input type="text" class="form-control" placeholder="Address" data-bind="value:ContactPerson, valueUpdate: 'keyup'" />
+                            </div>
+                        </div>
+                        <div class="form-group row row_design">
+                            <label class="control-label col-sm-2 col-sm-offset-1">Bank Account No :</label>
+                            <div class="col-sm-3" data-bind="validationElement: BankAccountNo">
+                                <input type="text" placeholder="Supplier Name" class="form-control" data-bind="value:BankAccountNo, valueUpdate: 'keyup'" />
+                            </div>
+                            <label class="control-label col-sm-2">Pay Terms :</label>
+                            <div class="col-sm-3" data-bind="validationElement: PayTerms">
+                                <input type="text" class="form-control" placeholder="Address" data-bind="value:PayTerms, valueUpdate: 'keyup'" />
+                            </div>
+                        </div>
+                        <div class="form-group row row_design">
+                            <label class="control-label col-sm-2 col-sm-offset-1">Country :</label>
+                            <div class="col-sm-3" data-bind="validationElement: CountryId">
+                                <select data-bind="options:CountryList, value:CountryId, optionsCaption:'Choose One..', optionsValue:'Id', optionsText: 'Name'" class="form-control"></select>
+                            </div>
+
+                        </div>
+                        <br />
+                        <div class="form-group row row_design">
+                            <div class="col-sm-2 col-sm-offset-10">
+                                <button type="button" data-bind="enable: IsValid" class="btn btn-success" data-toggle="modal" data-target="#myModal">Save</button>
+                            </div>
+
+                        </div>
+                   
+                    <br />
+                   
+                        <!-- Modal -->
+                        <div id="myModal" class="modal fade" role="dialog">
+                            <div class="modal-dialog modal-sm">
+
+                                <!-- Modal content-->
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        <h4 class="modal-title">Confirmation</h4>
+                                    </div>
+                                    <div class="modal-body" align="center">
+                                        <p>Do you want to add this item?</p>
+                                        <button data-bind="click: saveSupplier" class=" btn btn-success" data-dismiss="modal">Yes</button>
+                                        <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+
+                                    </div>
+                                    <div class="modal-footer">
+                                        @*<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>*@
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+            </div>
+            
+        </div>
+        <div class="form-group row row_design">
+            <a class="col-sm-2 col-sm-offset-1" href="/FillingStation/Supplier/Create"><b>Back to List</b></a>
+        </div>
+    </div>
+    
+</div>
+

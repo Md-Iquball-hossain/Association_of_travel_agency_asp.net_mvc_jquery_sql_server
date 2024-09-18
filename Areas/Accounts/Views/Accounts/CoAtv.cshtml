@@ -1,0 +1,101 @@
+﻿@using AchiaSeaFood.UI.Helpers
+@model List<AchiaSeaFood.Facade.DTO.TreeViewAccountsDto>
+@{
+    ViewBag.Title = "Chart of Accounts";
+}
+
+<link href="~/customassets/css/customStyle.css" rel="stylesheet" />
+<script src="~/Scripts/Accounts/chart-of-account-combo.js"></script>
+<section>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-5" style="padding: 0 !important">
+                <div class="col-sm-2" style="padding: 0 0 0 5px !important">
+
+                    <figure class="profile-picture">
+                        <img src="#" alt="User Image" height="40" class="img-circle" />@*@Url.Action("GetImage", "Employee")*@
+                    </figure>
+
+
+                </div>
+                <div class="col-sm-10" style="padding: 0 !important">
+
+                    <h5>@*@SessionHelper.UserProfile.UserName*@ User</h5>
+                    <h6>@*@SessionHelper.UserProfile.Employee.Designation*@ Designation</h6>
+                </div>
+            </div>
+            <div class="col-sm-7" align="right">
+                <div class="right-wrapper pull-right">
+                    <ol class="breadcrumb">
+                        <li><a href="#">Administrative</a></li>
+                        <li class="active">Accounts</li>
+                    </ol>
+                </div>
+            </div>
+
+            <!---vvvvvvvvv----Menu Left Starts here----vvvvvv---->
+            <div class="col-sm-2 span2" style="padding: 0 !important;">
+                <aside id="sidebar-left">
+                    @*sidebar-left*@
+                    <div class="nano">
+                        <div class="nano-content">
+                            <nav id="menu" class="nav-main " role="navigation">
+                                <ul class="nav nav-main">
+                                    <li class="panel-heading bodytitle" style="font-size: 16px;">Accounts</li>
+                                    <li class="left_nav1"><a href="/Accounts/ChartOfAccountCombo">Chart Of Account</a></li>
+                                    <li class="left_nav1"><a href="/Accounts/GenAccounts">Voucher Entry</a></li>
+                                    <li class="left_nav1"><a href="/Accounts/AccountAdjustment">Account Adjustment</a></li>
+                                    <li class="left_nav1"><a href="/Accounts/CoAtv">List of Chart of Accounts</a></li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </aside>
+            </div>
+            <!---^^^^^^^----Menu Left Ends here---^^^^^^^----->
+            <!---vvvvvvv----Body Main Starts here---vvvvvv----->
+
+            <div class="col-sm-10">
+
+                <div class="row">
+                    <div class="col-sm-12">
+                        <section class="panel bodycontent">
+                            <header class="panel-heading bodytitle">
+
+                                <h2 class="panel-title font">Chart Of Accounts</h2>
+                            </header>
+
+
+                            <div id="dvWorkArea" class="col-sm-12">
+                                @(Html.TreeView(Model)
+    .EmptyContent("No locations have been defined yet!")
+    .Children(m => m.ChildLocations)
+    .HtmlAttributes(new { id = "tree" })
+    .ChildrenHtmlAttributes(new { @class = "subItem" })
+    .ItemText(m => m.Name)
+    .ItemTemplate(
+    @<text>
+        <a href="#@item.Id">@item.Name</a>
+    </text>)
+                                )
+
+
+
+
+                            </div>
+                        </section>
+                    </div>
+                </div>
+
+            </div>
+
+
+
+            <!---^^^^^^^----Body Main Ends here----^^^^^^^---->
+
+
+        </div>
+    </div>
+</section>
+
+

@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="LocationSummary" targetNamespace="http://tempuri.org/LocationSummary.xsd" xmlns:mstns="http://tempuri.org/LocationSummary.xsd" xmlns="http://tempuri.org/LocationSummary.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="LocationSummary" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="LocationSummary" msprop:Generator_UserDSName="LocationSummary">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="LocationSummary" msprop:Generator_TableClassName="LocationSummaryDataTable" msprop:Generator_TableVarName="tableLocationSummary" msprop:Generator_TablePropName="_LocationSummary" msprop:Generator_RowDeletingName="LocationSummaryRowDeleting" msprop:Generator_RowChangingName="LocationSummaryRowChanging" msprop:Generator_RowEvHandlerName="LocationSummaryRowChangeEventHandler" msprop:Generator_RowDeletedName="LocationSummaryRowDeleted" msprop:Generator_UserTableName="LocationSummary" msprop:Generator_RowChangedName="LocationSummaryRowChanged" msprop:Generator_RowEvArgName="LocationSummaryRowChangeEvent" msprop:Generator_RowClassName="LocationSummaryRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="LocationID" msprop:Generator_ColumnVarNameInTable="columnLocationID" msprop:Generator_ColumnPropNameInRow="LocationID" msprop:Generator_ColumnPropNameInTable="LocationIDColumn" msprop:Generator_UserColumnName="LocationID" type="xs:string" minOccurs="0" />
+              <xs:element name="LocationName" msprop:Generator_ColumnVarNameInTable="columnLocationName" msprop:Generator_ColumnPropNameInRow="LocationName" msprop:Generator_ColumnPropNameInTable="LocationNameColumn" msprop:Generator_UserColumnName="LocationName" type="xs:string" minOccurs="0" />
+              <xs:element name="ParentLocID" msprop:Generator_ColumnVarNameInTable="columnParentLocID" msprop:Generator_ColumnPropNameInRow="ParentLocID" msprop:Generator_ColumnPropNameInTable="ParentLocIDColumn" msprop:Generator_UserColumnName="ParentLocID" type="xs:string" minOccurs="0" />
+              <xs:element name="ParentLocationName" msprop:Generator_ColumnVarNameInTable="columnParentLocationName" msprop:Generator_ColumnPropNameInRow="ParentLocationName" msprop:Generator_ColumnPropNameInTable="ParentLocationNameColumn" msprop:Generator_UserColumnName="ParentLocationName" type="xs:string" minOccurs="0" />
+              <xs:element name="Level" msprop:Generator_ColumnVarNameInTable="columnLevel" msprop:Generator_ColumnPropNameInRow="Level" msprop:Generator_ColumnPropNameInTable="LevelColumn" msprop:Generator_UserColumnName="Level" type="xs:string" minOccurs="0" />
+              <xs:element name="LevelName" msprop:Generator_ColumnVarNameInTable="columnLevelName" msprop:Generator_ColumnPropNameInRow="LevelName" msprop:Generator_ColumnPropNameInTable="LevelNameColumn" msprop:Generator_UserColumnName="LevelName" type="xs:string" minOccurs="0" />
+              <xs:element name="AssetCount" msprop:Generator_ColumnVarNameInTable="columnAssetCount" msprop:Generator_ColumnPropNameInRow="AssetCount" msprop:Generator_ColumnPropNameInTable="AssetCountColumn" msprop:Generator_UserColumnName="AssetCount" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

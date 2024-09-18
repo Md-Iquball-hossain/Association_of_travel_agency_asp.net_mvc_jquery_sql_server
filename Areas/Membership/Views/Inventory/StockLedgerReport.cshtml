@@ -1,0 +1,132 @@
+﻿@{
+    ViewBag.Title = "Stock Ledger Report";
+    Layout = "~/Views/Shared/_LayoutjqGrid.cshtml";
+    var CompanyId = ViewBag.CompanyId;
+    var jss = new System.Web.Script.Serialization.JavaScriptSerializer();
+    var Companies = jss.Serialize(ViewBag.Companies);
+    var count = ViewBag.CompanyCount;
+}
+
+<link href="~/Content/bootstrap-datetimepicker.css" rel="stylesheet" />
+<script src="~/Scripts/bootstrap-datetimepicker.js"></script>
+<script src="~/Scripts/KoCustomDateTimePicker.js"></script>
+<link href="~/Content/customassets/css/Cart.css" rel="stylesheet" />
+@*<script src="~/Areas/Southern/Scripts/ReportStock/stockPositionReport.js"></script>*@
+
+<style>
+    .form-control {
+        width: 100% !important;
+    }
+
+    .btnLarge {
+        width: 140px !important;
+        border-radius: 4px !important;
+    }
+
+    .input-group-addon {
+        padding: 0 5px;
+    }
+
+    .rm {
+        background-color: #F8F8F8;
+        border-radius: 0px 0px 0px 0px !important;
+    }
+</style>
+<script>
+    var userCompanyId = parseInt(@CompanyId);
+    var Companies = JSON.parse('@Html.Raw(Companies)');
+</script>
+<div>
+    <div class="container" id="stocLedger">
+        <div class="container-fluid rm">
+            <fieldset>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group row row_design">
+                            <div class="col-sm-2 col-sm-offset-1">
+                                <label for="" class="control-label" style="text-align: left;">From Date :</label>
+                            </div>
+                            <div class="col-sm-3" style="padding-left: 15px; padding-right: 15px; margin-bottom:2px;">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" id="fromDate" data-bind="datepicker:FromDate, datepickerOptions: {format: 'DD/MM/YYYY'}, valueUpdate:'keyup'">
+                                    <span class="help-block" style="display: none;"></span>
+                                    <div class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-2">
+                                <label for="" class="control-label" style="text-align: left;">To Date :</label>
+                            </div>
+                            <div class="col-sm-3" style="padding-left: 15px; padding-right: 15px; margin-bottom:2px;">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" id="toDate" data-bind="datepicker:ToDate, datepickerOptions: {format: 'DD/MM/YYYY'}, valueUpdate:'keyup'">
+                                    <span class="help-block" style="display: none;"></span>
+                                    <div class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row row_design">                            
+                            <div class="col-sm-2 col-sm-offset-1">
+                                <label for="ContactAddress" class="control-label" style="text-align: left;">Product :</label>
+                            </div>
+                            <div class="col-sm-3">
+                                <select data-bind="options: Products, value: ProductId, optionsCaption:'Choose One..', optionsValue:'Id', optionsText: 'Name'" class="form-control"></select>
+                            </div>
+                            <div class="col-sm-2">
+                                <label for="ContactAddress" class="control-label" style="text-align: left;">Office :</label>
+                            </div>
+                            <div class="col-sm-3">
+                                <select data-bind="options: Offices, value: OfficeId, optionsCaption:'Choose One..', optionsValue:'Id', optionsText:'Name'" class="form-control"></select>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="form-group row row_design">
+                            <div class="col-sm-2 col-sm-offset-9" style="text-align: left">
+                                <a class="btn btn-success" target="_blank" data-bind="attr:{href:GetReport()}">Generate Report</a>
+                                @*<button class="btn btn-success" data-bind="click: getStockPositionReport.bind($data)">Show</button>*@
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        function StockLedgerVM() {
+            var self = this;
+
+            self.FromDate = ko.observable(moment());
+            self.ToDate = ko.observable(moment());
+            self.Products = ko.observableArray([]);
+            self.ProductId = ko.observable();
+            self.Offices = ko.observableArray(Companies);
+            self.OfficeId = ko.observable(userCompanyId);
+            self.GetProducts = function () {
+                return $.ajax({
+                    type: "GET",
+                    url: '/Membership/Inventory/GetProducts',
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (data) {
+                        self.Products(data);
+                    },
+                    error: function (error) {
+                        alert(error.status + "<--and--> " + error.statusText);
+                    }
+                });
+            }
+            self.GetReport = function () {
+                return "/Membership/Inventory/GetStockLedgerReport?reportTypeId=PDF&fromDate=" + moment(self.FromDate()).format("DD/MM/YYYY") + "&toDate=" + moment(self.ToDate()).format("DD/MM/YYYY") + "&officeId=" + self.OfficeId() + "&productId=" + self.ProductId();
+            }
+        }
+
+        var vm = new StockLedgerVM();
+        vm.GetProducts();
+        ko.applyBindings(vm, document.getElementById("stocLedger"));
+    });
+</script>

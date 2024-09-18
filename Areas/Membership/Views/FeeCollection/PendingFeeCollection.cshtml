@@ -1,0 +1,294 @@
+﻿@using PagedList.Mvc;
+@model PagedList.IPagedList<Finix.Membership.DTO.PendingFeeMemberDto>
+
+@{
+        ViewBag.Title = "Pending Fee Collection";
+        Layout = "~/Views/Shared/_LayoutjqGrid.cshtml";
+        var jss = new System.Web.Script.Serialization.JavaScriptSerializer();
+        var pageDataJson = jss.Serialize(Model);
+        var btypesJson = jss.Serialize(ViewBag.BTypes);
+        var zonesJson = jss.Serialize(ViewBag.Zones);
+        var memberPaymentStatusListJson = jss.Serialize(ViewBag.memberPaymentStatusList); //Code by Maruf
+    }
+
+
+<link href="~/Content/bootstrap-datetimepicker.css" rel="stylesheet" />
+<script src="~/Scripts/bootstrap-datetimepicker.js"></script>
+<script src="~/Scripts/KoCustomDateTimePicker.js"></script>
+<script src="~/Scripts/moment.js"></script>
+<link href="~/Content/customassets/css/Cart.css" rel="stylesheet" />
+<link href="~/Content/PagedList.css" rel="stylesheet" />
+<script src="~/Areas/Membership/Scripts/FeeCollection/pendingfeecollection.js"></script>
+
+<script>
+    var pageData = JSON.parse('@Html.Raw(pageDataJson)');
+    @*var pageData = JSON.stringify('@Html.Raw(pageDataJson)');*@
+    var count = @Model.TotalItemCount;
+    var btypes = JSON.parse('@Html.Raw(btypesJson)');
+    var btype = '@ViewBag.BType'
+    var zones = JSON.parse('@Html.Raw(zonesJson)');
+    var zone = '@ViewBag.Zone'
+    var memberPaymentStatusList = JSON.parse('@Html.Raw(memberPaymentStatusListJson)'); //Code by Maruf
+    var memberPaymentStatus = '@ViewBag.MemberPaymentStatus' //Code by Maruf
+    var searchString = '@ViewBag.SearchString' //Code by Maruf
+    var fromDate = '@ViewBag.FromDateText'
+    var toDate = '@ViewBag.ToDateText'
+    var Blacklisted = '@ViewBag.Blacklisted'
+
+    @*pageDataJson = pageDataJson.replace(/\\n/g, "\\n")
+                   .replace(/\\'/g, "\\'")
+                   .replace(/\\"/g, '\\"')
+                   .replace(/\\&/g, "\\&")
+                   .replace(/\\r/g, "\\r")
+                   .replace(/\\t/g, "\\t")
+                   .replace(/\\b/g, "\\b")
+                   .replace(/\\f/g, "\\f");
+    // remove non-printable and other non-valid JSON chars
+    pageDataJson = pageDataJson.replace(/[\u0000-\u001F]+/g, "");
+    var pageData = JSON.parse('@Html.Raw(pageDataJson)');*@
+</script>
+
+<style>
+    .form-control {
+        width: 100% !important;
+    }
+
+    .btnLarge {
+        width: 140px !important;
+    }
+
+    .input-group-addon {
+        padding: 0 5px;
+    }
+
+    .rm {
+        background-color: #F8F8F8;
+        border-radius: 0px 0px 0px 0px !important;
+    }
+</style>
+
+<section class="rm">
+    <div class="panel-body">
+        <div class="container-fluid">
+            <fieldset>
+
+
+                <!---vvvvvvv----Body Main Starts here---vvvvvv----->
+
+
+                <div id="AssetsDiv" class="row ">
+
+                    <div class="col-sm-12">
+@using (Ajax.BeginForm("PendingFeeCollection", "FeeCollection", null))
+{
+                        <div class="panel">
+                            <div class="panel-heading">
+                                <strong>Search Criteria</strong>
+                            </div>
+                            <div class="panel-body">
+                                <div class="panel-bodycontent">
+                                    <br />
+                                    <div class="body-main-padding">
+                                        <div class="form-group row row_design">
+                                            <label class="control-label col-sm-2 col-sm-offset-1">Zone :</label>
+                                            <div class="col-sm-3">
+                                                <select id="AreaId" name="zone" data-bind="options: Zones, value: zone, optionsCaption:'<--Zone-->', optionsValue:'Id',optionsText: 'Name',  valueUpdate: 'keyup'" class="form-control"></select>
+                                            </div>
+                                            <label class="control-label col-sm-2 ">Business Type :</label>
+                                            <div class="col-sm-3">
+                                                <select id="cat" name="btype" data-bind="options: BTypes, value: btype, optionsCaption:'<--Business Type-->', optionsValue:'Id',optionsText: 'Name',  valueUpdate: 'keyup'"
+                                                        class="form-control"></select>
+                                            </div>
+                                        </div>
+                                        
+                                        
+                                        <div class="form-group row row_design" data-bind="visible:Visibility">
+                                            <label class="control-label col-sm-2 col-sm-offset-1">From :</label>
+                                            <div class="col-sm-3">
+                                                <div class="input-group">
+                                                    <input type="text" data-bind="datepicker:FromDate, datepickerOptions: {format: 'DD/MM/YYYY'} ,valueUpdate: 'keyup'" class="form-control">
+                                                    <input type="hidden" name="fromDate" id="fromDate" value="@ViewBag.FromDateText" />
+                                                     <span class="help-block" style="display: none;"></span>
+                                                    <div class="input-group-addon">
+                                                        <span class="glyphicon glyphicon-calendar"></span>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <label class="control-label col-sm-2 ">To :</label>
+                                            <div class="col-sm-3">
+                                                <div class="input-group">
+                                                    <input type="text" data-bind="datepicker:ToDate, datepickerOptions: {format: 'DD/MM/YYYY'}, valueUpdate: 'keyup'" class="form-control">
+                                                    <input type="hidden" name="toDate" id="toDate" value="@ViewBag.ToDateText" />
+                                                    <span class="help-block" style="display: none;"></span>
+                                                    <div class="input-group-addon">
+                                                        <span class="glyphicon glyphicon-calendar"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+
+                                        </div>
+                                        <br />
+                                        <div class="form-group row row_design">
+                                            <label class="control-label col-sm-2 col-sm-offset-1">Search by Name :</label>
+                                            <div class="col-sm-3">
+                                                 <input type="text" @*value="@(ViewBag.SearchString ?? String.Empty)"*@ data-bind="value:searchString"  class="form-control" @*name="searchString"*@ name="searchString" id="searchString" placeholder="Organization Name/Member No">
+                                            </div>
+                                            @*Code by Maruf*@
+                                            <label class="control-label col-sm-2 ">Payment Status :</label>
+                                            <div class="col-sm-3">
+                                                <select id="memberPaymentStatus" name="memberPayStatus" data-bind="options: MemberPaymentStatusList, value: memberPaymentStatus, optionsCaption:'<--Payment Status-->', optionsValue:'Name',optionsText: 'Name',  valueUpdate: 'keyup'"
+                                                        class="form-control"></select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row row_design">
+                                            <label class="control-label col-sm-2 col-sm-offset-1">Member Count :</label>
+                                            <div class="col-sm-3">
+                                                <input type="text" data-bind="value:count" class="form-control" @*name="searchString"*@ name="searchString" id="searchString" placeholder="Number of Member" readonly>
+                                            </div>
+                                        </div>
+                                        
+                                        @*<div class="form-group row row_design">
+                                            <div class="col-sm-offset-10 col-sm-1">
+                                                <button class="btn btn-warning pull-right">Load Data</button>
+                                                <button type="submit" class="btn btn-primary" data-bind="click:GetBlackListedMemberWithPhotoReport">Print</button> 
+                                            </div>
+                                        </div>*@
+                                        <div class="form-group row row_design">
+                                            <div class="col-sm-offset-10 col-sm-1">
+                                                <button class="btn btn-warning pull-right">Load Data</button>  
+                                                <button class="btn btn-primary pull-right" type="submit" data-bind="click:GetMemberListWithPaymentStatusReport">Print</button>                                           
+                                            </div>
+                                        </div>
+
+                                      </div>                                    
+                                    <br />
+                                </div>
+                            </div>
+                        </div>
+}
+                        <div class="row">
+                            <div class="form-group row row_design" style="margin: 2px 30px;" align="right">
+
+                                <div class="PrintReport">
+                                   
+                                    <div class="form-group table-responsive">
+
+                                        <div class="PrintReport" align="right">
+
+                                            <table class="table table-striped table-bordered">
+                                                <thead class="headcolor">
+                                                    <tr class="thead ">
+                                                        <th> Member No </th>
+                                                        <th> Organization </th>
+                                                        <th> Phone </th>
+                                                        <th> Mobile No </th>
+                                                        <th> Email </th>
+                                                        <th> Zone </th>
+                                                        <th> Ownership Status </th>
+                                                        <th> Member Since </th>
+                                                        <th> Status </th>
+                                                        <th> Action </th>
+                                                    </tr>
+                                                </thead>
+
+                                                <tbody data-bind="foreach:PageData">
+                                                    <tr>
+                                                        <td class="center" data-bind="text: MemberNo"></td>
+                                                        <td class="center" data-bind="text: NameOfOrganization"></td>
+                                                        <td class="center" data-bind="text: Phone"></td>
+                                                        <td class="center" data-bind="text: MobileNo"></td>
+                                                        <td class="center" data-bind="text: Email"></td>
+                                                        <td class="center" data-bind="text: ZoneName"></td>
+                                                        <td class="center" data-bind="text: OwnershipStatusName"></td>
+                                                        <td class="center" data-bind="text: moment(IssueDate).format('DD/MM/YYYY')"></td>
+                                                        @*<td class="center" data-bind="css: PaymentStatus"></td>*@ @*Commented by Maruf*@
+                                                        <td class="center" data-bind="text: PaymentStatus, style:{color:PaymentStatus == 'paid'?'green':PaymentStatus == 'due'?'red':'yellow','font-weight':'bold'}"></td> @*Code by Maruf*@                                                     
+                                                        @*<td class="center" data-bind="text: PaymentStatus"></td>*@ @*Commented by Maruf*@
+                                                        <td>
+                                                            <div data-bind="">
+                                                                <button type="button" data-bind="click: $parent.DataForFeeCollection,disable: Blacklisted==true,text: Blacklisted==true? 'Blacklisted':'Collect Fee',style:{color:Blacklisted==true?'red':'black'} " title="Confirm Fund">
+                                                                    Collect Fee
+                                                                </button>
+                                                            </div>
+                                                           
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+
+                                        </div>
+                                    </div>
+                                    <div class="pagination-centered">
+                                        Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+                                        @Html.PagedListPager(Model, page => Url.Action("PendingFeeCollection",
+                                                        new
+                                                        {
+                                                            page,
+                                                            sortOrder = ViewBag.CurrentSort,
+                                                            searchString = ViewBag.SearchString,
+                                                            fromDate = ViewBag.FromDateText,
+                                                            toDate = ViewBag.ToDateText,
+                                                            zone = ViewBag.Zone,
+                                                            btype = ViewBag.BType,
+                                                            memberPayStatus = ViewBag.MemberPaymentStatus
+                                                        }))
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        @*Modified Part*@
+                        <div class="form-group">
+
+                            <div id="successModal" class="modal fade" role="dialog">
+                                <div class="modal-dialog modal-sm">
+
+                                    <!-- Modal content-->
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                            <h4 class="modal-title">Response</h4>
+                                        </div>
+                                        <div class="modal-body" align="center">
+                                            <p id="successModalText"></p>
+
+                                            <button type="button" class="btn btn-success" data-dismiss="modal">Ok</button>
+
+                                        </div>
+                                        <div class="modal-footer">
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <!-- loading Modal -->
+                            <div id="loadingModal" class="modal fade" role="dialog">
+                                <div class="modal-dialog">
+
+                                    <!-- Modal content-->
+                                    <div class="loading-modal-content">
+
+                                        <div class="loading" align="center">
+                                            <img src="~/Images/loadingTwo.gif" style="max-width:100%;" />
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                            <!-- loading modal ends-->
+                        </div>
+                        @*Modified Part*@
+
+                    </div>
+
+                </div>
+
+            </fieldset>
+        </div>
+    </div>
+</section>
+

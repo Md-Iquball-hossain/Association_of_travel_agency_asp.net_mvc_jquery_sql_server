@@ -1,0 +1,96 @@
+﻿@{
+    ViewBag.Title = "StockTransferReport";
+    Layout = "~/Views/Shared/_LayoutjqGrid.cshtml";
+}
+
+<link href="~/Content/bootstrap-datetimepicker.css" rel="stylesheet" />
+<script src="~/Scripts/bootstrap-datetimepicker.js"></script>
+<script src="~/Scripts/KoCustomDateTimePicker.js"></script>
+<link href="~/Content/customassets/css/Cart.css" rel="stylesheet" />
+<script src="~/Areas/Membership/Scripts/MembershipReport/report.js"></script>
+<style>
+    .form-control {
+        width: 100% !important;
+    }
+
+    .btnLarge {
+        width: 140px !important;
+        border-radius: 4px !important;
+    }
+
+    .input-group-addon {
+        padding: 0 5px;
+    }
+
+    .rm {
+        background-color: #F8F8F8;
+        border-radius: 0px 0px 0px 0px !important;
+    }
+</style>
+
+
+<div>
+    <div class="container" id="ReportId">
+
+        <div class="container-fluid rm">
+
+            <fieldset>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group row row_design">
+
+                            <div class="col-sm-2 col-sm-offset-1">
+                                <label for="ContactAddress" class="control-label" style="text-align: left;">Form Date:</label>
+                            </div>
+
+                            <div class="col-sm-3" style="padding-left: 15px; padding-right: 15px;" data-bind="validationElement: FromDate">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" id="fromDate" data-bind="datepicker:FromDate, datepickerOptions: {format: 'DD/MM/YYYY'}, valueUpdate:'keyup'">
+                                    <span class="help-block" style="display: none;"></span>
+                                    <div class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-2">
+                                <label for="ContactAddress" class="control-label" style="text-align: left;">To Date :</label>
+                            </div>
+                            <div class="col-sm-3" style="padding-left: 15px; padding-right: 15px;" data-bind="validationElement: ToDate">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" id="toDate" data-bind="datepicker:ToDate, datepickerOptions: {format: 'DD/MM/YYYY'}, valueUpdate:'keyup'">
+                                    <span class="help-block" style="display: none;"></span>
+                                    <div class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                          
+                        </div>
+
+                       
+                        <br />
+
+                        <div class="form-group row row_design">
+                            
+
+                            <div class="col-sm-4 col-sm-offset-8" style="text-align:left">
+                                <button class="btn btn-primary" data-bind="click:GetActiveMemberListReport">Show Active Member</button>
+                           
+                                <button class="btn btn-success" data-bind="click:GetAllMemberListReport">Show All Member</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+
+
+        <br />
+
+
+    </div>
+
+</div>
+

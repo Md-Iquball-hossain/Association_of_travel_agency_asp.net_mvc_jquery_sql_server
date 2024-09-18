@@ -1,0 +1,71 @@
+﻿<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
+<script src="~/Areas/HRM/Scripts/AppScripts/SalaryProcessInterface.js"></script>
+@{
+    ViewBag.Title = "SalaryProcessInterface";
+    Layout = "~/Views/Shared/_LayoutjqGrid.cshtml";
+}
+
+<h2 style="text-align:center;">Salary Process Components</h2>
+
+<div id="salaryprocess" class="container">
+    <form class="form-horizontal" role="form">
+        <div class="row">
+            <div class="col-sm-3">
+                <div data-bind="validationElement:OfficeId">
+                    <select id="officeid" style="display: inline-block;" data-bind="
+                        options:OfficeList,
+                        optionsValue: 'Id',
+                        optionsText:'Name',
+                        optionsCaption:'--Select Office--',
+                        value:OfficeId
+                    "></select>
+                </div>
+                <br /><br />
+                <div data-bind="validationElement:OfficeUnitId">
+                    <select id="officeunitid" style="display: inline-block;" data-bind="
+                        options:OfficeUnitList,
+                        optionsValue: 'Id',
+                        optionsText:'Name',
+                        optionsCaption:'--Select Office Unit--',
+                        value:OfficeUnitId
+                    "></select>
+                </div>
+                <br /><br />
+                <div data-bind="validationElement:MonthYearId">
+                    <select id="monthyearid" style="display: inline-block;" data-bind="
+                        options:MonthYearList,
+                        optionsValue: 'Key',
+                        optionsText:'Value',
+                        optionsCaption:'--Select Time Period--',
+                        value:MonthYearId
+                    "></select>
+                </div>
+                <br />
+                <button type="submit" class="btn btn-primary btn-sm btn-block" data-bind="click:Doprocess ">Do Process</button>
+            </div>
+            <div class="col-sm-9">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Component</th>
+                            <th>Status</th>
+                        </tr>
+
+                    </thead>
+                    <tbody data-bind="foreach:ComponentList">
+                        <tr>
+                            <td><input type="checkbox" data-bind="checked: Checked,value: StatusVal" /></td>
+                            <td data-bind="text:DisplayText"></td>
+                            <td>                                
+                                <i data-bind="visible: StatusVal()==2" class="fa fa-circle-o-notch fa-spin" style="font-size:24px"></i>
+                                <span data-bind="text:StatusText"></span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </form>
+</div>

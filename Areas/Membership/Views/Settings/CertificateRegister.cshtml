@@ -1,0 +1,148 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutjqGrid.cshtml";
+    ViewBag.Title = "Certificate Register Entry";
+    var CompanyId = ViewBag.CompanyId;
+}
+
+<script src="~/Scripts/moment.js"></script>
+<script src="~/Scripts/knockout-date-bindings.js"></script>
+<link href="~/Content/bootstrap-datetimepicker.css" rel="stylesheet" />
+<script src="~/Scripts/bootstrap-datetimepicker.js"></script>
+<script src="~/Scripts/KoCustomDateTimePicker.js"></script>
+<script>
+    var userCompanyId = parseInt(@CompanyId);
+</script>
+@*<script src="~/Areas/Membership/Scripts/Settings/certificateRegister.js"></script>*@
+<link href="~/Content/customassets/css/Cart.css" rel="stylesheet" />
+
+<style>
+    .form-control {
+        width: 100% !important;
+    }
+
+    .btnLarge {
+        width: 140px !important;
+    }
+
+    .input-group-addon {
+        padding: 0 5px;
+    }
+
+    .rm {
+        background-color: #F8F8F8;
+        border-radius: 0px 0px 0px 0px !important;
+    }
+</style>
+
+<section class="rm">
+
+    <div class="row">
+
+        <!---vvvvvvv----Body Main Starts here---vvvvvv----->
+
+        <div class="col-sm-12">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div id="CertificateRegisterDiv">
+                        <div class="form-group row row_design">
+                            @if (CompanyId == null)
+                            {
+                                <label class="control-label col-sm-2 col-sm-offset-1" for="Name">Company</label>
+                                <div class="col-sm-3">
+                                    <select data-bind="options: CompanyList, value: CompanyProfileId, optionsValue:'Id', optionsText: 'Name', optionsCaption: 'Choose one...', valueUpdate: 'keyup', event:{ change: loadTypes }" class="form-control"></select>
+                                </div>
+                            }
+                            <label class="control-label col-sm-2 col-sm-offset-1" for="CertificateName">Certificate Name</label>
+                            <div class="col-sm-3" data-bind="validationElement: CertificateName">
+                                <input type="text" data-bind="value:CertificateName, valueUpdate: 'keyup'" class="form-control" placeholder="Certificate Name" required />
+                            </div>
+                        </div>
+                        <div class="form-group row row_design">
+                            <label class="control-label col-sm-2 col-sm-offset-1" for="CertificateType">Certificate Type</label>
+                            <div class="col-sm-3" data-bind="validationElement: CertificateType">
+                                <select data-bind="options: CTypes, value: CertificateType, optionsValue:'Id', optionsText: 'Name', optionsCaption: 'Choose one...', valueUpdate: 'keyup'" class="form-control"></select>
+                            </div>
+                            <label class="control-label col-sm-2" for="ChequePrefix">Certificate Prefix</label>
+                            <div class="col-sm-3" data-bind="validationElement: Prefix">
+                                <input type="text" data-bind="value:Prefix, valueUpdate: 'keyup'" class="form-control" placeholder="Prefix" required />
+                            </div>
+                        </div>
+
+                        <div class="form-group row row_design">
+                            <label class="control-label col-sm-2 col-sm-offset-1" for="BookIssueDate">Book Issue Date</label>
+                            <div class="col-sm-3" data-bind="validationElement: BookIssueDate">
+                                <div class="input-group input-group_cif date">
+                                    <input type="text" class="form-control" data-bind="datepicker:BookIssueDate, datepickerOptions: {format: 'DD/MM/YYYY'}, valueUpdate:'keyup'">
+                                    <span class="help-block" style="display: none;"></span>
+                                    <div class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <label class="control-label col-sm-2" for="StartingNumber">Starting Number</label>
+                            <div class="col-sm-3" data-bind="validationElement: StartingNumber">
+                                <input type="email" data-bind="value:StartingNumber, valueUpdate: 'keyup'" class="form-control" placeholder="Starting Number" />
+                            </div>
+                        </div>
+                        <div class="form-group row row_design">
+                            <label class="control-label col-sm-2 col-sm-offset-1" for="TotalCheques">Total Pages</label>
+                            <div class="col-sm-3" data-bind="validationElement: TotalPages">
+                                <input type="number" data-bind="value:TotalPages, valueUpdate: 'keyup'" class="form-control" placeholder="Total Pages" required />
+                            </div>
+                        </div>
+                        <div class="form-group row row_design">
+                            <div class="col-sm-offset-10 col-sm-2">
+                                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">Save</button>
+                            </div>
+                            <div id="myModal" class="modal fade" role="dialog">
+                                <div class="modal-dialog modal-sm">
+                                    <!-- Modal content-->
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                            <h4 class="modal-title">Confirmation</h4>
+                                        </div>
+                                        <div class="modal-body" align="center">
+                                            <p>Do you want to add this item?</p>
+                                            <button data-bind="click: saveCertificateBook" class=" btn btn-success" data-dismiss="modal">Yes</button>
+                                            <button type="button" class="btn btn-success" data-dismiss="modal">No</button>
+                                        </div>
+                                        <div class="modal-footer">
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="successModal" class="modal fade" role="dialog">
+                                <div class="modal-dialog modal-sm">
+                                    <!-- Modal content-->
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                            <h4 class="modal-title">Response</h4>
+                                        </div>
+                                        <div class="modal-body" align="center">
+                                            <p id="successModalText"></p>
+                                            <button type="button" class="btn btn-success" data-dismiss="modal">Ok</button>
+                                        </div>
+                                        <div class="modal-footer">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <br />
+                    </div>
+                    <!---^^^^^^^----Body Main Ends here----^^^^^^^---->
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+
+

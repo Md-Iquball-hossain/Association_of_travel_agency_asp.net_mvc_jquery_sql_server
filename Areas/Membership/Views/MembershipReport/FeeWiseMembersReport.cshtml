@@ -1,0 +1,135 @@
+﻿
+@{
+    ViewBag.Title = "FeeWiseMembersReport";
+    Layout = "~/Views/Shared/_LayoutjqGrid.cshtml";
+}
+
+<script src="~/Areas/Membership/Scripts/MembershipReport/PaymentHistory.js"></script>
+<link href="~/Content/customassets/css/Cart.css" rel="stylesheet" />
+<link href="~/Content/bootstrap-datetimepicker.css" rel="stylesheet" />
+<script src="~/Scripts/bootstrap-datetimepicker.js"></script>
+<script src="~/Scripts/moment.js"></script>
+<script src="~/Scripts/knockout-jqAutocomplete.min.js"></script>
+<script src="~/Scripts/KoCustomDateTimePicker.js"></script>
+
+<style>
+    .form-control {
+        width: 100% !important;
+    }
+
+    .btnLarge {
+        width: 140px !important;
+    }
+
+    .input-group-addon {
+        padding: 0 5px;
+    }
+
+    .rm {
+        background-color: #F8F8F8;
+        border-radius: 0px 0px 0px 0px !important;
+    }
+</style>
+
+<section class="rm">
+    <div class="panel-body" id="PaymentHistory">
+        <div class="container-fluid">
+            <div class="row">
+
+                <div class="col-sm-12">
+                    <div class="row">
+                        <div class="col-sm-12">
+
+                            @*<section class="panel bodycontent">*@
+                            <div>
+                                <div class="form-group row row_design">
+                                    <label class="control-label col-sm-2 col-sm-offset-1" for="MemberNo">Member </label>
+                                    <div class="col-sm-3">
+                                        <input class="form-control"  type="text" data-bind="jqAuto: { value: MemberName, source:GetMemberList, inputProp: 'value', labelProp: 'value' }" placeholder="Please type member name" />
+                                    </div>
+                                    <label class="control-label col-sm-2" for="Code">Member No</label>
+                                    <div class="col-sm-3">
+                                        <input type="text" data-bind="value:MemberNo" class="form-control" readonly/>
+                                    </div>
+
+                                </div>
+                                <br />
+                                <div class="form-group row row_design">
+                                    <div class="col-sm-2 col-sm-offset-1">
+                                        <label class="control-label">From Date :</label>
+                                    </div>
+                                    <div class="col-sm-3" style="padding-left: 15px; padding-right: 15px;">
+                                        <div class="input-group">
+                                            <input type="text" id="fromDateField" data-bind="datepicker:FromDate, datepickerOptions: {format: 'DD/MM/YYYY'}, valueUpdate: 'keyup'" class="form-control" />
+
+                                            <span class="help-block" style="display: none;"></span>
+                                            <div class="input-group-addon">
+                                                <span class="glyphicon glyphicon-calendar"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <label class="control-label">To Date :</label>
+                                    </div>
+                                    <div class="col-sm-3" style="padding-left: 15px; padding-right: 15px;">
+                                        <div class="input-group">
+                                            <input type="text" id="toDateField" data-bind="datepicker:ToDate, datepickerOptions: {format: 'DD/MM/YYYY'}, valueUpdate: 'keyup'" class="form-control" />
+
+                                            <span class="help-block" style="display: none;"></span>
+                                            <div class="input-group-addon">
+                                                <span class="glyphicon glyphicon-calendar"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <br />
+                                <div class="form-group row row_design">
+                                    <div class="col-sm-3 col-sm-offset-7">
+                                        <button data-bind="click: LoadData" class="btn btn-success" data-dismiss="modal">Get Data</button>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <button data-bind="click: GetMemberLedgerReport" class="btn btn-success" data-dismiss="modal">Print Ledger</button>
+                                    </div>
+
+                                </div>
+                                <br />
+                                <div class="form-group table-responsive">
+
+                                    <div class="PrintReport" align="right">
+
+                                        <table class="table table-striped table-bordered">
+                                            <thead class="headcolor">
+                                                <tr class="thead ">
+                                                    <th> Fee Type </th>
+                                                    <th> Amount </th>
+                                                    <th> Paid Date </th>
+                                                    <th> Paid By </th>
+
+                                                </tr>
+                                            </thead>
+
+                                            <tbody data-bind="foreach:PaymentList">
+                                                <tr>
+                                                    <td class="center" data-bind="text: FeeTypeName"></td>
+                                                    <td class="center" data-bind="text: CollectedAmount"></td>
+                                                    <td class="center" data-bind="text: moment(SubscriptionDate).format('DD/MM/YYYY')"></td>
+                                                    <td class="center" data-bind="text: PayTypeName"></td>
+
+                                                </tr>
+                                            </tbody>
+                                        </table>
+
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+

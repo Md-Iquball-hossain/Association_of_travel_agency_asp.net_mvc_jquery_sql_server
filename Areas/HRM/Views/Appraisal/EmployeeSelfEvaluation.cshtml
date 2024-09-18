@@ -1,0 +1,112 @@
+﻿<script src="~/Areas/HRM/Scripts/EmployeeEvaluation/selfEvaluation.js"></script>
+<style>
+    .white-with-blue-shadow {
+        /*//text-shadow: 1px 1px 2px black, 0 0 1em blue, 0 0 0.2em blue;
+        //color: white;*/
+        font: 1.5em Georgia, "Bitstream Charter", "URW Bookman L", "Century Schoolbook L", serif;
+        font-size: x-large;
+        margin-bottom: 30px;
+    }
+</style>
+@{
+    ViewBag.Title = "Employee Self Evaluation";
+    Layout = "~/Views/Shared/_LayoutjqGrid.cshtml";
+}
+
+<h2 style="text-align:center" class="white-with-blue-shadow">Self Evaluation of @ViewBag.UserName</h2>
+
+<div id="selfEvaluation">
+    <form class="form-horizontal" role="form">
+        <div class="form-group row row_design">
+            <div class="col-sm-1"><input type="hidden" data-bind="value: EmployeeId" /></div>
+            <div class="col-sm-2">
+                <label for="EmployeeName">Employee : <span data-bind="text:EmployeeName"></span></label>
+            </div>
+            <div class="col-sm-1"><input type="hidden" data-bind="value: DesignationId" /></div>
+            <div class="col-sm-2">
+                <label for="DesignationName">Designation : <span data-bind="text:DesignationName"></span></label>
+            </div>
+            <div class="col-sm-1"></div>
+            <div class="col-sm-2">
+                <label for="JoiningDate">Joining Date :<span data-bind="date:JoiningDate"></span></label>
+                
+            </div>
+        </div>
+        <div class="form-group row row_design">
+            <div class="col-sm-1"></div>
+            <div class="col-sm-3 ">
+                <label for="PeriodFrom">Evaluation From :<span data-bind="date:PeriodFrom"></span></label>
+             </div>
+           
+            <div class="col-sm-2 ">
+                <label for="PeriodTo">Evaluation To :<span data-bind="date:PeriodTo"></span></label>
+            </div>
+        </div>
+
+        <table class="table table-responsive table-striped">
+            <thead style="background-color:steelblue;text-transform:fullwidth;">
+                <tr>
+
+                    <th>#</th>
+                    <th>KPI Group</th>
+                    
+                </tr>
+
+            </thead>
+            <tbody data-bind="foreach:KPIGroupList">
+                <tr>
+                    <td><input type="hidden" data-bind="value: Id" /></td>
+                    <td class="center" data-bind="text:Name"></td>
+                     <td class="center">
+                        <table class="table table-responsive">
+                            <thead style="background-color:steelblue;text-transform:fullwidth;">
+                                <tr>
+                                    <th></th>
+                                    <th>KPI</th>
+                                    
+                                    <th>KPI Marks(10)</th>
+                                </tr>
+                            </thead>
+                            <tbody data-bind="foreach:KPIList">
+                                <tr>
+                                    <td><input type="hidden" data-bind="value: Id" /></td>
+                                    
+                                    <td class="center" data-bind="text:Name"></td>
+                                    <td class="center"><input class="form-control" type="text" data-bind="value:KPIMarks,valueUpdate:'keyup'" /></td>
+                                </tr>
+                            </tbody>
+
+                        </table>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+        <div class="form-group row row_design">
+            <div class="col-sm-1"></div>
+            <div class="col-sm-1">
+                <label for="Remarks">Remarks: </label>
+            </div>
+            <div class="col-sm-2"><input class="form-control" type="text" data-bind="value:Remarks" placeholder="Remarks" /></div>
+            <div class="col-sm-2"><label for="Recommendation">Recommendation : </label></div>
+            <div class="col-sm-2">
+                <input class="form-control" type="text" data-bind="value:Recommendation" placeholder="Recommendation" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-xs-2">Forward</label>
+            <div class="col-xs-2">
+                <label><input type="checkbox" id='day1' name="optradio" data-bind="checked:Pick, valueUpdate: 'keyup'"></label>
+                @*<select data-bind="options:SeniorList, optionsCaption:'Select',  optionsText:'Name', optionsValue:'Id' ,value:SeniorId ,visible :Pick " class="form-control"></select>*@
+                <select data-bind="options:SeniorList, value: SeniorId, optionsCaption:'Choose One..', optionsValue:'Id', optionsText: 'Name',visible :Pick, valueUpdate: 'keyup'" class="form-control"></select>
+            </div>
+            <div class="col-xs-2 col-sm-offset-7">
+                <button type="submit" class="btn btn-success" data-bind='click: Submit'>Submit</button>
+            </div>
+           
+        </div>
+
+    </form>
+</div>
+
+

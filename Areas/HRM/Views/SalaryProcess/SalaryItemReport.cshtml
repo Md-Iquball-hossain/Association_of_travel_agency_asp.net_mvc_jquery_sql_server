@@ -1,0 +1,156 @@
+﻿<link href="~/customassets/css/customStyle.css" rel="stylesheet" />
+<script src="~/Scripts/jquery-ui-1.11.4.min.js"></script>
+<script src="~/Scripts/moment.js"></script>
+<script src="~/Scripts/knockout-date-bindings.js"></script>
+<script src="~/Areas/HRM/Scripts/SalaryProcess/salaryItemReport.js"></script>
+@{
+    ViewBag.Title = "Salary Grade Information";
+    Layout = "~/Views/Shared/_LayoutjqGrid.cshtml";
+}
+<style>
+    .ui-datepicker-calendar {
+        display: none !important;
+    }
+
+    .btn-success {
+        background-color: #5c9ccc !important;
+        border-color: #5c9ccc !important;
+    }
+
+    body {
+        color: #2e6e9e !important;
+    }
+
+    label {
+        color: #2e6e9e !important;
+    }
+
+    .btn {
+        padding: 0px 4px !important;
+    }
+
+    .form-control {
+        width: 80% !important;
+        height: 26px !important;
+        color: #2e6e9e !important;
+    }
+</style>
+<section>
+    <div class="container-fluid ">
+
+    </div>
+
+    <form id="historyDiv" class="form-horizontal">
+        <div style="margin: 20px">
+            <div class="form-group" style="font-size: 12px">
+                <label class="col-sm-2">Salary Items</label>
+                <div class="col-sm-2">
+                    <select data-bind="options:SalaryItems, optionsCaption:'--Salary Items--', value:salaryItemId, optionsText:'Name', optionsValue:'Id'   "></select> @*, event:{change: getReceivedDates}*@
+                </div>
+                <label class="col-sm-2">Month/Year</label>
+                <div class="col-sm-2">
+                    <input type="month" data-bind="date:Month, valueUpdate:'keyup'" class="date-picker-month" />
+                </div>
+
+                <div class="col-sm-2">
+                    <button type="submit" class="btn btn-success" data-bind="click:Search">Search</button>
+                </div>
+
+            </div>
+
+        </div>
+        <h4 style="font-size: 12px">Export Report</h4>
+        <div class="form-group" style="margin: 0px; font-size: 11px">
+
+            <a target="_blank" data-bind="attr: { href: Link1, title1: 'PDF' }">PDF</a>
+            <a target="_blank" data-bind="attr: { href: Link2, title2: 'Excel' }">Excel</a>
+            <a target="_blank" data-bind="attr: { href: Link3, title3: 'Word' }">Word</a>
+
+        </div>
+        <div style="padding: 5px 0; margin: 5px 0; background-color: #D9E9FF;">
+            <div class="form-signin-heading actions-hover">
+                    <table class="table table-responsive table-striped" style="font-size: 11px">
+                        <thead>
+                        <tr>
+                            <th>Index</th>
+                            <th>Year</th>
+                            <th>Month</th>
+                            <th>Salary Item Name</th>
+                            <th>Amount</th>
+                        </tr>
+                        </thead>
+                        <tbody data-bind="foreach:Employees">
+                        <tr>
+                            <td class="center" data-bind="text: $index() + 1"></td>
+                            <td class="center" data-bind="text: FiscalYearName"></td>
+                            <td class="center" data-bind="text: MonthName"></td>
+                            <td class="center" data-bind="text: SalaryItemName"></td>
+                            <td class="center" data-bind="text: Amount"></td>
+
+                        </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+
+        </div>
+
+        <div class="form-group">
+
+            <div id="myModal" class="modal fade" role="dialog">
+                <div class="modal-dialog modal-sm">
+
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Confirmation</h4>
+                        </div>
+                        @*<div class="modal-body" align="center">
+                                <p>Do you want to save Receive List?</p>
+                                <button type="submit" class="btn btn-success" data-bind="click: Submit" data-dismiss="modal">Yes</button>
+                                <button type="button" class="btn btn-success" data-dismiss="modal">No</button>
+
+                            </div>*@
+                        <div class="modal-footer">
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Success Modal -->
+        <div class="form-group">
+
+            <div id="successModal" class="modal fade" role="dialog">
+                <div class="modal-dialog modal-sm">
+
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Response</h4>
+                        </div>
+                        <div class="modal-body" align="center">
+                            <p id="successModalText"></p>
+
+                            <button type="button" class="btn btn-success" data-dismiss="modal">Ok</button>
+
+                        </div>
+                        <div class="modal-footer">
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </form>
+
+</section>
+
+
+
+

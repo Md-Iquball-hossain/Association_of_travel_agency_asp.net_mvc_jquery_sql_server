@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="dsBalanceSheet" targetNamespace="http://tempuri.org/dsBalanceSheet.xsd" xmlns:mstns="http://tempuri.org/dsBalanceSheet.xsd" xmlns="http://tempuri.org/dsBalanceSheet.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="dsBalanceSheet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="dsBalanceSheet" msprop:Generator_UserDSName="dsBalanceSheet">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="DataTable1" msprop:Generator_TableClassName="DataTable1DataTable" msprop:Generator_TableVarName="tableDataTable1" msprop:Generator_TablePropName="DataTable1" msprop:Generator_RowDeletingName="DataTable1RowDeleting" msprop:Generator_RowChangingName="DataTable1RowChanging" msprop:Generator_RowEvHandlerName="DataTable1RowChangeEventHandler" msprop:Generator_RowDeletedName="DataTable1RowDeleted" msprop:Generator_UserTableName="DataTable1" msprop:Generator_RowChangedName="DataTable1RowChanged" msprop:Generator_RowEvArgName="DataTable1RowChangeEvent" msprop:Generator_RowClassName="DataTable1Row">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Id" msprop:Generator_ColumnVarNameInTable="columnId" msprop:Generator_ColumnPropNameInRow="Id" msprop:Generator_ColumnPropNameInTable="IdColumn" msprop:Generator_UserColumnName="Id" type="xs:string" minOccurs="0" />
+              <xs:element name="Code" msprop:Generator_ColumnVarNameInTable="columnCode" msprop:Generator_ColumnPropNameInRow="Code" msprop:Generator_ColumnPropNameInTable="CodeColumn" msprop:Generator_UserColumnName="Code" type="xs:string" minOccurs="0" />
+              <xs:element name="Name" msprop:Generator_ColumnVarNameInTable="columnName" msprop:Generator_ColumnPropNameInRow="Name" msprop:Generator_ColumnPropNameInTable="NameColumn" msprop:Generator_UserColumnName="Name" type="xs:string" minOccurs="0" />
+              <xs:element name="AccGroupId" msprop:Generator_ColumnVarNameInTable="columnAccGroupId" msprop:Generator_ColumnPropNameInRow="AccGroupId" msprop:Generator_ColumnPropNameInTable="AccGroupIdColumn" msprop:Generator_UserColumnName="AccGroupId" type="xs:string" minOccurs="0" />
+              <xs:element name="AccSubGroupId" msprop:Generator_ColumnVarNameInTable="columnAccSubGroupId" msprop:Generator_ColumnPropNameInRow="AccSubGroupId" msprop:Generator_ColumnPropNameInTable="AccSubGroupIdColumn" msprop:Generator_UserColumnName="AccSubGroupId" type="xs:string" minOccurs="0" />
+              <xs:element name="AccSubGroupName" msprop:Generator_ColumnVarNameInTable="columnAccSubGroupName" msprop:Generator_ColumnPropNameInRow="AccSubGroupName" msprop:Generator_ColumnPropNameInTable="AccSubGroupNameColumn" msprop:Generator_UserColumnName="AccSubGroupName" type="xs:string" minOccurs="0" />
+              <xs:element name="AccGroupName" msprop:Generator_ColumnVarNameInTable="columnAccGroupName" msprop:Generator_ColumnPropNameInRow="AccGroupName" msprop:Generator_ColumnPropNameInTable="AccGroupNameColumn" msprop:Generator_UserColumnName="AccGroupName" type="xs:string" minOccurs="0" />
+              <xs:element name="AccHeadGroupId" msprop:Generator_ColumnVarNameInTable="columnAccHeadGroupId" msprop:Generator_ColumnPropNameInRow="AccHeadGroupId" msprop:Generator_ColumnPropNameInTable="AccHeadGroupIdColumn" msprop:Generator_UserColumnName="AccHeadGroupId" type="xs:string" minOccurs="0" />
+              <xs:element name="AccHeadGroupName" msprop:Generator_ColumnVarNameInTable="columnAccHeadGroupName" msprop:Generator_ColumnPropNameInRow="AccHeadGroupName" msprop:Generator_ColumnPropNameInTable="AccHeadGroupNameColumn" msprop:Generator_UserColumnName="AccHeadGroupName" type="xs:string" minOccurs="0" />
+              <xs:element name="AccHeadSubGroupId" msprop:Generator_ColumnVarNameInTable="columnAccHeadSubGroupId" msprop:Generator_ColumnPropNameInRow="AccHeadSubGroupId" msprop:Generator_ColumnPropNameInTable="AccHeadSubGroupIdColumn" msprop:Generator_UserColumnName="AccHeadSubGroupId" type="xs:string" minOccurs="0" />
+              <xs:element name="Debit" msprop:Generator_ColumnVarNameInTable="columnDebit" msprop:Generator_ColumnPropNameInRow="Debit" msprop:Generator_ColumnPropNameInTable="DebitColumn" msprop:Generator_UserColumnName="Debit" type="xs:string" minOccurs="0" />
+              <xs:element name="Credit" msprop:Generator_ColumnVarNameInTable="columnCredit" msprop:Generator_ColumnPropNameInRow="Credit" msprop:Generator_ColumnPropNameInTable="CreditColumn" msprop:Generator_UserColumnName="Credit" type="xs:string" minOccurs="0" />
+              <xs:element name="AccHeadSubGroupName" msprop:Generator_ColumnVarNameInTable="columnAccHeadSubGroupName" msprop:Generator_ColumnPropNameInRow="AccHeadSubGroupName" msprop:Generator_ColumnPropNameInTable="AccHeadSubGroupNameColumn" msprop:Generator_UserColumnName="AccHeadSubGroupName" type="xs:string" minOccurs="0" />
+              <xs:element name="CurrentYearAmount" msprop:Generator_ColumnVarNameInTable="columnCurrentYearAmount" msprop:Generator_ColumnPropNameInRow="CurrentYearAmount" msprop:Generator_ColumnPropNameInTable="CurrentYearAmountColumn" msprop:Generator_UserColumnName="CurrentYearAmount" type="xs:string" minOccurs="0" />
+              <xs:element name="PreviousYearAmount" msprop:Generator_ColumnVarNameInTable="columnPreviousYearAmount" msprop:Generator_ColumnPropNameInRow="PreviousYearAmount" msprop:Generator_ColumnPropNameInTable="PreviousYearAmountColumn" msprop:Generator_UserColumnName="PreviousYearAmount" type="xs:string" minOccurs="0" />
+              <xs:element name="AccHeadName" msprop:Generator_ColumnVarNameInTable="columnAccHeadName" msprop:Generator_ColumnPropNameInRow="AccHeadName" msprop:Generator_ColumnPropNameInTable="AccHeadNameColumn" msprop:Generator_UserColumnName="AccHeadName" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="AccGroupNote" msprop:Generator_TableClassName="AccGroupNoteDataTable" msprop:Generator_TableVarName="tableAccGroupNote" msprop:Generator_TablePropName="AccGroupNote" msprop:Generator_RowDeletingName="AccGroupNoteRowDeleting" msprop:Generator_RowChangingName="AccGroupNoteRowChanging" msprop:Generator_RowEvHandlerName="AccGroupNoteRowChangeEventHandler" msprop:Generator_RowDeletedName="AccGroupNoteRowDeleted" msprop:Generator_UserTableName="AccGroupNote" msprop:Generator_RowChangedName="AccGroupNoteRowChanged" msprop:Generator_RowEvArgName="AccGroupNoteRowChangeEvent" msprop:Generator_RowClassName="AccGroupNoteRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="AccGroupId" msprop:Generator_ColumnVarNameInTable="columnAccGroupId" msprop:Generator_ColumnPropNameInRow="AccGroupId" msprop:Generator_ColumnPropNameInTable="AccGroupIdColumn" msprop:Generator_UserColumnName="AccGroupId" type="xs:string" minOccurs="0" />
+              <xs:element name="CurrentAdd" msprop:Generator_ColumnVarNameInTable="columnCurrentAdd" msprop:Generator_ColumnPropNameInRow="CurrentAdd" msprop:Generator_ColumnPropNameInTable="CurrentAddColumn" msprop:Generator_UserColumnName="CurrentAdd" type="xs:string" minOccurs="0" />
+              <xs:element name="CurrentLess" msprop:Generator_ColumnVarNameInTable="columnCurrentLess" msprop:Generator_ColumnPropNameInRow="CurrentLess" msprop:Generator_ColumnPropNameInTable="CurrentLessColumn" msprop:Generator_UserColumnName="CurrentLess" type="xs:string" minOccurs="0" />
+              <xs:element name="PreviousAdd" msprop:Generator_ColumnVarNameInTable="columnPreviousAdd" msprop:Generator_ColumnPropNameInRow="PreviousAdd" msprop:Generator_ColumnPropNameInTable="PreviousAddColumn" msprop:Generator_UserColumnName="PreviousAdd" type="xs:string" minOccurs="0" />
+              <xs:element name="PreviousLess" msprop:Generator_ColumnVarNameInTable="columnPreviousLess" msprop:Generator_ColumnPropNameInRow="PreviousLess" msprop:Generator_ColumnPropNameInTable="PreviousLessColumn" msprop:Generator_UserColumnName="PreviousLess" type="xs:string" minOccurs="0" />
+              <xs:element name="PreviousOpening" msprop:Generator_ColumnVarNameInTable="columnPreviousOpening" msprop:Generator_ColumnPropNameInRow="PreviousOpening" msprop:Generator_ColumnPropNameInTable="PreviousOpeningColumn" msprop:Generator_UserColumnName="PreviousOpening" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

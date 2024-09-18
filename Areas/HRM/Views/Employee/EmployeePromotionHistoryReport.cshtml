@@ -1,0 +1,146 @@
+﻿
+<script src="~/Scripts/jquery-ui-1.11.4.min.js"></script>
+<script src="~/Scripts/moment.js"></script>
+<script src="~/Scripts/knockout-date-bindings.js"></script>
+<script src="~/Areas/HRM/Scripts/Employee/employeepromotionHistoryReport.js"></script>
+<link href="~/Content/customassets/css/Cart.css" rel="stylesheet" />
+
+
+
+@{
+    ViewBag.Title = "Employee Promotion History";
+    Layout = "~/Views/Shared/_LayoutjqGrid.cshtml";
+}
+
+
+
+<div class="panel">
+    <br />
+    <div class="panel-body">
+        <div class="container-fluid ">
+
+
+            <div id="historyDiv">
+
+                <div class="form-group row row_design">
+
+                    <label class="control-label col-sm-2 col-sm-offset-3">Promotion Before Date :</label>
+                    <div class="col-sm-3">
+                        <input type="date" data-bind="value:FromDate, valueUpdate: 'keyup'" class="form-control">
+                    </div>
+
+                    <div class="col-sm-1">
+                        <button type="submit" class="btn btn-deepgreen" data-bind="click:Search">Search</button>
+                    </div>
+                    @*<label class="col-sm-1">To</label>
+                        <div class="col-sm-3">
+                            <input type="date" data-bind="value:ToDate, valueUpdate: 'keyup'" class="form-control">
+                        </div>*@
+                </div>
+                @*<div class="form-group" style="font-size: 12px">
+
+                    </div>*@
+                <br />
+                <br />
+                <h4>Export Report</h4>
+                <div class="form-group">
+
+                    <a target="_blank" data-bind="attr: { href: Link1, title1: 'PDF' }">PDF</a>
+                    <a target="_blank" data-bind="attr: { href: Link2, title2: 'Excel' }">Excel</a>
+                    <a target="_blank" data-bind="attr: { href: Link3, title3: 'Word' }">Word</a>
+
+                </div>
+                <br/>
+                <table class="table table-striped table-bordered">
+                    <thead class="headcolor">
+                        <tr>
+                            <th>Index</th>
+                            <th>Name</th>
+                            <th>DesignationName</th>
+                            <th>OfficeUnitName</th>
+                            <th>OfficeName</th>
+
+                            <th>EffectiveDate</th>
+                            <th>Remarks</th>
+                            @*<th>FromDate</th>  moment(FromDate).format('DD/MMM/YYYY')
+                                <th>ToDate</th>*@
+                        </tr>
+                    </thead>
+                    <tbody data-bind="foreach:Employees">
+                        <tr>
+                            <td class="center" data-bind="text: $index() + 1"></td>
+                            <td class="center" data-bind="text: EmployeeName"></td>
+                            <td class="center" data-bind="text: DesignationName"></td>
+                            <td class="center" data-bind="text: OfficeUnitName"></td>
+                            <td class="center" data-bind="text: OfficeName "></td>
+                            <td class="center" data-bind="text: moment(EffectiveDate).format('DD/MMM/YYYY')"></td>
+                            <td class="center" data-bind="text: Remarks "></td>
+
+                        </tr>
+                    </tbody>
+                </table>
+
+
+            </div>
+
+            <div class="form-group row row_design">
+
+                <div id="myModal" class="modal fade" role="dialog">
+                    <div class="modal-dialog modal-sm">
+
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title">Confirmation</h4>
+                            </div>
+                            @*<div class="modal-body" align="center">
+                                    <p>Do you want to save Receive List?</p>
+                                    <button type="submit" class="btn btn-success" data-bind="click: Submit" data-dismiss="modal">Yes</button>
+                                    <button type="button" class="btn btn-success" data-dismiss="modal">No</button>
+
+                                </div>*@
+                            <div class="modal-footer">
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Success Modal -->
+            <div class="form-group row row_design">
+
+                <div id="successModal" class="modal fade" role="dialog">
+                    <div class="modal-dialog modal-sm">
+
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title">Response</h4>
+                            </div>
+                            <div class="modal-body" align="center">
+                                <p id="successModalText"></p>
+
+                                <button type="button" class="btn btn-success" data-dismiss="modal">Ok</button>
+
+                            </div>
+                            <div class="modal-footer">
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+
+
+

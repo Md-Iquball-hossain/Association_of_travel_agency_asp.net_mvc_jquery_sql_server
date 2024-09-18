@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="ReportGroupLedgerDataSet" targetNamespace="http://tempuri.org/ReportGroupLedgerDataSet.xsd" xmlns:mstns="http://tempuri.org/ReportGroupLedgerDataSet.xsd" xmlns="http://tempuri.org/ReportGroupLedgerDataSet.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="ReportGroupLedgerDataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="ReportGroupLedgerDataSet" msprop:Generator_UserDSName="ReportGroupLedgerDataSet">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="GroupLedgers" msprop:Generator_TableClassName="GroupLedgersDataTable" msprop:Generator_TableVarName="tableGroupLedgers" msprop:Generator_TablePropName="GroupLedgers" msprop:Generator_RowDeletingName="GroupLedgersRowDeleting" msprop:Generator_RowChangingName="GroupLedgersRowChanging" msprop:Generator_RowEvHandlerName="GroupLedgersRowChangeEventHandler" msprop:Generator_RowDeletedName="GroupLedgersRowDeleted" msprop:Generator_UserTableName="GroupLedgers" msprop:Generator_RowChangedName="GroupLedgersRowChanged" msprop:Generator_RowEvArgName="GroupLedgersRowChangeEvent" msprop:Generator_RowClassName="GroupLedgersRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="LedgerAccHeadCode" msprop:Generator_ColumnVarNameInTable="columnLedgerAccHeadCode" msprop:Generator_ColumnPropNameInRow="LedgerAccHeadCode" msprop:Generator_ColumnPropNameInTable="LedgerAccHeadCodeColumn" msprop:Generator_UserColumnName="LedgerAccHeadCode" type="xs:string" minOccurs="0" />
+              <xs:element name="LedgerAccHeadName" msprop:Generator_ColumnVarNameInTable="columnLedgerAccHeadName" msprop:Generator_ColumnPropNameInRow="LedgerAccHeadName" msprop:Generator_ColumnPropNameInTable="LedgerAccHeadNameColumn" msprop:Generator_UserColumnName="LedgerAccHeadName" type="xs:string" minOccurs="0" />
+              <xs:element name="VoucherNo" msprop:Generator_ColumnVarNameInTable="columnVoucherNo" msprop:Generator_ColumnPropNameInRow="VoucherNo" msprop:Generator_ColumnPropNameInTable="VoucherNoColumn" msprop:Generator_UserColumnName="VoucherNo" type="xs:string" minOccurs="0" />
+              <xs:element name="VoucherDate" msprop:Generator_ColumnVarNameInTable="columnVoucherDate" msprop:Generator_ColumnPropNameInRow="VoucherDate" msprop:Generator_ColumnPropNameInTable="VoucherDateColumn" msprop:Generator_UserColumnName="VoucherDate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="AccountHeadCode" msprop:Generator_ColumnVarNameInTable="columnAccountHeadCode" msprop:Generator_ColumnPropNameInRow="AccountHeadCode" msprop:Generator_ColumnPropNameInTable="AccountHeadCodeColumn" msprop:Generator_UserColumnName="AccountHeadCode" type="xs:string" minOccurs="0" />
+              <xs:element name="AccountHeadName" msprop:Generator_ColumnVarNameInTable="columnAccountHeadName" msprop:Generator_ColumnPropNameInRow="AccountHeadName" msprop:Generator_ColumnPropNameInTable="AccountHeadNameColumn" msprop:Generator_UserColumnName="AccountHeadName" type="xs:string" minOccurs="0" />
+              <xs:element name="Debit" msprop:Generator_ColumnVarNameInTable="columnDebit" msprop:Generator_ColumnPropNameInRow="Debit" msprop:Generator_ColumnPropNameInTable="DebitColumn" msprop:Generator_UserColumnName="Debit" type="xs:decimal" minOccurs="0" />
+              <xs:element name="Credit" msprop:Generator_ColumnVarNameInTable="columnCredit" msprop:Generator_ColumnPropNameInRow="Credit" msprop:Generator_ColumnPropNameInTable="CreditColumn" msprop:Generator_UserColumnName="Credit" type="xs:decimal" minOccurs="0" />
+              <xs:element name="AccGroup" msprop:Generator_ColumnVarNameInTable="columnAccGroup" msprop:Generator_ColumnPropNameInRow="AccGroup" msprop:Generator_ColumnPropNameInTable="AccGroupColumn" msprop:Generator_UserColumnName="AccGroup" type="xs:string" minOccurs="0" />
+              <xs:element name="AccSubGroup" msprop:Generator_ColumnVarNameInTable="columnAccSubGroup" msprop:Generator_ColumnPropNameInRow="AccSubGroup" msprop:Generator_ColumnPropNameInTable="AccSubGroupColumn" msprop:Generator_UserColumnName="AccSubGroup" type="xs:string" minOccurs="0" />
+              <xs:element name="AccHeadGroup" msprop:Generator_ColumnVarNameInTable="columnAccHeadGroup" msprop:Generator_ColumnPropNameInRow="AccHeadGroup" msprop:Generator_ColumnPropNameInTable="AccHeadGroupColumn" msprop:Generator_UserColumnName="AccHeadGroup" type="xs:string" minOccurs="0" />
+              <xs:element name="AccHeadSubGroup" msprop:Generator_ColumnVarNameInTable="columnAccHeadSubGroup" msprop:Generator_ColumnPropNameInRow="AccHeadSubGroup" msprop:Generator_ColumnPropNameInTable="AccHeadSubGroupColumn" msprop:Generator_UserColumnName="AccHeadSubGroup" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

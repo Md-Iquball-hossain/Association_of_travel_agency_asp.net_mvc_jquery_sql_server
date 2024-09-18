@@ -1,0 +1,188 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutjqGrid.cshtml";
+    ViewBag.Title = "Voucher";
+}
+
+<script src="~/Areas/Accounts/Scripts/Accounts/voucher-edit.js"></script>
+@*<link href="~/Content/customStyle.css" rel="stylesheet" />*@
+<script src="~/Scripts/moment.js"></script>
+<script src="~/Scripts/knockout-date-bindings.js"></script>
+<link href="~/Content/customassets/css/Cart.css" rel="stylesheet" />
+
+
+<style>
+    .form-control {
+        width: 100% !important;
+    }
+
+    .btnLarge {
+        width: 140px !important;
+    }
+
+    .input-group-addon {
+        padding: 0 5px;
+    }
+
+    .rm {
+        background-color: #F8F8F8;
+        border-radius: 0px 0px 0px 0px !important;
+    }
+</style>
+
+
+    <div class="container">
+        <div class="row">
+            
+            <!---vvvvvvv----Body Main Starts here---vvvvvv----->
+
+            <section class="rm">
+
+                
+
+                <div class="panel body">
+                    <div class="container-fluid ">
+                        <fieldset>
+
+                            <div id="VoucherEdit" class="purchase1">
+                                <div class="row">
+                                    <div class="col-sm-12">
+
+                                        <div class="form-group">
+                                            
+                                                <div class="row">
+                                                    <div class="form-group row row_design">
+                                                        <label class="control-label col-sm-3 col-sm-offset-1">Voucher Type</label>
+                                                        <div class="col-sm-2">
+                                                            <label class="radio-inline"><input type="radio" data-bind="enable:EnableHeader, checked:selectedVouchertype" value="pmnt" name="vType" />Payment</label>
+                                                        </div>
+                                                        <div class="col-sm-2">
+                                                            <label class="radio-inline"><input type="radio" data-bind="enable:EnableHeader, checked:selectedVouchertype" value="rcv" name="vType" />Receive</label>
+                                                        </div>
+                                                        <div class="col-sm-2">
+                                                            <label class="radio-inline"><input type="radio" data-bind="enable:EnableHeader, checked:selectedVouchertype" value="jrnl" name="vType" />Journal</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row" data-bind="visible: IsNotJournal">
+                                                    <div class="form-group row row_design">
+                                                        <label class="control-label col-sm-3 col-sm-offset-1">Pay Type</label>
+                                                        <div class="col-sm-2">
+                                                            <label class="radio-inline"><input type="radio" data-bind="enable:EnableHeader, checked:selectedPaytype" value="cash" name="pType" enabled="False" />Cash</label>
+                                                        </div>
+                                                        <div class="col-sm-2">
+                                                            <label class="radio-inline"><input type="radio" data-bind="enable:EnableHeader, checked:selectedPaytype" value="bank" name="pType" enabled="False" />Bank</label>
+                                                        </div>
+                                                        <div class="col-sm-3" data-bind="visible:IsBank">
+                                                            <select data-bind="options: Banks, value: selectedBankAccountHeadCode, optionsValue:'AccountHeadCode', optionsText: 'BankName', optionsCaption: 'Choose one...', valueUpdate:'keyup'"
+                                                                    class="form-control"></select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+
+                                                    <div class="form-group row row_design">
+
+                                                        <label class="control-label col-sm-2 col-sm-offset-1">Voucher No</label>
+                                                        <div class="col-sm-3">
+                                                            <input type="text" data-bind="enable:EnableHeader, value:VoucherNo" class="form-control" readonly="readonly" />
+                                                        </div>
+                                                        <label class="control-label col-sm-2">Transaction Type</label>
+                                                        <div class="col-sm-2">
+                                                            <label class="radio-inline"><input id="dr" type="radio" data-bind="checked:selectedTrantype" value="dr" name="tType" readonly />Debit</label>
+                                                        </div>
+                                                        <div class="col-sm-2">
+                                                            <label class="radio-inline"><input id="cr" type="radio" data-bind="checked:selectedTrantype" value="cr" name="tType" readonly />Credit</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            
+                                            @*<hr />*@
+                                            <div class="row">
+                                                <div class="form-group row row_design">
+                                                    <label class="control-label col-sm-2 col-sm-offset-1">Voucher Date</label>
+                                                    <div class="col-sm-3">
+                                                        <input type="date" data-bind="enable:EnableHeader, date:VoucherDate" class="form-control" />
+                                                    </div>
+                                                    <label class="control-label col-sm-2">Amount</label>
+                                                    <div class="col-sm-3">
+                                                        <input type="number" data-bind="value:Amount, valueUpdate: 'keyup'" min="1" class="form-control" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div id="payTypeAccHead" class="form-group row row_design">
+                                                    <label class="control-label col-sm-2 col-sm-offset-1">Account Head</label>
+                                                    <div class="col-sm-3">
+                                                        <select data-bind="options: accountHeads, value: selectedAccountHeadCode,optionsValue:'AccountHeadCode', optionsText: 'name', optionsCaption: 'Choose one...'"
+                                                                class="form-control"></select>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div data-bind="visible:IsBank">
+                                                <div id="payTypeBank" data-bind="visible: selectedPaytype">
+                                                    <div class="row">
+                                                        <div class="form-group row row_design">
+                                                            @*<br />*@
+                                                            <label class="control-label col-sm-2 col-sm-offset-1">Bank</label>
+                                                            <div class="col-sm-3">
+                                                                <input type="text" data-bind="value:BankName" class="form-control" />
+                                                            </div>
+                                                            <label class="control-label col-sm-2">Branch</label>
+                                                            <div class="col-sm-3">
+                                                                <input type="text" data-bind="value:BranchName" class="form-control" />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="form-group row row_design">
+                                                            <label class="control-label col-sm-2 col-sm-offset-1">Cheque No</label>
+                                                            <div class="col-sm-3">
+                                                                <input type="text" data-bind="value:ChequeNo" class="form-control" />
+                                                            </div>
+                                                            <label class="control-label col-sm-2">Cheque Date</label>
+                                                            <div class="col-sm-3">
+                                                                <input type="date" data-bind="value:ChequeDate" class="form-control" />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="form-group row row_design">
+                                                    <label class="control-label col-sm-2 col-sm-offset-1">Description</label>
+                                                    <div class="col-sm-4">
+                                                        <textarea data-bind="value:Description" class="form-control"></textarea>
+                                                    </div>
+                                                    @*<div class="col-sm-offset-4 col-sm-2">
+                                    <button data-bind="click: saveVoucher" class="btn btn-success">Save</button>
+                                </div>*@
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="form-group row row_design">
+
+                                                    <div class="col-sm-offset-9 col-sm-2">
+                                                        <button data-bind="click: saveVoucher" class="btn btn-success">Save</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                    </fieldset>
+
+                    </div>
+
+                </div>
+
+         </section>
+
+        <!---^^^^^^^----Body Main Ends here----^^^^^^^---->
+    </div>
+</div>
+
+
+

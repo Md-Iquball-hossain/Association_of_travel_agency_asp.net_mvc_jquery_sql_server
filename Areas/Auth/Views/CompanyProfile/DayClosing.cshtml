@@ -1,0 +1,181 @@
+﻿
+@{
+    ViewBag.Title = "Day Closing";
+    Layout = "~/Views/Shared/_LayoutjqGrid.cshtml";
+    var CompanyId = ViewBag.CompanyId;
+    var jss = new System.Web.Script.Serialization.JavaScriptSerializer();
+    var Companies = jss.Serialize(ViewBag.Companies);
+    var count = ViewBag.CompanyCount;
+}
+<link href="~/Content/customassets/css/CardiacStyle.css" rel="stylesheet" />
+<style>
+    /*.Id {
+        display: none !important;
+    }*/
+    .form-control {
+        width: 100% !important;
+    }
+
+    .btnLarge {
+        width: 140px !important;
+    }
+
+    .input-group-addon {
+        padding: 0 5px;
+    }
+
+    .rm {
+        background-color: #F8F8F8;
+        border-radius: 0px 0px 0px 0px !important;
+    }
+</style>
+<script>
+    var userCompanyId = parseInt(@CompanyId);
+    var Companies = JSON.parse('@Html.Raw(Companies)');
+    var Message = "@ViewBag.Message";
+</script>
+<section class="rm">
+    <div class="panel-body">
+        <div class="container-fluid ">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="container">
+                        <div id="dayClosingDiv">
+                            <div class="form-group row row_design">
+                                <label class="alert-success" data-bind="text:Message"></label>
+                            </div>
+                            <br />
+                            <div class="form-group row row_design">
+                                <label class="control-label col-sm-1">
+                                    Company
+                                </label>
+                                <div class="col-sm-2">
+                                    <select data-bind="options: CompanyList, value: CompanyProfileId, optionsValue:'Id', optionsText: 'Name', optionsCaption: 'Choose one...', valueUpdate: 'keyup'" class="form-control"></select>
+                                </div>
+                                <label class="control-label col-sm-2">
+                                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal" data-bind="enable:CloseDateEnable">Close Date</button>
+                                </label>
+                                <label class="control-label col-sm-2">
+                                    <button type="button" class="btn btn-success" id="takeBackup" data-bind="click:TakeDbBackup" style="display:none">Take DB Backup</button>
+                                </label>
+                                <div class="form-group row row_design">
+                                    <!-- Modal -->
+                                    <div id="myModal" class="modal fade" role="dialog">
+                                        <div class="modal-dialog modal-sm">
+                                            <!-- Modal content-->
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                    <h4 class="modal-title">Confirmation</h4>
+                                                </div>
+                                                <div class="modal-body" align="center">
+                                                    <p>Do you want to close current date?</p>
+                                                    <button id="switchOn" class="btn btn-success" data-dismiss="modal" data-bind="click:CloseDate">Yes</button>
+                                                    <button type="button" class="btn btn-warning" data-dismiss="modal">No</button>
+                                                </div>
+                                                <div class="modal-footer">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <script>
+                                        $(document).ready(function () {
+                                            //$('#switchOn').click(function () {
+                                            //    $.ajax({
+                                            //        type: "GET",
+                                            //        url: '/Auth/CompanyProfile/UpdateClosingDate',
+                                            //        contentType: "application/json",
+                                            //        dataType: "json",
+                                            //        success: function (data) {
+                                            //            alert(data.Message);
+                                            //            window.location.href = "/Auth/CompanyProfile/DayClosing";
+                                            //        },
+                                            //        error: function () {
+                                            //            alert(error.status + "<--and--> " + error.statusText);
+                                            //        }
+                                            //    });
+                                            //})
+                                            //$('#takeBackup').click(function () {
+                                            //    $.ajax({
+                                            //        type: "GET",
+                                            //        url: '/Auth/CompanyProfile/TakeDBBackup',
+                                            //        contentType: "application/json",
+                                            //        dataType: "json",
+                                            //        success: function (data) {
+                                            //            alert(data.Message);
+                                            //            window.location.href = "/Auth/CompanyProfile/DayClosing";
+                                            //        },
+                                            //        error: function () {
+                                            //            alert(error.status + "<--and--> " + error.statusText);
+                                            //        }
+                                            //    });
+                                            //})
+
+                                            function DayClosingVM() {
+                                                var self = this;
+
+                                                self.CompanyList = ko.observableArray(Companies);
+                                                self.CompanyProfileId = ko.observable(userCompanyId);
+                                                self.Message = ko.observable(Message);
+                                                self.CompanyProfileId.subscribe(function () {
+                                                    $.ajax({
+                                                        type: "GET",
+                                                        url: '/Auth/CompanyProfile/DateToday?CompanyProfileId=' + self.CompanyProfileId(),
+                                                        contentType: "application/json",
+                                                        dataType: "json",
+                                                        success: function (data) {
+                                                            self.Message("Current system date is " + moment(data).format("DD/MM/YYYY"));//alert(data.Message);
+                                                            //window.location.href = "/Auth/CompanyProfile/DayClosing";
+                                                        },
+                                                        error: function () {
+                                                            alert(error.status + "<--and--> " + error.statusText);
+                                                        }
+                                                    });
+                                                });
+                                                self.TakeDbBackup = function () {
+                                                    $.ajax({
+                                                        type: "GET",
+                                                        url: '/Auth/CompanyProfile/TakeDBBackup',
+                                                        contentType: "application/json",
+                                                        dataType: "json",
+                                                        success: function (data) {
+                                                            alert(data.Message);
+                                                            window.location.href = "/Auth/CompanyProfile/DayClosing";
+                                                        },
+                                                        error: function () {
+                                                            alert(error.status + "<--and--> " + error.statusText);
+                                                        }
+                                                    });
+                                                }
+                                                self.CloseDateEnable = ko.observable(true);
+                                                self.CloseDate = function () {
+                                                    self.CloseDateEnable(false);
+                                                    $.ajax({
+                                                        type: "GET",
+                                                        url: '/Auth/CompanyProfile/UpdateClosingDate?CompanyProfileId=' + self.CompanyProfileId(),
+                                                        contentType: "application/json",
+                                                        dataType: "json",
+                                                        success: function (data) {
+                                                            alert(data.Message);
+                                                            window.location.href = "/Auth/CompanyProfile/DayClosing";
+                                                        },
+                                                        error: function () {
+                                                            alert(error.status + "<--and--> " + error.statusText);
+                                                        }
+                                                    });
+                                                }
+                                            }
+
+                                            var vm = new DayClosingVM();
+                                            ko.applyBindings(vm, $('#dayClosingDiv')[0]);
+                                        });
+                                    </script>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,139 @@
+﻿@model dynamic
+
+@{
+    ViewBag.Title = "Account Group Entry Page";
+    Layout = "~/Views/Shared/_LayoutjqGrid.cshtml";
+}
+
+<script src="~/Scripts/moment.js"></script>
+<script src="~/Scripts/knockout-date-bindings.js"></script>
+<script src="~/Areas/Accounts/Scripts/Accounts/AccountGroupEntry.js"></script>
+<link href="~/Content/bootstrap-datetimepicker.css" rel="stylesheet" />
+<link href="~/Content/customassets/css/CPV.css" rel="stylesheet" />
+<link href="~/Content/customassets/css/officeDesignationArea.css" rel="stylesheet" />
+<link href="~/Content/customassets/css/cifIncomeStatement.css" rel="stylesheet" />
+<link href="~/Content/customassets/css/application.css" rel="stylesheet" />
+<style>
+    .form-control {
+        width: 100% !important;
+    }
+
+    .btnLarge {
+        width: 140px !important;
+    }
+
+    .input-group-addon {
+        padding: 0 5px;
+    }
+</style>
+
+<section class="panel-bodycontent" id="accountGroupEntryDiv">
+
+
+    <br />
+
+    <div class="container">
+        <div class="row">
+
+            <section class="rm">
+                <div class="panel-body">
+
+                    <div class="container-fluid ">
+
+                        <fieldset>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="form-group row row_design_detail">
+                                        <div class="col-sm-2">
+                                            <label for="" class="control-label" style="text-align: left;"> Entry of:</label>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <label class="radio-inline"><input type="radio" value="1" data-bind="checked: AccGroup">Account Sub Group</label>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <label class="radio-inline"><input type="radio" value="2" data-bind="checked: AccGroup">Account Head Group</label>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <label class="radio-inline"><input type="radio" value="3" data-bind="checked: AccGroup">Account Head Sub Group</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row row_design">
+                                        <div class="col-sm-2">
+                                            <label for="" class="control-label" style="text-align: left;">Name:</label>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            @*<strong><span type="text" data-bind="text:Name"></span></strong>*@
+                                            <input type="text" data-bind="value:Name" class="form-control" />
+                                        </div>
+                                        <div class="col-sm-2" data-bind="visible: (AccGroup() == 1)">
+                                            <label for="" class="control-label" style="text-align: left;">Acc Group:</label>
+                                        </div>
+                                        <div class="col-sm-4" data-bind="visible: (AccGroup() == 1)">
+                                            <select class="form-control" id="AccGroupId" data-bind="options:AccGroupList,optionsValue: 'Id', optionsText:'Name',optionsCaption:'--Select--',value:AccGroupId "></select>
+                                        </div>
+                                        <div class="col-sm-2" data-bind="visible: (AccGroup() == 2)">
+                                            <label for="" class="control-label" style="text-align: left;">Acc Sub Group:</label>
+                                        </div>
+                                        <div class="col-sm-4" data-bind="visible: (AccGroup() == 2)">
+                                            <select class="form-control" id="AccSubGroupId" data-bind="options:AccSubGroupList,optionsValue: 'Id', optionsText:'Name',optionsCaption:'--Select--',value:AccSubGroupId "></select>
+                                        </div>
+                                        <div class="col-sm-2" data-bind="visible: (AccGroup() == 3)">
+                                            <label for="" class="control-label" style="text-align: left;">Acc Head Group:</label>
+                                        </div>
+                                        <div class="col-sm-4" data-bind="visible: (AccGroup() == 3)">
+                                            <select class="form-control" id="AccHeadGroupId" data-bind="options:AccHeadGroupList,optionsValue: 'Id', optionsText:'Name',optionsCaption:'--Select--',value:AccHeadGroupId "></select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row row_design" data-bind="visible: (AccGroup() == 2)">
+                                        <div class="col-sm-2">
+                                            <label for="" class="control-label" style="text-align: left;">Cash Flow Statement Activity:</label>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <select class="form-control" id="CashFlowStatementActivity" data-bind="options:CashFlowStatementActivityList,optionsValue: 'Id', optionsText:'Name',optionsCaption:'--Select--',value:CashFlowStatementActivity "></select>
+                                        </div>
+
+                                    </div>
+                                    <div class="form-group row row_design">
+                                        <div class="col-sm-offset-7 col-sm-2"></div>
+                                        <div class="btn-group">
+                                            <button type="button" class="btn btn-success" data-bind="click:SaveAccountGroup">Save</button>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- loading modal ends-->
+                            <div id="SuccessModal" class="modal fade" role="dialog">
+                                <div class="modal-dialog modal-sm">
+                                    <!-- Modal content-->
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                            <h4 class="modal-title">Response</h4>
+                                        </div>
+                                        <div class="modal-body" align="center">
+                                            <p id="SuccessModalText"></p>
+                                            <button type="button" class="btn btn-success" data-dismiss="modal">Ok</button>
+                                        </div>
+                                        <div class="modal-footer">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>          
+                    </fieldset>
+                </div>
+                </div>
+            </section>
+        </div>
+    </div>
+    <br />
+
+
+
+</section>
+
+
+
+
+

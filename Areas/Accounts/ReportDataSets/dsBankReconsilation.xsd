@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="dsBankReconsilation" targetNamespace="http://tempuri.org/dsBankReconsilation.xsd" xmlns:mstns="http://tempuri.org/dsBankReconsilation.xsd" xmlns="http://tempuri.org/dsBankReconsilation.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="dsBankReconsilation" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="dsBankReconsilation" msprop:Generator_UserDSName="dsBankReconsilation">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="dsBankReconsilation" msprop:Generator_TableClassName="dsBankReconsilationDataTable" msprop:Generator_TableVarName="tabledsBankReconsilation" msprop:Generator_RowChangedName="dsBankReconsilationRowChanged" msprop:Generator_TablePropName="_dsBankReconsilation" msprop:Generator_RowDeletingName="dsBankReconsilationRowDeleting" msprop:Generator_RowChangingName="dsBankReconsilationRowChanging" msprop:Generator_RowEvHandlerName="dsBankReconsilationRowChangeEventHandler" msprop:Generator_RowDeletedName="dsBankReconsilationRowDeleted" msprop:Generator_RowClassName="dsBankReconsilationRow" msprop:Generator_UserTableName="dsBankReconsilation" msprop:Generator_RowEvArgName="dsBankReconsilationRowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Id" msprop:Generator_ColumnVarNameInTable="columnId" msprop:Generator_ColumnPropNameInRow="Id" msprop:Generator_ColumnPropNameInTable="IdColumn" msprop:Generator_UserColumnName="Id" type="xs:string" minOccurs="0" />
+              <xs:element name="BankId" msprop:Generator_ColumnVarNameInTable="columnBankId" msprop:Generator_ColumnPropNameInRow="BankId" msprop:Generator_ColumnPropNameInTable="BankIdColumn" msprop:Generator_UserColumnName="BankId" type="xs:string" minOccurs="0" />
+              <xs:element name="AccontNumber" msprop:Generator_ColumnVarNameInTable="columnAccontNumber" msprop:Generator_ColumnPropNameInRow="AccontNumber" msprop:Generator_ColumnPropNameInTable="AccontNumberColumn" msprop:Generator_UserColumnName="AccontNumber" type="xs:string" minOccurs="0" />
+              <xs:element name="MonthEndingDate" msprop:Generator_ColumnVarNameInTable="columnMonthEndingDate" msprop:Generator_ColumnPropNameInRow="MonthEndingDate" msprop:Generator_ColumnPropNameInTable="MonthEndingDateColumn" msprop:Generator_UserColumnName="MonthEndingDate" type="xs:string" minOccurs="0" />
+              <xs:element name="MonthEndingDateTxt" msprop:Generator_ColumnVarNameInTable="columnMonthEndingDateTxt" msprop:Generator_ColumnPropNameInRow="MonthEndingDateTxt" msprop:Generator_ColumnPropNameInTable="MonthEndingDateTxtColumn" msprop:Generator_UserColumnName="MonthEndingDateTxt" type="xs:string" minOccurs="0" />
+              <xs:element name="ActualBankBalance" msprop:Generator_ColumnVarNameInTable="columnActualBankBalance" msprop:Generator_ColumnPropNameInRow="ActualBankBalance" msprop:Generator_ColumnPropNameInTable="ActualBankBalanceColumn" msprop:Generator_UserColumnName="ActualBankBalance" type="xs:string" minOccurs="0" />
+              <xs:element name="AdjustedBankBalance" msprop:Generator_ColumnVarNameInTable="columnAdjustedBankBalance" msprop:Generator_ColumnPropNameInRow="AdjustedBankBalance" msprop:Generator_ColumnPropNameInTable="AdjustedBankBalanceColumn" msprop:Generator_UserColumnName="AdjustedBankBalance" type="xs:string" minOccurs="0" />
+              <xs:element name="BalancePerLedger" msprop:Generator_ColumnVarNameInTable="columnBalancePerLedger" msprop:Generator_ColumnPropNameInRow="BalancePerLedger" msprop:Generator_ColumnPropNameInTable="BalancePerLedgerColumn" msprop:Generator_UserColumnName="BalancePerLedger" type="xs:string" minOccurs="0" />
+              <xs:element name="AdjustedLedgerBalance" msprop:Generator_ColumnVarNameInTable="columnAdjustedLedgerBalance" msprop:Generator_ColumnPropNameInRow="AdjustedLedgerBalance" msprop:Generator_ColumnPropNameInTable="AdjustedLedgerBalanceColumn" msprop:Generator_UserColumnName="AdjustedLedgerBalance" type="xs:string" minOccurs="0" />
+              <xs:element name="Variance" msprop:Generator_ColumnVarNameInTable="columnVariance" msprop:Generator_ColumnPropNameInRow="Variance" msprop:Generator_ColumnPropNameInTable="VarianceColumn" msprop:Generator_UserColumnName="Variance" type="xs:string" minOccurs="0" />
+              <xs:element name="ReviewedBy" msprop:Generator_ColumnVarNameInTable="columnReviewedBy" msprop:Generator_ColumnPropNameInRow="ReviewedBy" msprop:Generator_ColumnPropNameInTable="ReviewedByColumn" msprop:Generator_UserColumnName="ReviewedBy" type="xs:string" minOccurs="0" />
+              <xs:element name="ReviewDate" msprop:Generator_ColumnVarNameInTable="columnReviewDate" msprop:Generator_ColumnPropNameInRow="ReviewDate" msprop:Generator_ColumnPropNameInTable="ReviewDateColumn" msprop:Generator_UserColumnName="ReviewDate" type="xs:string" minOccurs="0" />
+              <xs:element name="ReviewDateTxt" msprop:Generator_ColumnVarNameInTable="columnReviewDateTxt" msprop:Generator_ColumnPropNameInRow="ReviewDateTxt" msprop:Generator_ColumnPropNameInTable="ReviewDateTxtColumn" msprop:Generator_UserColumnName="ReviewDateTxt" type="xs:string" minOccurs="0" />
+              <xs:element name="CreateDate" msprop:Generator_ColumnVarNameInTable="columnCreateDate" msprop:Generator_ColumnPropNameInRow="CreateDate" msprop:Generator_ColumnPropNameInTable="CreateDateColumn" msprop:Generator_UserColumnName="CreateDate" type="xs:string" minOccurs="0" />
+              <xs:element name="CreatedBy" msprop:Generator_ColumnVarNameInTable="columnCreatedBy" msprop:Generator_ColumnPropNameInRow="CreatedBy" msprop:Generator_ColumnPropNameInTable="CreatedByColumn" msprop:Generator_UserColumnName="CreatedBy" type="xs:string" minOccurs="0" />
+              <xs:element name="EditDate" msprop:Generator_ColumnVarNameInTable="columnEditDate" msprop:Generator_ColumnPropNameInRow="EditDate" msprop:Generator_ColumnPropNameInTable="EditDateColumn" msprop:Generator_UserColumnName="EditDate" type="xs:string" minOccurs="0" />
+              <xs:element name="EditedBy" msprop:Generator_ColumnVarNameInTable="columnEditedBy" msprop:Generator_ColumnPropNameInRow="EditedBy" msprop:Generator_ColumnPropNameInTable="EditedByColumn" msprop:Generator_UserColumnName="EditedBy" type="xs:string" minOccurs="0" />
+              <xs:element name="Status" msprop:Generator_ColumnVarNameInTable="columnStatus" msprop:Generator_ColumnPropNameInRow="Status" msprop:Generator_ColumnPropNameInTable="StatusColumn" msprop:Generator_UserColumnName="Status" type="xs:string" minOccurs="0" />
+              <xs:element name="BankName" msprop:Generator_ColumnVarNameInTable="columnBankName" msprop:Generator_ColumnPropNameInRow="BankName" msprop:Generator_ColumnPropNameInTable="BankNameColumn" msprop:Generator_UserColumnName="BankName" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

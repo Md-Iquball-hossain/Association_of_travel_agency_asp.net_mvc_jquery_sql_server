@@ -1,0 +1,198 @@
+﻿
+@{
+    ViewBag.Title = "Membership Fee Collection";
+    Layout = "~/Views/Shared/_LayoutjqGrid.cshtml";
+}
+
+<link href="~/Content/bootstrap-datetimepicker.css" rel="stylesheet" />
+<script src="~/Scripts/bootstrap-datetimepicker.js"></script>
+<script src="~/Scripts/KoCustomDateTimePicker.js"></script>
+<link href="~/Content/customassets/css/Cart.css" rel="stylesheet" />
+
+
+<style>
+    .form-control {
+        width: 100% !important;
+    }
+
+    .btnLarge {
+        width: 140px !important;
+    }
+
+    .input-group-addon {
+        padding: 0 5px;
+    }
+
+    .rm {
+        background-color: #F8F8F8;
+        border-radius: 0px 0px 0px 0px !important;
+    }
+</style>
+
+<section class="rm">
+    <div class="panel-body">
+        <div class="container-fluid">
+            <div class="row">
+
+                <!---vvvvvvv----Body Main Starts here---vvvvvv----->
+
+                <div class="col-sm-12">
+                    <div class="row">
+                        <div class="col-sm-12">
+
+                            @*<section class="panel bodycontent">*@
+                            <div @*id="DepreciationDiv"*@>
+                                <div class="panel bodycontent">
+                                    <br />
+                                    <div class="body-main-padding">
+                                        <div class="form-group row row_design">
+                                            <label class="control-label col-sm-2 col-sm-offset-1">Member No :</label>
+                                            <div class="col-sm-3" @*data-bind="validationElement: DMDate"*@>
+                                                <input class="form-control" @*id="TrenchNo"*@ type="text" @*data-bind="value:TrenchNo"*@ />
+                                            </div>
+                                            <label class="control-label col-sm-2" for="EndDate">Subscription Date :</label>
+                                            <div class="col-sm-3" style="padding-left: 15px; padding-right: 15px;" @*data-bind="validationElement: EndDate"*@>
+                                                <div class="input-group">
+                                                    <input type="text" id="endDate" @*data-bind="datepicker:EndDate, datepickerOptions: {format: 'DD/MM/YYYY'}, valueUpdate: 'keyup', event:{change:SearchAsset}"*@ class="form-control" />
+                                                    <span class="help-block" style="display: none;"></span>
+                                                    <div class="input-group-addon">
+                                                        <span class="glyphicon glyphicon-calendar"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row row_design">
+                                            <label class="control-label col-sm-2 col-sm-offset-1" for="Level">Total Collection :</label>
+                                            <div class="col-sm-3" @*data-bind="validationElement: DMDate"*@>
+                                                <input class="form-control" @*id="TrenchNo"*@ type="text" @*data-bind="value:TrenchNo"*@ />
+                                            </div>
+
+                                        </div>
+
+
+
+                                        <br />
+                                    </div>
+                                </div>
+
+
+
+
+                                <br />
+
+                                <div class="form-group row row_design">
+                                    <label class="control-label col-sm-2 col-sm-offset-1" for="Level">Year :</label>
+                                    <div class="col-sm-3" @*data-bind="validationElement: DMDate"*@>
+                                        <select class="form-control" @*data-bind="options: $parent.OfficeList, value: OfficeId, optionsCaption:'Choose One..', optionsValue:'Id', optionsText: 'Name'"*@><option value="">Choose One..</option></select>
+
+                                    </div>
+                                    <label class="control-label col-sm-2" for="Level">Transaction Type :</label>
+                                    <div class="col-sm-3" @*data-bind="validationElement: DMDate"*@>
+                                        <select class="form-control" @*data-bind="options: $parent.OfficeList, value: OfficeId, optionsCaption:'Choose One..', optionsValue:'Id', optionsText: 'Name'"*@><option value="">Choose One..</option></select>
+
+                                    </div>
+
+                                </div>
+
+                                <div class="form-group row row_design">
+
+                                    <div class="col-sm-2 col-sm-offset-1">
+                                        <label class="control-label" style="text-align: left;">Select :</label>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <label class="radio-inline"><input type="radio" value="0" @*data-bind="checked: IsPartial"*@> Cash</label>
+
+                                        <label class="radio-inline"><input type="radio" value="1" @*data-bind="checked: IsPartial"*@> Bank</label>
+                                    </div>
+
+                                    <div class="col-sm-2">
+                                        <label class="control-label" for="TrenchNo">Bank :</label>
+                                    </div>
+
+                                    <div class="col-sm-3 no-padding">
+                                        <input class="form-control" @*id="TrenchNo"*@ type="text" @*data-bind="value:TrenchNo"*@ />
+                                    </div>
+                                </div>
+
+                                <div class="form-group row row_design">
+                                    <label class="control-label col-sm-2 col-sm-offset-1" for="Level">Account No :</label>
+                                    <div class="col-sm-3" @*data-bind="validationElement: DMDate"*@>
+                                        <input class="form-control" @*id="TrenchNo"*@ type="number" @*data-bind="value:TrenchNo"*@ />
+                                    </div>
+                                    <label class="control-label col-sm-2" for="Level">Amount :</label>
+                                    <div class="col-sm-3" @*data-bind="validationElement: DMDate"*@>
+                                        <input class="form-control" @*id="TrenchNo"*@ type="number" @*data-bind="value:TrenchNo"*@ />
+                                    </div>
+
+                                </div>
+                                <br />
+                                <div class="form-group row row_design">
+                                    <div class="col-sm-2 col-sm-offset-10" style="text-align:left">
+                                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">Save</button> @*, enable :IsValid*@
+
+                                    </div>
+                                </div>
+                                <br />
+
+
+
+                                <div class="form-group">
+                                    <div id="successModal" class="modal fade" role="dialog">
+                                        <div class="modal-dialog modal-sm">
+                                            <!-- Modal content-->
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                    <h4 class="modal-title">Response</h4>
+                                                </div>
+                                                <div class="modal-body" align="center">
+                                                    <p id="successModalText"></p>
+
+                                                    <button type="button" class="btn btn-success" data-dismiss="modal">Ok</button>
+
+                                                </div>
+                                                <div class="modal-footer">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="myModal" class="modal fade" role="dialog">
+                                        <div class="modal-dialog modal-sm">
+
+                                            <!-- Modal content-->
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                    <h4 class="modal-title">Confirmation</h4>
+                                                </div>
+                                                <div class="modal-body" align="center">
+                                                    <p>Do you want to Depreciate these items?</p>
+                                                    <button data-bind="click: SaveSelectedAssets" class="btn btn-success" data-dismiss="modal">Yes</button>
+                                                    <button type="button" class="btn btn-success" data-dismiss="modal">No</button>
+
+                                                </div>
+                                                <div class="modal-footer">
+                                                    @*<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>*@
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+
+
+                        @*</section>*@
+                        <!---^^^^^^^----Body Main Ends here----^^^^^^^---->
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>

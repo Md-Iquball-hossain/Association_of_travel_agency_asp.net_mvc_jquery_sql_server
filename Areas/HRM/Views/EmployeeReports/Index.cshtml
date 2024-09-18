@@ -1,0 +1,120 @@
+﻿
+<script src="~/Scripts/jquery-ui-1.11.4.min.js"></script>
+<script src="~/Scripts/moment.js"></script>
+<script src="~/Scripts/knockout-date-bindings.js"></script>
+<script src="~/Areas/HRM/Scripts/Employee/biography.js"></script>
+<link href="~/Content/customassets/css/Cart.css" rel="stylesheet" />
+
+
+@{
+    ViewBag.Title = "Employee Biography";
+    Layout = "~/Views/Shared/_LayoutjqGrid.cshtml";
+}
+
+
+
+<div class="panel">
+    <br />
+    <div class="panel-body">
+        <div class="container-fluid ">
+
+
+            <div id="historyDiv">
+                <div class="form-group row row_design">
+
+                    <label class="control-label col-sm-2 col-sm-offset-1"><span class="select">Office :</span></label>
+                    <div class="col-sm-3">
+                        <select class="form-control" data-bind="options:offices, optionsCaption:'-Choose Office-', value: officeId, optionsText:'Name', optionsValue:'Id' ,event:{change: Search}  "></select> @*, event:{change: getReceivedDates}*@
+                    </div>
+                    <label class="control-label col-sm-2"><span class="select">Department:</span></label>
+                    <div class="col-sm-3">
+                        <select class="form-control" data-bind="options:OfficeUnitList, optionsCaption:'--Choose Departments--', value: officeUnitId, optionsText:'Name', optionsValue:'Id', event:{change: Search}   "></select> @*, event:{change: getReceivedDates}*@
+                    </div>
+                </div>
+               
+                <br />
+                <br />
+                <h4>Employee List</h4>
+                
+                <br />
+                <div class="form-group row row_design">
+                    <table class="table table-striped table-bordered">
+                        <thead class="headcolor">
+                            <tr>
+
+                                <th>Employee Name</th>
+                                <th>Employee Type</th>
+                                <th>Designation</th>
+                                <th>Department</th>
+                                <th>Office</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody data-bind="foreach:Employees">
+                            <tr>
+                                <td style="display:none"><input type="hidden" data-bind="value:EmployeeId" /></td>
+                                <td class="center" data-bind="text: EmployeeName"></td>
+                                <td class="center" data-bind="text: EmployeeTypeName"></td>
+                                <td class="center" data-bind="text: DesignationName"></td>
+                                <td class="center" data-bind="text: OfficeUnitName "></td>
+                                <td class="center" data-bind="text: OfficeName "></td>
+                                <td class="center" data-bind="event:{click:$parent.SetAppId}">Print</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div id="myModal" class="modal fade" role="dialog">
+                        <div class="modal-dialog modal-sm">
+
+                            <!-- Modal content-->
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h4 class="modal-title">Confirmation</h4>
+                                </div>
+
+                                <div class="modal-footer">
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Success Modal -->
+                <div class="form-group row row_design">
+
+                    <div id="successModal" class="modal fade" role="dialog">
+                        <div class="modal-dialog modal-sm">
+
+                            <!-- Modal content-->
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h4 class="modal-title">Response</h4>
+                                </div>
+                                <div class="modal-body" align="center">
+                                    <p id="successModalText"></p>
+
+                                    <button type="button" class="btn btn-success" data-dismiss="modal">Ok</button>
+
+                                </div>
+                                <div class="modal-footer">
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+        </div>
+    </div>
+</div>
+
+
+
+
+

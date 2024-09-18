@@ -1,0 +1,277 @@
+﻿@{
+    ViewBag.Title = "MemberSavings";
+    Layout = "~/Views/Shared/_LayoutjqGrid.cshtml";
+}
+<link href="~/Content/bootstrap-datetimepicker.css" rel="stylesheet" />
+<script src="~/Scripts/bootstrap-datetimepicker.js"></script>
+<script src="~/Scripts/knockout-date-bindings.js"></script>
+<script src="~/Scripts/KoCustomDateTimePicker.js"></script>
+<link href="~/Content/customassets/css/somityStyle.css" rel="stylesheet" />
+<script src="~/Areas/Membership/Scripts/FeeCollection/memberPendingFeeCollection.js"></script>
+
+
+<style>
+    .form-control {
+        width: 100% !important;
+    }
+
+    .btnLarge {
+        width: 140px !important;
+    }
+
+    .input-group-addon {
+        padding: 0 5px;
+    }
+
+    .rm {
+        background-color: #F8F8F8;
+        border-radius: 0px 0px 0px 0px !important;
+    }
+</style>
+
+
+<script>
+    var memberId = '@(ViewBag.MemberId)';
+    var memberName = '@(ViewBag.memberName)';
+</script>
+
+<section class="panel-bodycontent" id="memberSavings">
+    <header class="panel-heading bodytitle">
+        <h3 class="panel-title" style="font-weight:bold;">Savings Info of @ViewBag.memberName</h3>
+    </header>
+
+    <br />
+    <div class="container">
+        <div class="row">
+            <div class="rm">
+                <div class="panel-body">
+                    <div class="container-fluid ">
+                        <fieldset>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="form-group row row_design">
+                                        <div class="col-sm-1"></div>
+                                        <input type="hidden" class="form-control" data-bind="value: Id" />
+                                        <div class="col-sm-2">
+                                            <label class="control-label">Member Name : </label>
+                                        </div>
+
+                                        <div class="col-sm-3">
+                                            <span data-bind="text:NameOfOrganization"></span>
+                                        </div>
+
+                                        <div class="col-sm-2">
+                                            <label class="control-label">Phone : </label>
+                                        </div>
+
+                                        <div class="col-sm-3">
+                                            <span data-bind="text:Phone"></span>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </fieldset>
+                    </div>
+                </div>
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-sm-12">
+
+                    <div class="form-group table-responsive">
+
+                        <div class="PrintReport" align="right">
+                            <div class="table-responsive">
+                                <table class="table table-striped table-bordered">
+                                    <thead class="headcolor">
+                                        <tr class="thead ">
+                                            <th> Select </th>
+                                            <th> Name Of Payment </th>
+                                            <th> Due </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody data-bind="foreach:PendingFeeList">
+                                        <tr>
+                                            <td style="display:none"><input type="hidden" data-bind="value:FeeTypeId" /></td>
+                                            <td id="content">
+                                                <div id="check">
+                                                    <input type="checkbox" class="chk" data-bind="checked: IsChecked, enable:IsDue" />
+                                                </div>
+                                            </td>
+                                            <td class="center" data-bind="text: FeeTypeName"></td>
+                                            <td class="center" data-bind="text: Due"></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+
+                                <div class="col-sm-offset-4 col-sm-3">
+                                    <label class="control-label">Total Amount</label>
+                                </div>
+                                <div class="col-sm-5">
+                                    <input type="text" data-bind="value:TotalPendingAmount" class="form-control" />
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="panel-bodycontent">
+                        <header class="panel-heading bodytitle pointer" data-toggle="collapse" data-target="#disbursementConditions">
+                            <h2 class="panel-title font">
+                                <b>Fee Collection Receive</b>
+                            </h2>
+                        </header>
+                        <div class="panel-body collapse in" id="disbursementConditions">
+                            <div class="form-group row row_design_detail">
+                                <div class="form-group row row_design">
+                                    <div class="col-sm-3 col-sm-offset-1" data-bind="validationElement: PayType">
+                                        <select class="form-control" data-bind="options:$root.PaytypesList,value:PayType, optionsText:'Name',optionsCaption:'-Select Received by-',optionsValue: 'Id',enable:SelectPayType " ><option value="">-Select Received by-</option></select>
+                                    </div>
+                                    <div class="col-sm-offset-7" style="text-align: center;">
+                                        <a class="plus" href='#' data-bind='click: AddPayments'>Add Receive <span class="glyphicon glyphicon-plus"></span></a>
+                                    </div>
+                                </div>
+                                <br />
+                                
+                                    <div data-bind="foreach:Payments">
+                                        <div class="col-sm-12">
+                                            <div class="rm">
+
+                                                <div class="form-group row row_design">
+                                                    <div class="col-sm-2 col-sm-offset-1" data-bind="validationElement: FeeTypeId">
+                                                        
+                                                        <select class="form-control" name="feeTypeList" data-bind="options:$root.FeeTypeList,  value: FeeTypeId, optionsCaption:'Choose One..', optionsValue:'Id', optionsText: 'Name'"><option value="">Choose One..</option></select>
+                                                    </div>
+                                                    @*<div class="col-sm-1">
+                                                        <select data-bind="options:$root.PaytypesList,optionsValue: 'Id',optionsText:'Name',optionsCaption:'-Select-', value:FromYear" class="form-control"></select>
+                                                        <input type="text" data-bind="value:FromYear" class="form-control" placeholder="For Year" />
+                                                    </div>*@
+
+                                                    <div class="col-sm-2">
+                                                        @*<input type="text" data-bind="value:ToYear" class="form-control" placeholder="Upto(Year)" />*@
+                                                        <div class="input-group input-group_cif date">
+                                                            <input type="text" class="form-control" data-bind="datepicker:SubscriptionDate, datepickerOptions: {format: 'DD/MM/YYYY'}, valueUpdate:'keyup'">
+                                                            <span class="help-block" style="display: none;"></span>
+                                                            <div class="input-group-addon">
+                                                                <span class="glyphicon glyphicon-calendar"></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-2">
+                                                        <input type="text" data-bind="value:Bank,enable:IsChequeVisible" class="form-control" placeholder="Bank" />
+                                                    </div>
+                                                
+                                                    <div class="col-sm-2">
+                                                        <input type="text" data-bind="value:ChequeNo,enable:IsChequeVisible" class="form-control" placeholder="Cheque No" />
+                                                    </div>
+
+                                                    <div class="col-sm-2">
+                                                        <input type="number" data-bind="value:CollectedAmount" class="form-control" dir="rtl" placeholder="Collected Amount" />
+                                                    </div>
+
+                                                    <div class="col-sm-1" style="text-align: center;">
+                                                        @*<a class="plus" href='#' data-bind='click: $parent.AddPayments'><span class="glyphicon glyphicon-plus"></span></a>*@
+                                                        <a class="minus" href='#' data-bind='click: $parent.RemovePayments'><span class="glyphicon glyphicon-minus"></span></a>
+                                                    </div>
+                                                </div>
+                                                <br />
+                                            </div>
+                                            <br />
+                                        </div>
+                                </div>
+                            </div>
+                            <br />
+                            <div class="form-group row row_design">
+                                <div class="col-sm-offset-1 col-sm-2">
+                                    <label class="control-label">Select Bank Head :</label>
+                                </div>
+                                <div class="col-sm-3" ">
+                                    <select data-bind="options:$root.Heads,optionsValue: 'Code',optionsText:'Name',optionsCaption:'-Select-', value:BankAccHead,enable:CheckFee" class="form-control"></select>
+                                </div>
+                                <div class="col-sm-2">
+                                    <label class="control-label">Total Amount :</label>
+                                </div>
+                                <div class="col-sm-3">
+                                    <input type="text" data-bind="value:TotalPayableAmount" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    
+                        <div class="col-sm-offset-10 col-sm-2">
+                           
+                            <button type="reset" data-bind="click: Reset" class="btn btn-info" >Reset</button>
+                            <button type="submit" data-bind="click: Submit" class="btn btn-success" title="Confirm Receive">
+                                Submit
+                            </button>
+                        </div>
+                        <br />
+                    
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    <br />
+    
+    <div class="form-group">
+
+        <div id="myModal" class="modal fade" role="dialog">
+            <div class="modal-dialog modal-sm">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Confirmation</h4>
+                    </div>
+                    <div class="modal-body" align="center">
+                        <p>Do you want to save the account?</p>
+                        <button type="submit" class="btn btn-success" data-bind="click: Submit" data-dismiss="modal">Yes</button>
+                        <button type="button" class="btn btn-success" data-dismiss="modal">No</button>
+
+                    </div>
+                    <div class="modal-footer">
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+    <div class="form-group">
+
+        <div id="successModal" class="modal fade" role="dialog">
+            <div class="modal-dialog modal-sm">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Response</h4>
+                    </div>
+                    <div class="modal-body" align="center">
+                        <p id="successModalText"></p>
+                        <p id="successModalLinks"></p>
+                        <button type="button" class="btn btn-success" data-dismiss="modal">Ok</button>
+
+                    </div>
+                    <div class="modal-footer">
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</section>

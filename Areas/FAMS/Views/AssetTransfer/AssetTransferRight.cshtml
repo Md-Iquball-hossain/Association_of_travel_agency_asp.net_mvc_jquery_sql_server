@@ -1,0 +1,18 @@
+﻿@using PagedList.Mvc;
+@model PagedList.IPagedList<Finix.FAMS.Dto.AssetAcquisitionDto>
+@{
+    var jss = new System.Web.Script.Serialization.JavaScriptSerializer();
+    var rightData = jss.Serialize(Model);
+}
+
+<div class="pagination-centered">
+
+    Page @(Model != null && Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @(Model != null ? Model.PageCount : 0)
+    @Html.PagedListPager(Model, rpage => Url.Action("AssetTransferRight", new { rpage, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter, ViewBag.DestId }))
+</div>
+<script>
+    rightDataJson = JSON.parse('@Html.Raw(rightData)');
+    if (typeof (vm) === 'object') {
+        vm.DestAssets(rightDataJson);
+     }
+</script>

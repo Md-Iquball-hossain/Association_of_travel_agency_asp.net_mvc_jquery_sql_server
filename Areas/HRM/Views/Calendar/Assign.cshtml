@@ -1,0 +1,147 @@
+﻿
+@{
+    ViewBag.Title = "Product Information";
+    Layout = "~/Views/Shared/_LayoutjqGrid.cshtml";
+}
+
+
+<script src="~/Areas/HRM/Scripts/Calendar/calendar.js"></script>
+<link href="~/Content/customassets/css/Cart.css" rel="stylesheet" />
+
+
+<div class="rm">
+    <br/>
+    <div class="panel-body">
+        <div class="container-fluid ">
+            <div id="receiveDiv">
+
+                <div class="form-group row row_design">
+
+                    <label class="control-label col-sm-1 col-sm-offset-2">Month/Year:</label>
+                    <div class="col-sm-2">
+                        <input type="month" data-bind="date:Month, valueUpdate:'keyup'" class="form-control date-picker-month" />
+                    </div>
+                    @*<div class="col-sm-2">
+                            <label>Year :</label>
+                            <input type="month" data-bind="date:Year, valueUpdate:'keyup'" class="date-picker" readonly />
+                        </div>*@
+
+                    <div class="col-sm-4">
+                        <label class="control-label col-sm-3">Weekend:</label>
+                        <div class="col-sm-4">
+                            <label class="checkbox-inline"><input type="checkbox" id='day1' name="optradio" data-bind="checked:IsOneDay, valueUpdate: 'keyup'">1 Day</label>
+                            <select data-bind="options:Days, optionsCaption:'Select Weekend Days',  optionsText:'Id', optionsValue:'Id' ,value:Day ,visible :IsOneDay " class="form-control"></select>
+                        </div>
+                        <div class="col-sm-4">
+                            <label class="checkbox-inline"><input type="checkbox" id='day2' name="optradio" data-bind="checked:IsTwoday, valueUpdate: 'keyup', disable:IsOneDay ">2 Day</label>
+                            <select data-bind="options:Days, optionsCaption:'Select Weekend Days',  optionsText:'Id', optionsValue:'Id' ,value:Day ,visible :IsTwoday " class="form-control"></select>
+                            <select data-bind="options:Days, optionsCaption:'Select Weekend Days',  optionsText:'Id', optionsValue:'Id' ,value:DayTwo ,visible :IsTwoday " class="form-control"></select>
+                        </div>
+                    </div>
+                    <div class="col-sm-1">
+                        <button class="btn btn-info" data-bind='click: addDateDetail'>Load</button>
+                    </div>
+                </div>
+
+                <br/>
+                <br/>
+                
+                    <table class="table table-striped table-bordered">
+                        <thead class="headcolor">
+                            <tr>
+                                <th>Day</th>
+                                <th>Year</th>
+                                <th>Month</th>
+                                <th>Date</th>
+                                <th></th>
+                                <th>Holiday Type</th>
+                                
+                            </tr>
+                        </thead>
+                        <tbody data-bind="foreach:DateDetails">
+                            <tr>
+                                <td class="center" data-bind="text: $index() + 1"></td>
+                              
+                                <td class="center" data-bind="text: Year"></td>
+                                <td class="center" data-bind="text: Month"></td>
+                                <td class="center" data-bind="text: PresentDate "></td>
+                                <td class="center">
+
+                                    <label class="checkbox-inline"><input type="checkbox" id='regular' name="optradio" data-bind="checked:IsHoliday, valueUpdate: 'keyup'">Holiday</label>
+
+                                </td>
+                                <td class="center">
+                                    <select data-bind="options: $parent.HolidayType, optionsCaption:'Select Holiday Type', optionsText:'Name', optionsValue:'Id', value: HolidayType, enable: IsHoliday" class="form-control"></select>
+                                </td>
+
+                                
+
+
+                            </tr>
+                        </tbody>
+                    </table>
+                <div class="form-group row row_design">
+                    <div class="col-sm-offset-10 col-sm-2">
+                        <button type="button" class="btn btn-success" data-bind="enable:IsSave" data-toggle="modal" data-target="#myModal">Save</button>
+                    </div>
+                    <div id="myModal" class="modal fade" role="dialog">
+                        <div class="modal-dialog modal-sm">
+
+                            <!-- Modal content-->
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h4 class="modal-title">Confirmation</h4>
+                                </div>
+                                <div class="modal-body" align="center">
+                                    <p>Do you want to save calendar?</p>
+                                    <button type="submit" class="btn btn-success" data-bind="click: $root.Submit" data-dismiss="modal">Yes</button>
+                                    <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+
+                                </div>
+                                <div class="modal-footer">
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+         
+            <!-- Success Modal -->
+            <div class="form-group row row_design">
+
+                <div id="successModal" class="modal fade" role="dialog">
+                    <div class="modal-dialog modal-sm">
+
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title">Response</h4>
+                            </div>
+                            <div class="modal-body" align="center">
+                                <p id="successModalText"></p>
+
+                                <button type="button" class="btn btn-success" data-dismiss="modal">Ok</button>
+
+                            </div>
+                            <div class="modal-footer">
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+
+

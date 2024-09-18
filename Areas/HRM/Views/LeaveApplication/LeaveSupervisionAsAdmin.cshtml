@@ -1,0 +1,246 @@
+﻿
+<link href="~/customassets/css/customStyle.css" rel="stylesheet" />
+<script src="~/Scripts/jquery-ui-1.11.4.min.js"></script>
+<script src="~/Scripts/moment.js"></script>
+<script src="~/Scripts/knockout-date-bindings.js"></script>
+<script src="~/Areas/HRM/Scripts/LeaveApplication/leaveSupervisor.js"></script>
+<style>
+    .ui-datepicker-calendar {
+        display: none !important;
+    }
+
+    .btn-success {
+        background-color: #5c9ccc !important;
+        border-color: #5c9ccc !important;
+    }
+
+    body {
+        color: #2e6e9e !important;
+        font-size: 10px !important;
+    }
+
+    label {
+        color: #2e6e9e !important;
+    }
+
+    .form-control {
+        height: 20px !important;
+    }
+</style>
+@{
+   
+    Layout = "~/Views/Shared/_LayoutjqGrid.cshtml";
+}
+<section>
+
+
+    <form id="receiveDiv" class="form-horizontal">
+        <div style="padding: 5px 0; margin: 5px 0; background-color: #D9E9FF;">
+            <h3>Leave Application Waiting For Approval</h3>
+            <div class="form-signin-heading actions-hover">
+                <table class="table table-responsive table-striped" style="font-size: 11px">
+                    <thead>
+                    <tr>
+
+                        <th>Index</th>
+                        <th>Employee</th>
+                        <th>From</th>
+                        <th>To</th>
+                        <th>Total Days</th>
+                        <th>Leave Type</th>
+                        <th>Description</th>
+                        <th>Current Leave Status</th>
+                        <th>Substitutor</th>
+
+                        <th>Address</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Comments</th>
+                        <th></th>
+
+                    </tr>
+                    </thead>
+                    <tbody data-bind="foreach:LeaveApplication">
+                    <tr>
+                        @*<td class="center">
+                                    <label><input type="checkbox" id='regular' name="optradio" data-bind="checked:$root.leaveDetails, valueUpdate: 'keyup'"></label>
+                                </td>*@
+
+                        <td class="center" data-bind="text: $index() + 1"></td>
+                        <td class="center" data-bind="text: EmployeeName"></td>
+                        <td class="center" data-bind="text: moment(FromDate).format('DD/MMM/YYYY')"></td>
+                        <td class="center" data-bind="text: moment(ToDate).format('DD/MMM/YYYY') "></td>
+                        <td class="center" data-bind="text: TotalDays"></td>
+                        <td class="center" data-bind="text: LeaveTypeName"></td>
+                        <td class="center" data-bind="text: Description "></td>
+                        <td class="center" data-bind="text: CurrentLeaveStatusName "></td>
+                        <td class="center" data-bind="text: SubstitutorName"></td>
+                        <td class="center" data-bind="text: Address "></td>
+                        <td class="center" data-bind="text: Email "></td>
+                        <td class="center" data-bind="text: Phone"></td>
+                        <td class="center" data-bind="text: Comments"></td>
+                        <td><a href="#" data-bind="click: $root.leaveDetails">Details</a></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    <div style="padding: 15px 35px; margin: 10px 0px; background-color: #D9E9FF;">
+        <h3>Leave Application Details</h3>
+        <div class="form-signin-heading actions-hover" style="padding: 15px 35px; margin: 10px 0px;">
+                <div class=" form-group">
+            @*<label class="control-label col-xs-2">Sales Order</label>
+            <div class="col-sm-2">
+                <select data-bind="options:SalesOrders, value: SOId, optionsCaption:'Choose One..', optionsValue:'Id', optionsText: 'Id', event:{change: getSODetails}" class="form-control"></select>
+            </div>*@
+            <label class="control-label col-xs-2">Employee</label>
+            <div class="col-xs-2">
+                <input class="form-control" data-bind="value:EmployeeName" />
+            </div>
+            @*<label class="control-label col-xs-2">Employee</label>
+            <div class="col-sm-2">
+                <span data-bind="text:EmployeeName"></span>
+            </div>*@
+            <label class="control-label col-xs-2">From Date</label>
+            <div class="col-xs-2">
+                <input type="date" data-bind="value:From, valueUpdate: 'keyup'" class="form-control">
+            </div>
+            <label class="control-label col-xs-2">To Date</label>
+            <div class="col-xs-2">
+                <input type="date" data-bind="value:To, valueUpdate: 'keyup'" class="form-control">
+            </div>
+            @*<label class="control-label col-xs-2">BD Approval No.</label>
+            <div class="col-xs-2">
+                <input type="text" data-bind="value:BDApprovalNo" class="form-control" placeholder="BD Approval No" />
+            </div>*@
+        </div>
+
+                <div class="form-group">
+                    <label class="control-label col-xs-2">Total Days</label>
+                    <div class="col-xs-2">
+                        <input class="form-control" data-bind="value:TotalDays" />
+                    </div>
+                    <label class="control-label col-xs-2">LeaveType</label>
+                    <div class="col-xs-2">
+                        <select data-bind="options: LeaveTypes, value: LeaveType, valueUpdate:'keyup', optionsCaption:'Choose One..', optionsValue:'Id', optionsText: 'Name'" class="form-control"></select>
+                        @*<input type="text" data-bind="value:LeaveType, valueUpdate: 'keyup'" class="form-control">*@
+                    </div>
+
+                    <label class="control-label col-xs-2">Description</label>
+                    <div class="col-xs-2">
+                        <textarea class="form-control" data-bind="value:Description"></textarea>
+                    </div>
+
+
+
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-xs-2">CurrentLeaveStatus</label>
+                    <div class="col-xs-2">
+                        <select data-bind="options: LeaveStatus, value: CurrentLeaveStatus, valueUpdate:'keyup', optionsCaption:'Choose One..', optionsValue:'Id', optionsText: 'Name'" class="form-control"></select>
+                        @*<input type="text" data-bind="value:CurrentLeaveStatus, valueUpdate: 'keyup'" class="form-control">*@
+                    </div>
+
+                    @*<label class="control-label col-xs-2">Container No</label>
+                        <div class="col-xs-2">
+                            <input class="form-control" data-bind="value:ContainerNo" />
+                        </div>*@
+                    <label class="control-label col-xs-2">Substitutor</label>
+                    <div class="col-xs-2">
+                        <input class="form-control" data-bind="value:Substitutor" />
+                    </div>
+                    <label class="control-label col-xs-2">Address</label>
+                    <div class="col-xs-2">
+                        <input class="form-control" data-bind="value:Address" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-xs-2">Forward</label>
+                    <div class="col-xs-2">
+                        <label><input type="checkbox" id='day1' name="optradio" data-bind="checked:Pick, valueUpdate: 'keyup'"></label>
+                        @*<select data-bind="options:SeniorList, optionsCaption:'Select',  optionsText:'Name', optionsValue:'Id' ,value:SeniorId ,visible :Pick " class="form-control"></select>*@
+                        <select data-bind="options:SeniorList, value: SeniorId, optionsCaption:'Choose One..', optionsValue:'Id', optionsText: 'Name',visible :Pick, valueUpdate: 'keyup'" class="form-control"></select>
+                    </div>
+                    <label class="control-label col-xs-2">Email</label>
+                    <div class="col-xs-2">
+                        <input class="form-control" data-bind="value:Email" />
+                    </div>
+                    <label class="control-label col-xs-2">Comments</label>
+                    <div class="col-xs-2">
+                        <input class="form-control" data-bind="value:Comments" />
+                    </div>
+
+                </div>
+                <div class="form-group">
+                    <div class="col-xs-2 col-sm-offset-2">
+                        <button data-bind='click: Submit'>Forward</button>
+                    </div>
+                    <div class="col-xs-2 col-sm-offset-7">
+                        <button data-bind='click: Edit'>Submit</button>
+                    </div>
+                </div>
+
+            </div>
+            <div class="form-group">
+                @*<div class="col-sm-11" align="right">
+                        <button type="button" class="btn btn-success" data-bind="enable:IsSave" data-toggle="modal" data-target="#myModal">Pick</button>
+                    </div>*@
+                <div id="myModal" class="modal fade" role="dialog">
+                    <div class="modal-dialog modal-sm">
+
+                        Modal content
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title">Confirmation</h4>
+                            </div>
+                            <div class="modal-body" align="center">
+                                <p>Do you want to pick selected employees?</p>
+                                @*<button type="submit" class="btn btn-success" data-bind="click: Submit" data-dismiss="modal">Yes</button>*@
+                                <button type="button" class="btn btn-success" data-dismiss="modal">No</button>
+
+                            </div>
+                            <div class="modal-footer">
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Success Modal -->
+            <div class="form-group">
+
+                <div id="successModal" class="modal fade" role="dialog">
+                    <div class="modal-dialog modal-sm">
+
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title">Response</h4>
+                            </div>
+                            <div class="modal-body" align="center">
+                                <p id="successModalText"></p>
+
+                                <button type="button" class="btn btn-success" data-dismiss="modal">Ok</button>
+
+                            </div>
+                            <div class="modal-footer">
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+</section>
+
+
+
+
+

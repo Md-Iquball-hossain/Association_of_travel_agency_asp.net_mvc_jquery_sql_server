@@ -1,0 +1,139 @@
+﻿@{
+    ViewBag.Title = "Employee Resignation";
+    Layout = "~/Views/Shared/_LayoutjqGrid.cshtml";
+}
+
+
+
+<script src="~/Scripts/jquery-ui-1.11.4.min.js"></script>
+<script src="~/Scripts/moment.js"></script>
+<script src="~/Scripts/knockout-date-bindings.js"></script>
+<link href="~/Content/customassets/css/Cart.css" rel="stylesheet" />
+<script src="~/Areas/HRM/Scripts/AppScripts/EmployeeResignation.js"></script>
+
+<style>
+    .rm {
+        padding-top: 0px;
+    }
+</style>
+
+
+
+<div class="panel rm" style="background-color:#F8F8F8">
+    <br />
+
+    <div class="panel-body">
+        <div class="container-fluid">
+            <div id="receiveDiv">
+                <div class="form-group row row_design">
+                    <label class="control-label col-sm-2 col-sm-offset-1"><span class="select">Unit Type :</span></label>
+                    <div class="col-sm-3">
+                        <select class="form-control" data-bind="options:UnitTypes, optionsCaption:'--Choose Unit Type--', value: unitTypeId, optionsText:'Name', optionsValue:'Id', event:{change: getOfficeUnit}  "></select> @**@
+                    </div>
+                    <label class="control-label col-sm-2"><span class="select">Office Unit :</span></label>
+                    <div class="col-sm-3">
+                        <select class="form-control" data-bind="options:OfficeUnits, optionsCaption:'--Choose Office Unit--', value: officeUnitId, optionsText:'Name', optionsValue:'Id'   "></select> @*, event:{change: getReceivedDates}*@
+                    </div>
+                </div>
+                    <div class="form-group row row_design">
+                        <label class="control-label col-sm-2 col-sm-offset-1"><span class="select">Office Layer :</span></label>
+                        <div class="col-sm-3">
+                            <select class="form-control" data-bind="options:OfficeLayers, optionsCaption:'Choose Office Layer', value: officeLayerId, optionsText:'Name', optionsValue:'Id' , event:{change: getAllOffices}  "></select> @**@
+
+                        </div>
+                        <label class="control-label col-sm-2"><span class="select">Office :</span></label>
+                        <div class="col-sm-3">
+                            <select class="form-control" data-bind="options:offices, optionsCaption:'-Choose Office-', value: officeId, optionsText:'Name', optionsValue:'Id'   "></select> @*, event:{change: getReceivedDates}*@
+                        </div>
+                    </div>
+                <div class="form-group row row_design">
+                    <label class="control-label col-sm-2 col-sm-offset-1"><span class="select">Grade :</span></label>
+                    <div class="col-sm-3">
+                        <select class="form-control" data-bind="options:Grades, optionsCaption:'-Choose Grade-', value: gradeId, optionsText:'Name', optionsValue:'Id' , event:{change: getAllDesignation} "></select> @*, event:{change: getReceivedDates}*@
+                    </div>
+                    <label class="control-label col-sm-2"><span class="select">Designation :</span></label>
+                    <div class="col-sm-3">
+                        <select class="form-control" data-bind="options:Designations, optionsCaption:'-Choose Designation-', value: designationId, optionsText:'Name', optionsValue:'Id'   "></select> @*, event:{change: getAllDesignation}*@
+                    </div>
+                </div>
+                    <div class="form-group row row_design">
+                        <label class="control-label col-sm-2 col-sm-offset-1"><span class="select">Gender :</span></label>
+                        <div class="col-sm-3">
+                            <select class="form-control" data-bind="options:Genders, optionsCaption:'-Choose Gender-', value: genderId, optionsText:'Name', optionsValue:'Id'   "></select> @*, event:{change: getReceivedDates}*@
+                        </div>
+                       
+                    </div>
+                <br/>
+                <div class="form-group row row_design">
+                   
+                    <div class="col-sm-offset-9 col-sm-2">
+                        <button class="btn btn-info" data-bind='click: LoadEmp'>Load</button>
+                        @*<button class="btn btn-warning" data-bind='click: Reset'>Reset</button>*@
+                    </div>
+                </div>
+                <br/>
+            </div>
+            <div class="panel rm" id="resigninfo">
+                <div class="panel-heading">
+                    <header class="panel-title">Employee Information</header>
+                </div>
+                <br/>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group row row_design">
+                            <label  class="col-sm-2 col-sm-offset-1 control-label">Employee :</label>
+                            <div class="col-sm-3" data-bind="validationElement:EmployeeId">
+                                
+                                <select class="form-control" data-bind="options:EmployeeList, optionsCaption:'-Choose Employee-', value: EmployeeId, optionsText:'EmployeeName', optionsValue:'EmployeeId' "></select>
+                                
+                            </div>
+
+                            <label class="col-sm-2 control-label" >Office Layer :</label>
+                            <div class="col-sm-3" >
+                                <input type="text" data-bind="value:OfficeLayerId,enable:false" class="form-control" id="officeLayer" placeholder="Office Layer">
+                            </div>
+                        </div>
+
+
+
+
+                        <div class="form-group row row_design">
+                            <label class="col-sm-offset-1 col-sm-2 control-label" for="OfficeId">Office :</label>
+                            <div class="col-sm-3" data-bind="validationElement:OfficeId">
+                                <input type="text" data-bind="value:OfficeId,enable:false" class="form-control" id="office" placeholder="Office">
+                            </div>
+
+                            <label class="col-sm-2 control-label" for="OfficeUnitId">Office Unit :</label>
+                            <div class="col-sm-3" data-bind="validationElement:OfficeUnitId">
+                                <input type="text" data-bind="value:OfficeUnitId,enable:false" class="form-control" id="officeunit" placeholder="Office Unit">
+                            </div>
+                        </div>
+
+
+
+                        <div class="form-group row row_design">
+                            <label class="col-sm-offset-1 col-sm-2 control-label" >Designation :</label>
+                            <div class="col-sm-3" data-bind="validationElement:DesignationId">
+                                <input type="text" data-bind="value:DesignationId,enable:false" class="form-control" id="designationid" placeholder="Designation">
+                            </div>
+                            <label class="col-sm-2 control-label" for="Remarks">Remarks :</label>
+                            <div class="col-sm-3" data-bind="validationElement:Remarks">
+                                <textarea data-bind="value:Remarks" class="form-control" placeholder="Remarks" rows="3"></textarea>
+
+                            </div>
+                        </div>
+
+                        <br/>
+
+                        <div class="form-group row row_design">
+                            <div class="col-sm-offset-10 col-sm-2">
+                                <button type="submit" data-bind="click:Resign" class="btn btn-primary">Resign</button>
+                            </div>
+                        </div>
+                        <br/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

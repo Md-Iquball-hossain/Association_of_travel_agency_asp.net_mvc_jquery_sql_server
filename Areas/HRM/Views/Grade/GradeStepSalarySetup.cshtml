@@ -1,0 +1,107 @@
+﻿<script src="~/Areas/HRM/Scripts/SalaryGrade/GradeStepSalary.js"></script>
+<link href="~/Content/customassets/css/Cart.css" rel="stylesheet" />
+@*<style>
+    .white-with-blue-shadow {
+        //text-shadow: 1px 1px 2px black, 0 0 1em blue, 0 0 0.2em blue;
+        //color: white;
+        font: 1.5em Georgia, "Bitstream Charter", "URW Bookman L", "Century Schoolbook L", serif;
+        font-size: x-large;
+        margin-bottom:30px;
+    }
+</style>*@
+@{
+    ViewBag.Title = "Grade Step Salary Setup";
+    Layout = "~/Views/Shared/_LayoutjqGrid.cshtml";
+}
+
+@*<h2 style="text-align:center" class="white-with-blue-shadow">Grade Step Salary Setup</h2>*@
+
+<div id="gradeStepSalary" class="panel-body rm">
+    <div class="container-fluid">
+
+        <div class="form-group row row_design">
+
+            <div class="col-sm-2 col-sm-offset-1">
+                <label class="control-label" for="GradeId">Grade :<span class="required">*</span></label>
+            </div>
+            <div class="col-sm-3" data-bind="validationElement:GradeId">
+                <select class="form-control" id="grade" data-bind="options:GradeList,optionsValue: 'Id', optionsText:'Name',optionsCaption:'--Select--',value:GradeId"></select>
+            </div>
+
+            <div class="col-sm-2 col-sm-offset-1">
+                <label class="control-label" for="GradeStepId">Grade Step :<span class="required">*</span></label>
+            </div>
+            <div class="col-sm-3" data-bind="validationElement:GradeStepId">
+                <select class="form-control" id="gradestep" data-bind="options:GradeStepList, optionsValue:'Id', optionsText:'StepName', optionsCaption:'--Select--', value:GradeStepId"></select>
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-sm-12">
+                <table class="table table-responsive table-striped">
+                    <thead class="headcolor">
+                        <tr>
+
+                            @*<th>#</th>*@
+                            <th>Salary Item Name</th>
+                            <th>Is Parcent Of Basic</th>
+
+                            <th>Salary Item Unit</th>
+                            <th>Amount</th>
+                            <!--<input type="hidden" name="hiddenPhone" />-->
+                        </tr>
+
+                    </thead>
+                    <tbody data-bind="foreach:GradeStepSalaryList">
+                        <tr>
+
+
+
+
+                            <td class="center" data-bind="text: SalaryItemName"></td>
+                            <td class="center" data-bind="text:IsParcentOfBasic"></td>
+                            <td class="center"><input class="form-control" type="text" data-bind="value:SalaryItemUnit, valueUpdate: 'keyup'" placeholder="Unit/Percentage" /></td>
+                            <td class="center"><input class="form-control" type="text" data-bind="value:Amount" placeholder="Amount" /></td>
+                        </tr>
+
+                    </tbody>
+
+                </table>
+                </div>
+            </div>
+
+                <div style="text-align:right;margin-right:250px;"><b>Total Amount: <span data-bind="text:total"></b></span></div>
+        <br/>
+                <div class="form-group">
+                    <div class="col-sm-1 col-sm-offset-10">
+                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">Save</button>
+                    </div>
+                    <div id="myModal" class="modal fade" role="dialog">
+                        <div class="modal-dialog modal-sm">
+
+                            <!-- Modal content-->
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h4 class="modal-title">Confirmation</h4>
+                                </div>
+                                <div class="modal-body" align="center">
+                                    <p>Do you want to save this Salary Setup?</p>
+                                    <button type="submit" class="btn btn-success" data-bind="click:Submit" data-dismiss="modal">Yes</button>
+                                    <button type="button" class="btn btn-success" data-dismiss="modal">No</button>
+
+                                </div>
+                                <div class="modal-footer">
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+

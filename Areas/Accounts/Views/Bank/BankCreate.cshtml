@@ -1,0 +1,18 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutjqGrid.cshtml";
+    ViewBag.Title = "Bank Information";
+    var CompanyId = ViewBag.CompanyId;
+}
+
+<script src="~/Scripts/AppScripts/validate.js"></script>
+<script>
+    var userCompanyId = parseInt(@CompanyId);
+</script>
+<script src="~/Areas/Accounts/Scripts/Bank/bankCreate.js"></script>
+
+<h2>Bank Information</h2>
+
+<div>
+    <table id="jqGrid"></table>
+    <div id="jqControls"></div>
+</div>

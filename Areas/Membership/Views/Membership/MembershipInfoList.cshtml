@@ -1,0 +1,226 @@
+﻿
+@using PagedList.Mvc;
+@model PagedList.IPagedList<Finix.Membership.DTO.MemberDto>
+
+@{
+    ViewBag.Title = "MembershipInfoList";
+    Layout = "~/Views/Shared/_LayoutjqGrid.cshtml";
+    var jss = new System.Web.Script.Serialization.JavaScriptSerializer();
+    var pageDataJson = jss.Serialize(Model);
+    var zonesJson = jss.Serialize(ViewBag.Zones);
+}
+
+<link href="~/Content/bootstrap-datetimepicker.css" rel="stylesheet" />
+<script src="~/Scripts/bootstrap-datetimepicker.js"></script>
+<script src="~/Scripts/jquery-ui-1.11.4.min.js"></script>
+<script src="~/Scripts/moment.js"></script>
+<script src="~/Scripts/KoCustomDateTimePicker.js"></script>
+<link href="~/Content/customassets/css/Cart.css" rel="stylesheet" />
+<link href="~/Content/PagedList.css" rel="stylesheet" />
+
+<script src="~/Areas/Membership/Scripts/Membership/MembershipInfoList.js"></script>
+
+
+<script>
+    var pageData = JSON.parse('@Html.Raw(pageDataJson)');
+    var zones = JSON.parse('@Html.Raw(zonesJson)');
+    var zone = '@ViewBag.Zone';
+    var subscriptionYear = '@ViewBag.SubscriptionYearText';
+    var fromDate = '@ViewBag.FromDateText';
+    var toDate = '@ViewBag.ToDateText';
+    var searchString = '@ViewBag.SearchString'
+    var count = @Model.TotalItemCount;
+</script>
+
+<style>
+    .form-control {
+        width: 100% !important;
+        padding: 2px 3px;
+    }
+
+    .btnLarge {
+        width: 140px !important;
+    }
+
+    .input-group-addon {
+        padding: 0 5px;
+    }
+
+    .textarea-modified {
+        height: 1em;
+        width: 50%;
+        padding: 3px;
+        transition: all 0.5s ease;
+    }
+
+    textarea:focus {
+        height: 4em;
+    }
+</style>
+
+<section class="rm">
+    <div class="panel-body">
+        <div class="container-fluid">
+            <div class="row">
+                <!---vvvvvvv----Body Main Starts here---vvvvvv----->
+                <div class="col-sm-12">
+                    <div id="MembershipInfoList">
+                        <div class="panel bodycontent">
+                            @using (Ajax.BeginForm("MembershipInfoList", "Membership", null))
+                            {
+                                <div class="form-group row row_design">
+                                    <div class="col-sm-offset-1 col-sm-2">
+                                        <label class="control-label">Name :</label>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <input type="text" name="searchString" class="form-control" id="searchString" placeholder="Organization Name/ Member No" @*value="@(ViewBag.SearchString ?? String.Empty)"*@ data-bind="value:searchString">
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <label class="control-label">Subscription Year:</label>
+                                    </div>
+                                    <div class="col-sm-3" style="padding-left: 15px; padding-right: 15px;">
+                                        <div class="input-group">
+                                            <input type="text" id="subscriptionYearId" data-bind="datepicker:SubscriptionYear, datepickerOptions: {format: 'YYYY', keepInvalid: false}, valueUpdate: 'keyup'" class="form-control" />
+                                            <input type="hidden" name="subscriptionYear" id="subscriptionYear" value="@ViewBag.SubscriptionYearText" />
+                                            <span class="help-block" style="display: none;"></span>
+                                            <div class="input-group-addon">
+                                                <span class="glyphicon glyphicon-calendar"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="form-group row row_design">
+                                    <div class="col-sm-2 col-sm-offset-1">
+                                        <label class="control-label">From Date :</label>
+                                    </div>
+                                    <div class="col-sm-3" style="padding-left: 15px; padding-right: 15px;">
+                                        <div class="input-group">
+                                            <input type="text" id="fromDateField" data-bind="datepicker:FromDate, datepickerOptions: {format: 'DD/MM/YYYY'}, valueUpdate: 'keyup'" class="form-control" />
+                                            <input type="hidden" name="fromDate" id="fromDate" value="@ViewBag.FromDateText" />
+                                            <span class="help-block" style="display: none;"></span>
+                                            <div class="input-group-addon">
+                                                <span class="glyphicon glyphicon-calendar"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <label class="control-label">To Date :</label>
+                                    </div>
+                                    <div class="col-sm-3" style="padding-left: 15px; padding-right: 15px;">
+                                        <div class="input-group">
+                                            <input type="text" id="toDateField" data-bind="datepicker:ToDate, datepickerOptions: {format: 'DD/MM/YYYY'}, valueUpdate: 'keyup'" class="form-control" />
+                                            <input type="hidden" name="toDate" id="toDate" value="@ViewBag.ToDateText" />
+                                            <span class="help-block" style="display: none;"></span>
+                                            <div class="input-group-addon">
+                                                <span class="glyphicon glyphicon-calendar"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <br />
+                                <div class="form-group row row_design">
+                                    <div class="col-sm-offset-1 col-sm-2">
+                                        <label class="control-label">Zone :</label>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <select class="form-control" name="zone" data-bind="options: Zones, value: Zone, optionsCaption:'Choose One..', optionsValue:'Id', optionsText: 'Name',valueUpdate: 'keyup'"><option value="">Choose One..</option></select>
+                                    </div>
+
+                                </div>
+
+                                <div class="form-group row row_design">
+
+                                    <div class="col-sm-2 col-sm-offset-10">
+                                        <button type="submit" @*data-bind="click:Search"*@ class="btn btn-deepgreen">Search</button>
+                                        <button type="submit" class="btn btn-primary" data-bind="click:GetMemberListWithPhotoReport">Print</button>
+                                    </div>
+
+                                    <div class="col-sm-2 col-sm-offset-10">
+                                        <h4>Export Report</h4>
+                                        <a target="_blank" data-bind="attr: { href: Link1, title1: 'PDF' }">PDF</a>
+                                        <a data-bind="attr: { href: Link2, title2: 'Excel' }">Excel</a>
+                                        <a data-bind="attr: { href: Link3, title3: 'Word' }">Word</a>
+
+                                    </div>
+                                </div>
+                                <div class="form-group row row_design">
+
+                                </div>
+                            }
+                            <hr class="horizontal">
+
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="table-responsive">
+                                        <table class="table table-striped table-bordered" id="MemberTable">
+                                            <thead class="headcolor">
+                                                <tr>
+                                                    <th class="center"> Sl No </th>
+                                                    <th class="center"> Member No </th>
+                                                    <th class="center">Name</th>
+                                                    <th class="center">Ownership Status</th>
+                                                    <th class="center">Zone</th>
+                                                    <th class="center">Subscription Date</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody data-bind="foreach:PageData">
+                                                <tr>
+                                                    <td style="display:none"><input type="hidden" data-bind="value:Id" /></td>
+                                                    <td data-bind="text: $index() + 1"></td>
+                                                    <td class="center" data-bind="text: MemberNo"></td>
+                                                    <td class="center" data-bind="text: NameOfOrganization"></td>
+                                                    <td class="center" data-bind="text: OwnershipStatusName"></td>
+                                                    <td class="center" data-bind="text: ZoneName"></td>
+                                                    <td class="center" data-bind="text: moment(IssueDate).format('DD/MM/YYYY')"></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+
+                                    </div>
+                                        <div class="pagination-centered">
+                                        Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+                                        @Html.PagedListPager(Model, page => Url.Action("MembershipInfoList",
+                                                        new
+                                                        {
+                                                            page,
+                                                            sortOrder = ViewBag.CurrentSort,
+                                                            searchString = ViewBag.SearchString,
+                                                            fromDate = ViewBag.FromDateText,
+                                                            toDate = ViewBag.ToDateText,
+                                                            zone = ViewBag.Zone,
+                                                            subscriptionYear = ViewBag.SubscriptionYearText,
+                                                        }))
+                                        </div>
+
+                                </div>
+                            </div>
+
+                            <div id="successModal" class="modal fade" role="dialog">
+                                <div class="modal-dialog modal-sm">
+                                    <!-- Modal content-->
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                            <h4 class="modal-title">Response</h4>
+                                        </div>
+                                        <div class="modal-body" align="center">
+                                            <p id="successModalText"></p>
+                                            <button type="button" class="btn btn-success" data-dismiss="modal" data-bind="click:Reload">Ok</button>
+                                        </div>
+                                        <div class="modal-footer">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+

@@ -1,0 +1,386 @@
+﻿
+@{
+    ViewBag.Title = "Bank Reconciliation";
+    Layout = "~/Views/Shared/_LayoutjqGrid.cshtml";
+}
+
+<link href="~/Content/bootstrap-datetimepicker.css" rel="stylesheet" />
+<script src="~/Scripts/bootstrap-datetimepicker.js"></script>
+<script src="~/Scripts/KoCustomDateTimePicker.js"></script>
+<link href="~/Content/bootstrap-multiselect.css" rel="stylesheet" />
+<script src="~/Scripts/bootstrap-multiselect.js"></script>
+<link href="~/Content/customassets/css/Cart.css" rel="stylesheet" />
+<script src="~/Areas/Accounts/Scripts/Accounts/bankReconsilation.js"></script>
+
+<style>
+    .form-control {
+        width: 100% !important;
+    }
+
+    .btnLarge {
+        width: 140px !important;
+    }
+
+    .input-group-addon {
+        padding: 0 5px;
+    }
+
+    .rm {
+        background-color: #F8F8F8;
+        border-radius: 0px 0px 0px 0px !important;
+    }
+
+    span.required {
+        color: red;
+    }
+</style>
+
+
+<div class="container" id="bankReconsilationDiv">
+    <div class="tab-content rm">
+        <div class="tab-pane fade active in" id="Basic">
+
+            <br />
+
+            <div class="col-sm-12">
+
+
+                <div class="panel bodycontent">
+                    <br />
+                    <div class="body-main-padding">
+                        <div class="form-group row row_design">
+                            <div class="col-sm-2 col-sm-offset-1">
+                                <label class="control-label">Bank :</label>
+                            </div>
+                            <div class="col-sm-3">
+                                <select class="form-control" id="BankId" data-bind="options:BankList, optionsValue: 'Id', optionsText:'Name', optionsCaption:'--Select--',value:BankId">Choose One..</select>
+
+                            </div>
+                        </div>
+                        <div class="form-group row row_design">
+                            <div class="col-sm-2 col-sm-offset-1">
+                                <label class="control-label">Account Number:</label>
+                            </div>
+                            <div class="col-sm-3" data-bind="validationElement: AccontNumber">
+                                <input class="form-control" id="AccontNumber" type="text" data-bind="value:AccontNumber" />
+                            </div>
+                        </div>
+                        <div class="form-group row row_design">
+                            <div class="col-sm-2 col-sm-offset-1">
+                                <label class="control-label">Month Ending Date:</label>
+                            </div>
+                            <div class="col-sm-3" style="padding-left: 15px; padding-right: 15px;" data-bind="validationElement: MonthEndingDate">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" id="ReceiveDate" data-bind="datepicker:MonthEndingDate, datepickerOptions: {format: 'DD/MM/YYYY'}, valueUpdate:'keyup'">
+                                    <span class="help-block" style="display: none;"></span>
+                                    <div class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row row_design">
+                            <div class="col-sm-offset-5 col-sm-3">
+                                <label class="control-label pull-right"><b>Actual Bank Balance:</b></label>
+                            </div>
+                            <div class="col-sm-3" data-bind="validationElement: ActualBankBalance">
+                                <input class="form-control" id="ActualBankBalance" type="number" data-bind="value:ActualBankBalance" />
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-sm-12">
+                <div class="panel bodycontent">
+                    <div class="body-main-padding">
+                        <div class="form-group row row_design">
+                            <div class="col-sm-offset-1 col-sm-2">
+                                <label class="control-label">Deposits in transit:</label>
+                            </div>
+
+                        </div>
+                        <div class="form-group row row_design">
+                            <div class="col-sm-offset-1 col-sm-10">
+                                <table class="table table-responsive table-bordered table-striped">
+                                    <thead class="headcolor">
+                                        <tr>
+                                            <th>Bank Reconsilation Type</th>
+                                            <th>Tran Date</th>
+                                            <th>Amount</th>
+                                            <th><a class="plus" href='#' data-bind='click: AddReconsilationDetails'><span class="glyphicon glyphicon-plus"></span></a></th>
+                                           
+                                        </tr>
+                                    </thead>
+                                    <tbody data-bind="foreach:DepositsDetails">
+                                        <tr>
+                                            <td>
+                                                <select data-bind="options:$parent.BankReconsilationTypes, value: BankReconsilationType, optionsValue:'Id', optionsText: 'Name', optionsCaption: '...Choose Role...'" class="form-control"></select> 
+                                            </td>
+                                            <td>
+                                                <div class="input-group" style="padding-left: 15px; padding-right: 15px;" data-bind="validationElement: TranDate">
+                                                    <input type="text" class="centerAlignment form-control lignHeightDate" data-bind="datepicker:TranDate, datepickerOptions: {format: 'DD/MM/YYYY'}, valueUpdate:'keyup'">
+                                                    <span class="help-block" style="display: none;"></span>
+                                                    <div class="input-group-addon">
+                                                        <span class="glyphicon glyphicon-calendar"></span>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td data-bind="validationElement: Amount">
+                                                <input type="text" data-bind="value:Amount" class="form-control" />
+                                            </td>
+                                            <td colspan="2">
+                                                <a class="plus" href='#' data-bind="click: $parent.AddReconsilationDetails"><span class="glyphicon glyphicon-plus"></span></a>
+                                                <a class="minus" href="#" data-bind="click: $parent.RemoveReconsilationDetails"><span class="glyphicon glyphicon-minus"></span></a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="body-main-padding">
+                        <div class="form-group row row_design">
+                            <div class="col-sm-offset-1 col-sm-2">
+                                <label class="control-label">Outstanding Checks:</label>
+                            </div>
+
+                        </div>
+                        <div class="form-group row row_design">
+                            <div class="col-sm-offset-1 col-sm-10">
+                                <table class="table table-responsive table-bordered table-striped">
+                                    <thead class="headcolor">
+                                        <tr>
+                                            <th>Bank Reconsilation Type</th>
+                                            <th>Tran Date</th>
+                                            <th>Amount</th>
+                                            <th><a class="plus" href='#' data-bind='click: AddOutstandings'><span class="glyphicon glyphicon-plus"></span></a></th>
+                                            
+                                        </tr>
+                                    </thead>
+                                    <tbody data-bind="foreach:OutStandingChecks">
+                                        <tr>
+                                            <td>
+                                                <select data-bind="options:$parent.BankReconsilationTypes, value: BankReconsilationType, optionsValue:'Id', optionsText: 'Name', optionsCaption: '...Choose Role...'" class="form-control"></select>
+                                            </td>
+                                            <td>
+                                                <div class="input-group" style="padding-left: 15px; padding-right: 15px;" data-bind="validationElement: TranDate">
+                                                    <input type="text" class="centerAlignment form-control lignHeightDate" data-bind="datepicker:TranDate, datepickerOptions: {format: 'DD/MM/YYYY'}, valueUpdate:'keyup'">
+                                                    <span class="help-block" style="display: none;"></span>
+                                                    <div class="input-group-addon">
+                                                        <span class="glyphicon glyphicon-calendar"></span>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td data-bind="validationElement: Amount">
+                                                <input type="text" data-bind="value:Amount" class="form-control" />
+                                            </td>
+                                            <td colspan="2">
+                                                <a class="plus" href='#' data-bind="click: $parent.AddOutstandings"><span class="glyphicon glyphicon-plus"></span></a>
+                                                <a class="minus" href="#" data-bind="click: $parent.RemoveOutstandings"><span class="glyphicon glyphicon-minus"></span></a> 
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group row row_design">
+                        <div class="col-sm-offset-5 col-sm-3">
+                            <label class="control-label  pull-right"><b>ADJUSTED BANK BALANCE:</b></label>
+                        </div>
+                        <div class="col-sm-3" data-bind="validationElement: AdjustedBankBalance">
+                            <input class="form-control" id="AdjustedBankBalance" type="number" data-bind="value:AdjustedBankBalance" />
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+            <div class="col-sm-12">
+                <div class="panel bodycontent">
+                    <div class="body-main-padding">
+                        <div class="form-group row row_design">
+                            <div class="col-sm-offset-5 col-sm-3" >
+                                <b><label class="control-label pull-right"><b>BALANCE PER GENERAL LEDGER:</b></label></b>
+                            </div>
+                            <div class="col-sm-3" data-bind="validationElement: BalancePerLedger">
+                                <input class="form-control" id="BalancePerLedger" type="number" data-bind="value:BalancePerLedger" />
+                            </div>
+                        </div>
+                        <div class="form-group row row_design">
+                            <div class="col-sm-offset-1 col-sm-2">
+                                <label class="control-label">Deposits not recorded:</label>
+                            </div>
+
+                        </div>
+                        <div class="form-group row row_design">
+                            <div class="col-sm-offset-1 col-sm-10">
+                                <table class="table table-responsive table-bordered table-striped">
+                                    <thead class="headcolor">
+                                        <tr>
+                                            <th>Bank Reconsilation Type</th>
+                                            <th>Tran Date</th>
+                                            <th>Amount</th>
+                                            <th><a class="plus" href='#' data-bind='click: AddNotRecordedDpsts'><span class="glyphicon glyphicon-plus"></span></a></th>
+                                            
+                                        </tr>
+                                    </thead>
+                                    <tbody data-bind="foreach:NotRecDeposits">
+                                        <tr>
+                                            <td>
+                                                <select data-bind="options:$parent.BankReconsilationTypes, value: BankReconsilationType, optionsValue:'Id', optionsText: 'Name', optionsCaption: '...Choose Role...'" class="form-control"></select>
+                                            </td>
+                                            <td>
+                                                <div class="input-group" style="padding-left: 15px; padding-right: 15px;" data-bind="validationElement: TranDate">
+                                                    <input type="text" class="centerAlignment form-control lignHeightDate" data-bind="datepicker:TranDate, datepickerOptions: {format: 'DD/MM/YYYY'}, valueUpdate:'keyup'">
+                                                    <span class="help-block" style="display: none;"></span>
+                                                    <div class="input-group-addon">
+                                                        <span class="glyphicon glyphicon-calendar"></span>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td data-bind="validationElement: Amount">
+                                                <input type="text" data-bind="value:Amount" class="form-control" />
+                                            </td>
+                                            <td colspan="2">
+                                                <a class="plus" href='#' data-bind="click: $parent.AddNotRecordedDpsts"><span class="glyphicon glyphicon-plus"></span></a>
+                                                <a class="minus" href="#" data-bind="click: $parent.RemoveNotRecordedDpsts"><span class="glyphicon glyphicon-minus"></span></a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="body-main-padding">
+                        <div class="form-group row row_design">
+                            <div class="col-sm-offset-1 col-sm-3">
+                                <label class="control-label">Checks/Electronics Transfers not Recorded:</label>
+                            </div>
+
+                        </div>
+                        <div class="form-group row row_design">
+                            <div class="col-sm-offset-1 col-sm-10">
+                                <table class="table table-responsive table-bordered table-striped">
+                                    <thead class="headcolor">
+                                        <tr>
+                                            <th>Bank Reconsilation Type</th>
+                                            <th>Tran Date</th>
+                                            <th>Amount</th>
+                                            <th><a class="plus" href='#' data-bind='click: AddNotRecordedChecks'><span class="glyphicon glyphicon-plus"></span></a></th>
+                                           
+                                        </tr>
+                                    </thead>
+                                    <tbody data-bind="foreach:NotRecChecks">
+                                        <tr>
+                                            <td>
+                                                <select data-bind="options:$parent.BankReconsilationTypes, value: BankReconsilationType, optionsValue:'Id', optionsText: 'Name', optionsCaption: '...Choose Role...'" class="form-control"></select>
+                                            </td>
+                                            <td>
+                                                <div class="input-group" style="padding-left: 15px; padding-right: 15px;" data-bind="validationElement: TranDate">
+                                                    <input type="text" class="centerAlignment form-control lignHeightDate" data-bind="datepicker:TranDate, datepickerOptions: {format: 'DD/MM/YYYY'}, valueUpdate:'keyup'">
+                                                    <span class="help-block" style="display: none;"></span>
+                                                    <div class="input-group-addon">
+                                                        <span class="glyphicon glyphicon-calendar"></span>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td data-bind="validationElement: Amount">
+                                                <input type="text" data-bind="value:Amount" class="form-control" />
+                                            </td>
+                                            <td colspan="2">
+                                                <a class="plus" href='#' data-bind="click: $parent.AddNotRecordedChecks"><span class="glyphicon glyphicon-plus"></span></a>
+                                                <a class="minus" href="#" data-bind="click: $parent.RemoveNotRecordedChecks"><span class="glyphicon glyphicon-minus"></span></a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group row row_design">
+                        <div class="col-sm-offset-5 col-sm-3">
+                            <label class="control-label pull-right"><b>Adjusted Ledger Balance:</b></label>
+                        </div>
+                        <div class="col-sm-3" data-bind="validationElement: AdjustedLedgerBalance">
+                            <input class="form-control" id="AdjustedLedgerBalance" type="number" data-bind="value:AdjustedLedgerBalance" />
+                        </div>
+                    </div>
+                    <div class="form-group row row_design">
+                        <div class="col-sm-offset-5 col-sm-3">
+                            <label class="control-label pull-right"><b>Variance:</b></label>
+                        </div>
+                        <div class="col-sm-3" data-bind="validationElement: Variance">
+                            <input class="form-control" id="Variance" type="number" data-bind="value:Variance" />
+                        </div>
+                    </div>
+                    <div class="form-group row row_design">
+                        <div class="col-sm-2 col-sm-offset-1">
+                            <label class="control-label">Reviewed By:</label>
+                        </div>
+                        <div class="col-sm-3" data-bind="validationElement: ReviewedBy">
+                            <input class="form-control" id="ReviewedBy" type="text" data-bind="value:ReviewedBy" />
+                        </div>
+
+                        <div class="col-sm-2 ">
+                            <label class="control-label">Review Date:</label>
+                        </div>
+                        <div class="col-sm-3" style="padding-left: 15px; padding-right: 15px;" data-bind="validationElement: ReviewDate">
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="ReviewDate" data-bind="datepicker:ReviewDate, datepickerOptions: {format: 'DD/MM/YYYY'}, valueUpdate:'keyup'">
+                                <span class="help-block" style="display: none;"></span>
+                                <div class="input-group-addon">
+                                    <span class="glyphicon glyphicon-calendar"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="button col-sm-offset-9">
+                <button type="submit" data-bind="click:Save" class="btn btn-success">Submit</button>
+                <button type="reset" class="btn btn-danger">Clean</button>
+
+
+            </div>
+            <br />
+            @*</form>*@
+
+
+        </div>
+    </div>
+
+    <!--Start modal body>-->
+    <div class="form-group">
+        <div id="SuccessModal" class="modal fade" role="dialog">
+            <div class="modal-dialog modal-sm">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Response</h4>
+                    </div>
+                    <div class="modal-body" align="center">
+                        <p id="SuccessModalText"></p>
+
+                        <button type="button" class="btn btn-success" data-dismiss="modal">Ok</button>
+
+                    </div>
+                    <div class="modal-footer">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  
+</div>

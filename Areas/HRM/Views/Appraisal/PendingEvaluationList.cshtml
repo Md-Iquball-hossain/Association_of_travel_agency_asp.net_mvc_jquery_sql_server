@@ -1,0 +1,52 @@
+﻿<script src="~/Areas/HRM/Scripts/EmployeeEvaluation/PendingEvaluation.js"></script>
+@{
+    ViewBag.Title = "Pending Evaluation List";
+    Layout = "~/Views/Shared/_LayoutjqGrid.cshtml";
+}
+<style>
+    .white-with-blue-shadow {
+        
+        font: 1.5em Georgia, "Bitstream Charter", "URW Bookman L", "Century Schoolbook L", serif;
+        font-size: x-large;
+        margin-bottom: 30px;
+    }
+</style>
+
+<h2 style="text-align:center" class="white-with-blue-shadow">Pending Evaluation List For @ViewBag.Username</h2>
+
+
+<div id="pendingEvaluation">
+    <form role="form" class="form-horizontal">
+        <table class="table table-responsive table-striped">
+            <thead>
+                <tr>
+                    <th>Index</th>
+                    <th></th>
+                    <th>Name</th>
+                    <th>Designation</th>
+                    <th></th>
+                    <th>Last Evaluator</th>
+                    <th>Evaluation Status</th>
+                    <th>Remarks</th>
+                    <th>Recommendation</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody data-bind="foreach:PendingList">
+                <tr>
+                    <td class="center" data-bind="text: $index() + 1"></td>
+                    <td><input type="hidden" data-bind="value: EmployeeId" /></td>
+                    <td class="center" data-bind="text: EmployeeName"></td>
+                    <td class="center" data-bind="text: DesignationName"></td>
+                    <td><input type="hidden" data-bind="value: EvaluationYear" /></td>
+                    <td class="center" data-bind="text: LastEvaluatedByName"></td>
+                    <td class="center" data-bind="text: EvaluationStatusName"></td>
+                    <td class="center" data-bind="text: Remarks"></td>
+                    <td class="center" data-bind="text: Recommendation"></td>
+                    <td><a href="#" data-bind="click: $root.getPendingDetails">Details</a></td>
+                </tr>
+            </tbody>
+        </table>
+    </form>
+</div>
+

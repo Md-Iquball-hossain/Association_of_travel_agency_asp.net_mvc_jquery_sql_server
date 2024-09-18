@@ -1,0 +1,109 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutjqGrid.cshtml";
+    ViewBag.Title = "Receive Payment";
+    var CompanyId = ViewBag.CompanyId;
+    var jss = new System.Web.Script.Serialization.JavaScriptSerializer();
+    var Companies = jss.Serialize(ViewBag.Companies);
+    var count = ViewBag.CompanyCount;
+}
+
+<script src="~/Scripts/moment.js"></script>
+<script src="~/Scripts/knockout-date-bindings.js"></script>
+@*<link href="~/Content/customStyle.css" rel="stylesheet" />*@
+<link href="~/Content/customassets/css/Cart.css" rel="stylesheet" />
+<script>
+    var userCompanyId = parseInt(@CompanyId);
+    var Companies = JSON.parse('@Html.Raw(Companies)');
+</script>
+<script src="~/Areas/Accounts/Scripts/ReportAccount/rpt-receive-payment.js"></script>
+
+<style>
+    .form-control {
+        width: 100% !important;
+    }
+
+    .btnLarge {
+        width: 140px !important;
+    }
+
+    .input-group-addon {
+        padding: 0 5px;
+    }
+
+    .rm {
+        background-color: #F8F8F8;
+        border-radius: 0px 0px 0px 0px !important;
+    }
+</style>
+
+<section class="rm">
+    <div class="panel-body">
+        <div class="container-fluid">
+            <fieldset>
+                <div class="row">
+
+                    <!---vvvvvvv----Body Main Starts here---vvvvvv----->
+                    <div class="col-sm-12">
+                        <div id="rptReceiveDiv">
+                            <div class="form-group">
+                                <div class="row">
+                                    <div style="padding: 5px;">
+
+                                        @if (count > 0)
+                                        {
+                                            <label class="control-label col-sm-2 col-sm-offset-1">Company</label>
+                                            <div class="col-sm-3">
+                                                <select data-bind="options: CompanyList, value: CompanyProfileId, optionsValue:'Id', optionsText: 'Name', optionsCaption: 'Choose one...', valueUpdate: 'keyup'" class="form-control"></select>
+                                            </div>
+                                        }
+
+
+                                    </div>
+
+                                </div>
+                                <div class="row">
+                                    <div style="padding: 5px;">
+                                        <label class="control-label col-sm-2 col-sm-offset-1">From Date</label>
+                                        <div class="col-sm-3">
+                                            <input type="date" data-bind="value:FromDate, valueUpdate: 'keyup'" class="form-control">
+                                        </div>
+                                        <label class="control-label col-sm-1">To Date</label>
+                                        <div class="col-sm-2">
+                                            <input type="date" data-bind="value:ToDate, valueUpdate: 'keyup'" class="form-control">
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div style="padding: 5px;">
+                                        <div class="col-sm-2 col-sm-offset-1">
+                                            <button type="submit" data-bind="click:ShowReport" class="btn btn-deepgreen">Show Report</button>
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <button type="submit" data-bind="click:ShowDetailedReport" class="btn btn-deepgreen">Show Detailed Report</button>
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <button type="submit" data-bind="click:FeeCollectionBreakdown" class="btn btn-deepgreen">Fee Collection Breakdown</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- loading Modal -->
+                            <div id="loadingModal" class="modal fade" role="dialog">
+                                <div class="modal-dialog">
+                                    <!-- Modal content-->
+                                    <div class="loading-modal-content">
+                                        <div class="loading" align="center">
+                                            <img src="~/Images/loadingTwo.gif" style="max-width:100%;" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- loading modal ends-->
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+    </div>
+</section>

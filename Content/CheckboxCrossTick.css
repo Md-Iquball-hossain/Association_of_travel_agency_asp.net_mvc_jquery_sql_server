@@ -1,0 +1,50 @@
+﻿
+    /*** custom checkboxes ***/
+
+    input[type=checkbox].tick-cross {
+        display: none;
+    }
+        /* to hide the checkbox itself */
+        input[type=checkbox]:disabled + label {
+            color: #636363;
+        }
+
+    input[type=radio].tick-cross + label:before {
+        font-family: "Glyphicons Halflings";
+        display: inline-block;
+        font-size: 15px;
+        margin-bottom:0px !important;
+    }
+
+    input.tick-cross {
+        display: none;
+    }
+
+    input[type=radio].tick-cross + label:before {
+        content: "\e157";
+    }
+    /* unchecked icon */
+    input[type=radio].tick-cross:disabled + label:before {
+        content: "\e090";
+    }
+    /* disable icon */
+    input[type=radio].tick-cross + label:before {
+        letter-spacing: 10px;
+    }
+    /* space between checkbox and label */
+    input[type=radio].tick-cross:checked + label:before {
+        content: "\e013";
+    }
+    /* checked icon */
+    input[type=radio].tick-cross.crossed:checked + label:before {
+        content: "\e014";
+    }
+    /* crossed icon */
+    input[type=radio].tick-cross:checked + label:before {
+        letter-spacing: 6.6px;
+    }
+    /* allow space for check mark */
+    input[type=radio].tick-cross.crossed:checked + label:before {
+        letter-spacing: 9.8px;
+    }
+    /* allow space for check mark */

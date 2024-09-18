@@ -1,0 +1,88 @@
+﻿
+@{
+    ViewBag.Title = "FeeWiseMemberList";
+    Layout = "~/Views/Shared/_LayoutjqGrid.cshtml";
+}
+
+<link href="~/Content/bootstrap-datetimepicker.css" rel="stylesheet" />
+<script src="~/Scripts/bootstrap-datetimepicker.js"></script>
+<script src="~/Scripts/jquery-ui-1.11.4.min.js"></script>
+<script src="~/Scripts/moment.js"></script>
+<script src="~/Scripts/KoCustomDateTimePicker.js"></script>
+<link href="~/Content/customassets/css/Cart.css" rel="stylesheet" />
+<script src="~/Areas/Membership/Scripts/FeeCollection/FeeWiseMemberList.js"></script>
+<style>
+    .form-control {
+        width: 100% !important;
+        padding: 2px 3px;
+    }
+
+    .btnLarge {
+        width: 140px !important;
+    }
+
+    .input-group-addon {
+        padding: 0 5px;
+    }
+</style>
+<section class="rm" id="rptFee">
+    <div class="panel-body">
+        <div class="container-fluid">
+            <div class="row">
+                <!---vvvvvvv----Body Main Starts here---vvvvvv----->
+                <div class="col-sm-12">
+                    <div>
+                        <div class="panel bodycontent">
+                            <div class="form-group row row_design">
+                                <div class="col-sm-offset-1 col-sm-2">
+                                    <label class="control-label">Fee Type :</label>
+                                </div>
+                                <div class="col-sm-3">
+                                    <select class="form-control" name="FeeTypes" data-bind="options: FeeTypeList, value: FeeTypeId, optionsCaption:'Choose One..', optionsValue:'Id', optionsText: 'Name'"><option value="">Choose One..</option></select>
+                                </div>
+
+                            </div>
+                            <div class="form-group row row_design">
+                                <div class="col-sm-2 col-sm-offset-1">
+                                    <label class="control-label">From Date :</label>
+                                </div>
+                                <div class="col-sm-3" style="padding-left: 15px; padding-right: 15px;">
+                                    <div class="input-group">
+                                        <input type="text" id="fromDateField" data-bind="datepicker:FromDate, datepickerOptions: {format: 'DD/MM/YYYY'}, valueUpdate: 'keyup'" class="form-control" />
+                                        
+                                        <span class="help-block" style="display: none;"></span>
+                                        <div class="input-group-addon">
+                                            <span class="glyphicon glyphicon-calendar"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-2">
+                                    <label class="control-label">To Date :</label>
+                                </div>
+                                <div class="col-sm-3" style="padding-left: 15px; padding-right: 15px;">
+                                    <div class="input-group">
+                                        <input type="text" id="toDateField" data-bind="datepicker:ToDate, datepickerOptions: {format: 'DD/MM/YYYY'}, valueUpdate: 'keyup'" class="form-control" />
+                                        
+                                        <span class="help-block" style="display: none;"></span>
+                                        <div class="input-group-addon">
+                                            <span class="glyphicon glyphicon-calendar"></span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="form-group row row_design">
+                                <div class="col-sm-2 col-sm-offset-10">
+                                    @*<button type="submit"data-bind="click:Search" class="btn btn-deepgreen">Search</button>*@
+                                    <button type="submit" class="btn btn-primary" data-bind="click:ShowReport">Report</button>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

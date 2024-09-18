@@ -1,0 +1,266 @@
+﻿ 
+<link href="~/customassets/css/customStyle.css" rel="stylesheet" />
+<script src="~/Scripts/jquery-ui-1.11.4.min.js"></script>
+<script src="~/Scripts/moment.js"></script>
+<script src="~/Scripts/knockout-date-bindings.js"></script>
+<script src="~/Scripts/AppScripts/validate.js"></script>
+<script src="~/Areas/HRM/Scripts/SalaryProcess/salaryProcess.js"></script>
+@{
+    ViewBag.Title = "Salary Grade Information";
+    Layout = "~/Views/Shared/_LayoutjqGrid.cshtml";
+}
+<style>
+    .ui-datepicker-calendar {
+        display: none !important;
+    }
+
+    .btn-success {
+        background-color: #5c9ccc !important;
+        border-color: #5c9ccc !important;
+    }
+
+    body {
+        color: #2e6e9e !important;
+        font-size: 12px !important;
+    }
+
+    label {
+        color: #2e6e9e !important;
+    }
+
+    .form-control {
+        height: 20px !important;
+    }
+</style>
+
+<section>
+    <div id="divLoading" style="margin: 0px; padding: 0px; position: fixed; right: 0px;
+    top: 0px; width: 100%; height: 100%; background-color: #666666; z-index: 30001; -ms-opacity: .8; opacity: .8; -webkit-filter: alpha(opacity=70); -moz-filter: alpha(opacity=70); -o-filter: alpha(opacity=70); filter: alpha(opacity=70);display:none">
+        <p style="position: absolute; top: 30%; left: 45%; color: White;">
+            Salary Process Saving, please wait...<img src="~/Content/base/images/ajax-loader.gif">
+        </p>
+    </div>
+    <div id="receiveDiv">
+
+        <form class="form-horizontal">
+            <div style="padding: 5px 0; margin: 5px 0; background-color: #D9E9FF;">
+                <div class="form-group">
+
+                    <div class="row" style="margin-left: 10px">
+                        <div class="col-sm-3">
+                            <div data-bind="validationElement:OfficesId">
+                                <select data-bind="options: Offices, value: OfficesId, valueUpdate:'keyup', optionsCaption:'Choose Offices..', optionsValue:'Id'  , optionsText: 'Name' ,event:{ change: getDesignationWiseGradestep} " class="form-control"></select> @*event:{ change: getOfficeWiseEmployee}*@
+                            </div>
+                            <br /><br />
+                            <div data-bind="validationElement:Month">
+                                <h6>Month/Year <input type="month" data-bind="date:Month, valueUpdate:'keyup'" class="date-picker-month" /></h6>
+                            </div>
+                        </div>
+                        <div class="col-sm-9">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        @*<th>Index</th>*@
+                                        @*<th>#</th>*@
+                                        <th>Salary Item Name</th>
+                                    </tr>
+
+                                </thead>
+                                <tbody data-bind="foreach:SalaryProcesses">
+                                    <tr>
+                                        <td class="center">
+                                            <input type="checkbox" id='regular' name="optradio" data-bind="checked:Pick, valueUpdate: 'keyup'">
+                                        </td>
+                                        @*<td class="center" data-bind="text: $index() + 1"></td>*@
+                                        @*<td><input type="hidden" data-bind="value: Id"/></td>*@
+                                        <td class="center" data-bind="text: Name"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+
+
+                    </div>
+                    <div class="row" style="margin-left: 10px">
+                        
+                            <div class="col-sm-3">
+                                <button data-bind='click: Submit' data-dismiss="modal">Process Salary</button>&nbsp;&nbsp;
+                                <button data-bind='click: Process'>Update</button>
+                                
+                            </div>
+
+
+                       
+                        <div class="col-sm-9 ">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+
+                                        <th>Select</th>
+                                        <th>#</th>
+                                        <th>Employee Name</th>
+                                    </tr>
+
+                                </thead>
+                                <tbody data-bind="foreach:OfficeEmployees">
+                                    <tr>
+                                        <td class="center">
+                                            <input type="checkbox" @*data-bind="checked:Select, valueUpdate: 'keyup'"*@>
+                                        </td>
+                                        <td class="center" data-bind="text: Id"></td>
+                                        <td class="center" data-bind="text: Name"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+
+                    </div>
+                </div>
+                
+            </div>
+        </form>
+
+        <div id="processModal" class="modal fade" role="dialog">
+            <div class="modal-dialog modal-md">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Warning</h4>
+                    </div>
+                    <div class="modal-body" align="center">
+                        <img src="~/Content/base/images/warning.jpg" />
+                        <br />
+                        <p id="">
+                            Please Check & Update Salary for individual employee. If you press, "Process Salary" befor update, you could not edit salary information for the current month.
+                        </p>
+                        <button type="button" data-toggle="modal" data-target="#editDataModal" class="btn btn-success">Update Salary</button>
+                        <button data-bind='click: Posting' data-dismiss="modal">Salary Posting</button>
+
+                    </div>
+                    <div class="modal-footer">
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div id="successModal" class="modal fade" role="dialog">
+            <div class="modal-dialog modal-md">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Response</h4>
+                    </div>
+                    <div class="modal-body" align="center">
+                        <p id="successModalText"></p>
+
+                        <button type="button" class="btn btn-success" data-dismiss="modal">Ok</button>
+
+                    </div>
+                    <div class="modal-footer">
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+        @*<div id="editModal" class="modal fade" role="dialog">
+                <div class="modal-dialog modal-md">
+
+
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Response</h4>
+                        </div>
+                        <div class="modal-body" align="center">
+                            <p id="">Do you want to edit....???</p>
+
+                            <button type="button" data-toggle="modal" data-target="#editDataModal" class="btn btn-success" data-dismiss="modal">Yes</button>
+                            <button type="button" class="btn btn-success" data-dismiss="modal">No</button>
+
+                        </div>
+                        <div class="modal-footer">
+                        </div>
+                    </div>
+
+                </div>
+            </div>*@
+
+
+        <div id="editDataModal" class="modal fade" role="dialog">
+            <div class="modal-dialog modal-lg">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Response</h4>
+                    </div>
+                    <div class="modal-body" align="center">
+                        <form class="form-horizontal" role="form">
+                            <div class="form-group row row_design">
+                                @*<div class="col-sm-1"></div>
+                                    <div class="col-sm-2">
+                                        <label for="EditYearMonthId">Time Period<span class="required">*</span></label>
+                                    </div>*@
+                                @*<div class="col-sm-3" id="EditYearMonthId" data-bind="validationElement:EditYearMonthId">
+                                                        <select id="time" data-bind="
+                                        options:EditYearMonthList,
+                                        optionsValue: 'Key',
+                                        optionsText:'Value',
+                                        optionsCaption:'--Select--',
+                                        value:EditYearMonthId
+                                    "></select>
+                                                    </div>*@
+
+                                @*<div class="col-sm-2 col-lg-offset-1">
+                                    <label for="EmployeeId">Employee<span class="required">*</span></label>
+                                </div>
+                                <div class="col-sm-3" id="EmployeeId" data-bind="validationElement:EmployeeId">
+                                    <select id="employee" data-bind="
+                                            options:EmployeeList,
+                                            optionsValue:'Id',
+                                            optionsText:'Name',
+                                            optionsCaption:'--Select--',
+                                            value:EmployeeId
+                                            "></select>
+                                </div>*@
+                            </div>
+                        </form>
+
+                        <div>
+                            <table id="jqGrid"></table>
+                            <div id="jqControls"></div>
+                        </div>
+                        <div style="text-align: right; margin-right: 250px;">
+                            <b>Calculated Salary: <span data-bind="text:TotalSal"></span></b>
+                        </div>
+                        <div style="text-align: right; margin-right: 250px;">
+                            <b>Edited Salary: <span data-bind="text:EditedSal"></span></b>
+                        </div>
+
+
+                        <button type="button" class="btn btn-success" data-dismiss="modal">OK</button>
+
+                    </div>
+                    <div class="modal-footer">
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+

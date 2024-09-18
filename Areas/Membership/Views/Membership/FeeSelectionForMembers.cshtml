@@ -1,0 +1,244 @@
+﻿@*@using PagedList.Mvc;
+    @model PagedList.IPagedList<Finix.Membership.DTO.MemberDto>*@
+
+@{
+    ViewBag.Title = "FeeSelectionForMembers";
+    Layout = "~/Views/Shared/_LayoutjqGrid.cshtml";
+}
+
+<link href="~/Content/bootstrap-datetimepicker.css" rel="stylesheet" />
+<script src="~/Scripts/bootstrap-datetimepicker.js"></script>
+<script src="~/Scripts/jquery-ui-1.11.4.min.js"></script>
+<script src="~/Scripts/moment.js"></script>
+<script src="~/Scripts/KoCustomDateTimePicker.js"></script>
+<link href="~/Content/customassets/css/Cart.css" rel="stylesheet" />
+<link href="~/Content/PagedList.css" rel="stylesheet" />
+<link href="~/Content/bootstrap-multiselect.css" rel="stylesheet" />
+<script src="~/Scripts/bootstrap-multiselect.js"></script>
+<script src="~/Areas/Membership/Scripts/Membership/FeeSelectionForMembers.js"></script>
+
+
+<script>
+
+</script>
+
+<style>
+    .form-control {
+        width: 100% !important;
+        padding: 2px 3px;
+    }
+
+    .btnLarge {
+        width: 140px !important;
+    }
+
+    .input-group-addon {
+        padding: 0 5px;
+    }
+</style>
+
+<section class="rm">
+    <div class="panel-body">
+        <div class="container-fluid">
+            <div class="row">
+
+                <!---vvvvvvv----Body Main Starts here---vvvvvv----->
+
+                <div class="col-sm-12">
+                    <div id="FeeSelectionForMembersDiv">
+                        <div class="panel bodycontent">
+                            <div class="form-group row row_design">
+                                <div class="col-sm-offset-1 col-sm-2">
+                                    <label class="control-label">Select Fee Type :</label>
+                                </div>
+                                <div class="col-sm-3">
+                                    <select multiple="multiple" id="branchSelection1" class="form-control" data-bind="options: FeeTypes, optionsText: 'Name', optionsValue: 'Id', selectedOptions: FeeTypeIds, multiselect: { includeSelectAllOption: true }"></select>
+                                </div>
+                                <div class="col-sm-2">
+                                    <label class="control-label">Member Name :</label>
+                                </div>
+                                <div class="col-sm-3">
+                                    <input type="text" class="form-control" name="name" data-bind="value: Name" />
+                                </div>
+                            </div>
+                            <div class="form-group row row_design">
+                                <div class="col-sm-offset-1 col-sm-2">
+                                    <label class="control-label">Select Zone :</label>
+                                </div>
+                                <div class="col-sm-3">
+                                    <select class="form-control" name="businessType" data-bind="options: Zones, value: Zone, optionsCaption:'Choose One..', optionsValue:'Id', optionsText: 'Name'"><option value="">Choose One..</option></select>
+                                </div>
+                                <div class="col-sm-2">
+                                    <label class="control-label">Select Division :</label>
+                                </div>
+                                <div class="col-sm-3">
+                                    <select class="form-control" name="businessType" data-bind="options: Divisions, value: Division, optionsCaption:'Choose One..', optionsValue:'Id', optionsText: 'DivisionNameEng'"><option value="">Choose One..</option></select>
+                                </div>
+
+                                
+
+
+                            </div>
+                            <br />
+                            <div class="form-group row row_design">
+                                <div class="col-sm-offset-10 col-sm-1">
+                                    <button type="submit" class="btn btn-deepgreen" data-bind="click:GetHighlights">Search</button>
+                                </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+
+                                        <div class="table-responsive">
+                                            <header><h5><u>Select Members :</u></h5></header>
+                                            <table class="table table-striped table-bordered">
+                                                <thead class="headcolor">
+                                                    <tr>
+                                                        <th></th>
+                                                        <th class="center">Name</th>
+                                                        <th class="center">OwnerShip Status</th>
+                                                        <th class="center">Zone</th>
+                                                        <th class="center">Issue Date</th>
+
+                                                    </tr>
+                                                </thead>
+                                                <tbody data-bind="foreach:Members">
+                                                    <tr>
+                                                        <td class="center">
+                                                            <input type="checkbox" id='regular' name="optradio" data-bind="checked:IsChecked, valueUpdate: 'keyup'">
+                                                        </td>
+                                                        <td class="center" data-bind="text: NameOfOrganization"><input class="form-control" type="checkbox" /></td>
+                                                        <td class="center" data-bind="text: OwnershipStatusName"></td>
+
+                                                        <td class="center" data-bind="text: ZoneName"></td>
+                                                        <td class="center" data-bind="text: IssueDate"></td>
+
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+
+                                        </div>
+
+                                        <div class="pagination-centered">
+                                            @*Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+                        @Html.PagedListPager(Model, page => Url.Action("FeeSelectionForMembers",
+                                    new
+                                    {
+                                        page,
+                                        sortOrder = ViewBag.CurrentSort,
+                                        searchString = ViewBag.SearchString,
+                                        fromDate = ViewBag.FromDateText,
+                                        toDate = ViewBag.ToDateText,
+                                        zone = ViewBag.Zone,
+                                        businessType = ViewBag.BusinessType
+                                    }))*@
+                                        </div>
+                                        <div class="form-group row row_design">
+
+                                            <div class="col-sm-2 col-sm-offset-10">
+                                                <button type="submit" data-toggle="modal" data-target="#confirmModal"  class="btn btn-success">Save</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div id="successModal" class="modal fade" role="dialog">
+                                    <div class="modal-dialog modal-sm">
+                                        <!-- Modal content-->
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                <h4 class="modal-title">Response</h4>
+                                            </div>
+                                            <div class="modal-body" align="center">
+                                                <p id="successModalText"></p>
+                                                <button type="button" class="btn btn-success" data-dismiss="modal">Ok</button>
+                                            </div>
+                                            <div class="modal-footer">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="confirmModal" class="modal fade" role="dialog">
+                                    <div class="modal-dialog modal-sm">
+                                        <!-- Modal content-->
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                <h4 class="modal-title">Response</h4>
+                                            </div>
+                                            <div class="modal-body" align="center">
+                                                <p> Are You sure, to Set this Fee ...</p>
+                                                <button type="button" class="btn btn-success" data-dismiss="modal" data-bind="click:Submit">Yes</button>
+                                                <button type="button" class="btn btn-success" data-dismiss="modal">No</button>
+
+                                            </div>
+                                            <div class="modal-footer">
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div id="RejectionModal" class="modal fade" role="dialog">
+                                    <div class="modal-dialog modal-md">
+                                        <!-- Modal content-->
+                                        <div class="modal-content modalWidth">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                <h4 class="modal-title">Response</h4>
+                                            </div>
+                                            <div class="modal-body" align="center">
+                                                <div class="form-group row row_design">
+                                                    <div class="col-sm-4">
+                                                        <label class="control-label">Rejection Reason</label>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <textarea type="text" @*data-bind="value: RejectionReason"*@ class="form-control"></textarea>
+                                                    </div>
+                                                </div>
+                                                @*<br />*@
+
+
+                                            </div>
+                                            <div class="modal-footer">
+                                                <div class="col-sm-12">
+                                                    <div class="form-group row row_design">
+                                                        <div>
+                                                            <button type="button" @*data-bind="click:CancelApplication"*@ class="btn-q btn-danger" data-dismiss="modal">Reject</button>
+                                                            <button type="button" class="btn-q btn-default" data-dismiss="modal">Cancel</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- loading Modal -->
+    <div id="loadingModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="loading-modal-content">
+
+                <div class="loading" align="center">
+                    <img src="~/Images/loadingTwo.gif" style="max-width:100%;" />
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+    <!-- loading modal ends-->
+</section>
+
+
+

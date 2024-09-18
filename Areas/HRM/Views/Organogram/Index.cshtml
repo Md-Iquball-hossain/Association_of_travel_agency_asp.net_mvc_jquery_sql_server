@@ -1,0 +1,77 @@
+﻿<script src="~/Areas/HRM/Scripts/AppScripts/organogramViewModel.js"></script>
+<script src="~/Areas/HRM/Scripts/AppScripts/organogram.js"></script>
+<script src="~/Scripts/AppScripts/validate.js"></script>
+<link href="~/Content/customassets/css/Cart.css" rel="stylesheet" />
+
+@{
+    ViewBag.Title = "Organogram Information";
+    Layout = "~/Views/Shared/_LayoutjqGrid.cshtml";
+}
+
+@*<div class="alert alert-warning fade in">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    <strong>Attention!</strong>This is the immediate descendant of Module group.
+    It contains subgroup of Modules
+</div>*@
+<div>
+    <table id="jqGrid"></table>
+    <div id="jqGridPager"></div>
+    <div id="jqControls"></div>
+</div>
+ <br/>
+<div class="container">
+    <form class="form-horizontal" id="form_joining">
+        <div class="form-group row row_design">
+            <div class="col-sm-2 col-sm-offset-1">
+                <label for="OfficeId" class="control-label">Office Layer<span class="required">*</span> :</label>
+            </div>
+            <div class="col-sm-3" data-bind="validationElement: OfficeLayerId">
+                <select class="form-control" data-bind="
+                                          options:OfficeLayerList,
+                                          optionsValue: 'Id',
+                                          optionsText:'Name',
+                                          optionsCaption: '--Select--',
+                                          value:OfficeLayerId
+                                          "></select>
+            </div>
+
+            <div class="col-sm-1">
+                <label for="OfficeUnitId" class="control-label">Office<span class="required">*</span> :</label>
+            </div>
+            <div class="col-sm-3" data-bind="validationElement:OfficeId">
+                <select class="form-control" data-bind="
+                                          options:OfficeList,
+                                          optionsValue: 'Id',
+                                          optionsText:'Name',
+                                          optionsCaption: '--Select--',
+                                          value:OfficeId
+                                          "></select>
+            </div>
+           
+                <div class="col-sm-1">
+                    <button type="submit" data-bind="click:Submit" class="btn btn-primary">Preview</button>
+                </div>           
+        </div>
+    </form>
+
+    <div id="myModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Modal Header</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Some text in the modal.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+

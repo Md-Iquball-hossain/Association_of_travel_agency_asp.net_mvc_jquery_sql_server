@@ -1,0 +1,81 @@
+﻿<script src="~/Areas/HRM/Scripts/AppScripts/SalaryConfigurationViewModel.js"></script>
+<style>
+    .white-with-blue-shadow {
+        /*text-shadow: 1px 1px 2px black, 0 0 1em blue, 0 0 0.2em blue;
+        color: white;*/
+        font: 1.5em Georgia, "Bitstream Charter", "URW Bookman L", "Century Schoolbook L", serif;
+        font-size: x-large;
+        margin-bottom: 30px;
+    }
+</style>
+
+@{
+    ViewBag.Title = "Salary Configuration";
+    Layout = "~/Views/Shared/_LayoutjqGrid.cshtml";
+}
+
+<h2 style="text-align:center" class="white-with-blue-shadow">Salary Configuration</h2>
+
+<div id="salaryConfiguration">
+    <form class="form-horizontal" role="form">
+        <div class="form-signin-heading actions-hover">
+            <table class="table table-responsive table-striped">
+                <thead style="background-color: steelblue; text-transform: fullwidth;">
+                    <tr>
+                        <th>Index</th>
+                        <th>Weekend Overtime Percentage</th>
+                        <th>National Holiday Overtime Percentage</th>
+                        <th>Number Of Days(Per Month)</th>
+                        <th>Office InTime</th>
+                        <th>Office OutTime</th>
+
+                    </tr>
+                </thead>
+                <tbody data-bind="foreach:BasicConfig">
+                    <tr>
+                        <td class="center" data-bind="text: $index() + 1"></td>
+                        <td class="center" data-bind="text: WeekendOvertimeByBasicPer"></td>
+                        <td class="center" data-bind="text: NationalHolidayOtByBasicPer"></td>
+                        <td class="center" data-bind="text: MonthDays "></td>
+                        <td class="center" data-bind="text: moment(OfficeInTime).format('HH:mm')"></td>
+                        <td class="center" data-bind="text: moment(OfficeOutTime).format('HH:mm')"></td>
+
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+        <table class="table table-responsive table-striped">
+            <thead style="background-color: steelblue; text-transform: fullwidth;">
+            <tr>
+                <th></th>
+
+                <th>Designation Name</th>
+                <th>Illegible For Overtime</th>
+                <th>Rate/Per hour</th>
+                <th>Late Attendance Considerable</th>
+                <th>Day For Late Attendance</th>
+                <th>Leave Encashable</th>
+                <!--<input type="hidden" name="hiddenPhone"/>-->
+            </tr>
+
+            </thead>
+            <tbody data-bind="foreach: SalaryConfigurationList">
+            <tr>
+
+                <td><input type="hidden" data-bind="value: DesignationId"/></td>
+
+                <td class="center" data-bind="text: DesignationName"></td>
+
+                <td class="center"><input type='checkbox' data-bind="checked: IsIllegibleForOT, valueUpdate: 'keyup'"/></td>
+                <td class="center"><input class="form-control" type="text" data-bind="value:RatePerHour, enable:IsIllegibleForOT" placeholder="Rate Per Hour"/></td>
+                <td class="center"><input type='checkbox' data-bind="checked: IsLateAttendanceMonitored,valueUpdate: 'keyup'"/></td>
+                <td class="center"><input class="form-control" type="text" data-bind="value:DayForLateAttendance,enable:IsLateAttendanceMonitored" placeholder="Day For Late Attendance"/></td>
+                <td class="center"><input type='checkbox' data-bind="checked: IsLeaveEncashed"/></td>
+            </tr>
+
+            </tbody>
+        </table>
+        <button type="submit" class="btn btn-primary" data-bind="click:Submit">Submit</button>
+    </form>
+</div>

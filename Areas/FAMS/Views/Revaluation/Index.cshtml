@@ -1,0 +1,259 @@
+﻿@{
+    ViewBag.Title = "Asset Revaluation";
+    Layout = "~/Views/Shared/_LayoutjqGrid.cshtml";
+}
+<link href="~/Content/bootstrap-datetimepicker.css" rel="stylesheet" />
+<script src="~/Scripts/bootstrap-datetimepicker.js"></script>
+<script src="~/Scripts/KoCustomDateTimePicker.js"></script>
+<link href="~/Content/customassets/css/Cart.css" rel="stylesheet" />
+<script src="~/Areas/FAMS/Scripts/Revaluation/revaluations.js"></script>
+
+<style>
+    .form-control {
+        width: 100% !important;
+    }
+
+    .btnLarge {
+        width: 140px !important;
+    }
+
+    .input-group-addon {
+        padding: 0 5px;
+    }
+
+    .rm {
+        background-color: #F8F8F8;
+        border-radius: 0px 0px 0px 0px !important;
+    }
+</style>
+
+<section class="rm">
+    <div class="panel-body">
+        <div class="container-fluid">
+            <div class="row">
+
+                <!---vvvvvvv----Body Main Starts here---vvvvvv----->
+
+                <div class="col-sm-12">
+                    <div class="row">
+                        <div class="col-sm-12">
+
+                            @*<section class="panel bodycontent">*@
+                            <div id="DepreciationDiv">
+                                <div class="panel bodycontent">
+                                    <br />
+                                    <div class="body-main-padding">
+                                        <div class="form-group row row_design">
+                                            <div class="col-sm-12">
+                                                <div class="form-group row row_design">
+                                                    <label class="control-label col-sm-2 col-sm-offset-1" for="FromDate">Search From :</label>
+                                                    <div class="col-sm-3" style="padding-left: 15px; padding-right: 15px;" data-bind="validationElement: FromDate">
+                                                        <div class="input-group">
+                                                            <input type="text" class="form-control" id="FromDate" data-bind="datepicker:FromDate, datepickerOptions: {format: 'DD/MM/YYYY'}, valueUpdate:'keyup' , event:{ change: SearchAsset}">
+
+                                                            <span class="help-block" style="display: none;"></span>
+                                                            <div class="input-group-addon">
+                                                                <span class="glyphicon glyphicon-calendar"></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <label class="control-label col-sm-2" for="EndDate">Search To :</label>
+                                                    <div class="col-sm-3" style="padding-left: 15px; padding-right: 15px;" data-bind="validationElement: EndDate">
+                                                        <div class="input-group">
+                                                            <input type="text" id="endDate" data-bind="datepicker:EndDate, datepickerOptions: {format: 'DD/MM/YYYY'}, valueUpdate: 'keyup' , event:{ change: SearchAsset}" class="form-control" />
+                                                            <span class="help-block" style="display: none;"></span>
+                                                            <div class="input-group-addon">
+                                                                <span class="glyphicon glyphicon-calendar"></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group row row_design">
+                                                    <label class="control-label col-sm-2 col-sm-offset-1" for="Level">Category Level :</label>
+                                                    <div class="col-sm-3">
+                                                        <select data-bind="options: Levels, value: Level,optionsValue:'Id',optionsText: 'Name', optionsCaption: '...Select Level...', event:{ change: getAllCategories}, valueUpdate: 'keyup'"
+                                                                class="form-control"></select>
+
+                                                    </div>
+
+                                                    <label class="control-label col-sm-2 " for="Id">Category :</label>
+                                                    <div class="col-sm-3" data-bind="validationElement: Id">
+                                                        <select id="cat" data-bind="options: Categories, value: Id, optionsCaption:'      <--Category-->', optionsValue:'Id',optionsText: 'CategoryName', event:{ change: SearchAsset}, valueUpdate: 'keyup'"
+                                                                class="form-control"></select>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group row row_design">
+                                                    <label class="control-label col-sm-2 col-sm-offset-1" for="ResidualValue">Residual Value :</label>
+                                                    <div class="col-sm-3" data-bind="validationElement: ResidualValue">
+                                                        <input type="text" data-bind="value:ResidualValue, valueUpdate: 'keyup',event:{change:SearchAsset}" class="form-control" placeholder="Residual Value" />
+                                                    </div>
+
+                                                    <label class="control-label col-sm-2" for="AssetCode">Asset Code :</label>
+                                                    <div class="col-sm-3" data-bind="validationElement: AssetCode">
+                                                        <input type="text" data-bind="value:AssetCode, valueUpdate: 'keyup',event:{change:SearchAsset}" class="form-control" placeholder="Asset Code" required />
+                                                    </div>
+                                                </div>
+
+                                                <br />
+                                                @*<div class="form-group row row_design">
+                                <div class="col-sm-12" style="text-align:right">
+                                    <button type="button" class="btn btn-success" data-bind="click:SearchAsset">Search</button>
+                                </div>
+                            </div>*@
+                                            </div>
+
+
+                                        </div>
+                                        <div class="form-group table-responsive">
+                                            <div class="col-sm-12">
+                                                <div class="PrintReport" align="right">
+                                                    <table class="table table-striped table-bordered">
+                                                        <thead class="headcolor">
+                                                            <tr class="thead ">
+                                                                <th> Name </th>
+                                                                <th> Asset Code </th>
+                                                                <th> Model</th>
+                                                                <th> Purchase Date</th>
+                                                                <th> Writtem Down Value </th>
+                                                                <th> Action</th>
+                                                            </tr>
+                                                        </thead>
+
+                                                        <tbody data-bind="foreach:Assets_Logs">
+                                                            <tr>
+
+                                                                <td class="center" data-bind="text: AssetName"></td>
+                                                                <td class="center" data-bind="text: AssetCode"></td>
+                                                                <td class="center" data-bind="text: ModelName"></td>
+                                                                <td class="center" data-bind="text: moment(PurchaseDate).format('DD/MM/YYYY')"></td>
+                                                                <td class="center" data-bind="numericText: WrittenDownValue, precision: 3"></td>
+                                                                <td>
+                                                                    <a data-bind='click: $parent.editAssets'>Revaluate</a>
+                                                                </td>
+
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <br />
+                                        </div>
+                                    </div>
+                                        <div class="form-group row row_design">
+                                            <div class="col-sm-12">
+                                                <div class="form-group row row_design">
+                                                    <label class="control-label col-sm-3 col-sm-offset-2 " for="OpeningValue">Opening Value :</label>
+                                                    <div class="col-sm-5" data-bind="validationElement: OpeningValue">
+                                                        <input id="txtOpeningValue" type="text" data-bind="value:OpeningValue, valueUpdate: 'keyup'" class="form-control" placeholder="00.0" readonly />
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row row_design">
+                                                    <label class="control-label col-sm-3 col-sm-offset-2" for="DepreciatedAmount">Opening Depreciation :</label>
+                                                    <div class="col-sm-5" data-bind="validationElement: DepreciatedAmount">
+                                                        <input id="txtUsefulLife" type="text" data-bind="value:DepreciatedAmount" class="form-control" placeholder="0.00" readonly />
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row row_design">
+                                                    <label class="control-label col-sm-3 col-sm-offset-2" for="RevaluationSurplus">Old Surplus(If Any) :</label>
+                                                    <div class="col-sm-5" data-bind="validationElement: RevaluationSurplus">
+                                                        <input type="text" data-bind="value:RevaluationSurplus, valueUpdate: 'keyup'" class="form-control" placeholder="0.00" readonly />
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row row_design">
+                                                    <label class="control-label col-sm-3 col-sm-offset-2" for="AdjustedDepreciation">Adjusted Depreciation(Today) :</label>
+                                                    <div class="col-sm-5" data-bind="validationElement: AdjustedDepreciation">
+                                                        <input id="txtAdj" type="text" data-bind="value:AdjustedDepreciation" class="form-control" placeholder="0.00" readonly />
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row row_design">
+                                                    <label class="control-label col-sm-3 col-sm-offset-2" for="WrittenDownValue">Current WDV :</label>
+                                                    <div class="col-sm-5" data-bind="validationElement: WrittenDownValue">
+                                                        <input id="txtCWDV" type="text" data-bind="value:WrittenDownValue, valueUpdate: 'keyup'" class="form-control" placeholder="00.0" readonly />
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row row_design">
+                                                    <label class="control-label col-sm-3 col-sm-offset-2">Set New Carrying Value :</label>
+                                                    <div class="col-sm-5">
+                                                        <input id="txtNewWDV" type="text" class="form-control newwdv" placeholder="0.00" />
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group row row_design">
+                                                    <label class="control-label col-sm-3 col-sm-offset-2" for="RevaluationSurplus">Revaluation Surplus :</label>
+                                                    <div class="col-sm-5">
+                                                        <input id="txtsurplus" type="text" class="form-control" placeholder="0.00" readonly />
+                                                    </div>
+                                                </div>
+                                                <br />
+                                                <div class="form-group row row_design">
+                                                    
+                                                    <div class="col-sm-offset-8">
+                                                        <button type="button" id="btnSave" class="btn btn-success" data-bind="enable: IsValid" data-toggle="modal" data-target="#myModal">Save Revaluation</button> @*, enable :IsValid*@
+
+                                                    </div>
+                                                </div>
+                                                <br />
+                                            </div>
+                                        </div>
+                                        <br />
+
+
+                                        <div class="form-group">
+                                            <div id="successModal" class="modal fade" role="dialog">
+                                                <div class="modal-dialog modal-sm">
+                                                    <!-- Modal content-->
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                            <h4 class="modal-title">Response</h4>
+                                                        </div>
+                                                        <div class="modal-body" align="center">
+                                                            <p id="successModalText"></p>
+                                                            <button type="button" class="btn btn-success" data-dismiss="modal">Ok</button>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div id="myModal" class="modal fade" role="dialog">
+                                                <div class="modal-dialog modal-sm">
+
+                                                    <!-- Modal content-->
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                            <h4 class="modal-title">Confirmation</h4>
+                                                        </div>
+                                                        <div class="modal-body" align="center">
+                                                            <p>Do you want to Revaluate this item?</p>
+                                                            <button data-bind="click: SaveRevaluation" class="btn btn-success" data-dismiss="modal">Yes</button>
+                                                            <button type="button" class="btn btn-success" data-dismiss="modal">No</button>
+
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            @*<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>*@
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                @*</section>*@
+                                <!---^^^^^^^----Body Main Ends here----^^^^^^^---->
+                            </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+
+

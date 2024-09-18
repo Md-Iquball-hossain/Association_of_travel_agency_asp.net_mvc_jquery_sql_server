@@ -1,0 +1,203 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutjqGrid.cshtml";
+    ViewBag.Title = "Cashbook";
+    var CompanyId = ViewBag.CompanyId;
+    var jss = new System.Web.Script.Serialization.JavaScriptSerializer();
+    var Companies = jss.Serialize(ViewBag.Companies);
+    var count = ViewBag.CompanyCount;
+}
+
+@*<link href="~/Content/customStyle.css" rel="stylesheet" />*@
+<script src="~/Scripts/moment.js"></script>
+<script src="~/Scripts/knockout-date-bindings.js"></script>
+<script>
+    var userCompanyId = parseInt(@CompanyId);
+    var Companies = JSON.parse('@Html.Raw(Companies)');
+</script>
+<script src="~/Areas/Accounts/Scripts/ReportAccount/rptCashbook.js"></script>
+<link href="~/Content/customassets/css/Cart.css" rel="stylesheet" />
+
+<style>
+    .form-control {
+        width: 100% !important;
+    }
+
+    .btnLarge {
+        width: 140px !important;
+    }
+
+    .input-group-addon {
+        padding: 0 5px;
+    }
+
+    .rm {
+        background-color: #F8F8F8;
+        border-radius: 0px 0px 0px 0px !important;
+    }
+</style>
+
+<section class="rm">
+    <div class="panel-body">
+        <div class="container-fluid">
+            <fieldset>
+                <div class="row">
+                    <!---vvvvvvv----Body Main Starts here---vvvvvv----->
+                    <div class="col-sm-12">
+
+                        <div id="rptCashBook" class="row ">
+
+                            <div class="col-sm-12">
+                                <section class="panel bodycontent">
+                                    <br />
+                                    <div class="body-main-padding">
+                                        <div class="row">
+                                            <div class="form-group row row_design">
+                                                @if (count > 1)
+                                                {
+                                                    <label class="control-label col-sm-2 col-sm-offset-1">Company</label>
+                                                    <div class="col-sm-3">
+                                                        <select data-bind="options: CompanyList, value: CompanyProfileId, optionsValue:'Id', optionsText: 'Name', optionsCaption: 'Choose one...', valueUpdate: 'keyup'" class="form-control"></select> @*, event:{ change: getAllBanks}*@
+                                                    </div>
+                                                }
+                                            </div>
+                                        </div>
+                                                <br />
+                                                <div class="row">
+                                                    <div class="form-group row row_design">
+                                                        <label class="control-label col-sm-2 col-sm-offset-1">From Date</label>
+                                                        <div class="col-sm-2">
+                                                            <input type="date" data-bind="value:FromDate, valueUpdate: 'keyup'" class="form-control">
+                                                        </div>
+
+                                                        <label class="control-label col-sm-2 col-sm-offset-1">To Date</label>
+                                                        <div class="col-sm-2">
+                                                            <input type="date" data-bind="value:ToDate, valueUpdate: 'keyup'" class="form-control">
+                                                        </div>@*, event:{ change: setUrl}*@
+
+                                                        <div class="col-sm-2">
+                                                            <button type="submit" data-bind="click:getReporCashBookList" class="btn btn-deepgreen">Search</button>
+                                                        </div>
+
+                                                    </div>
+
+
+
+                                                </div>
+
+                                            </div>
+
+                                    <br />
+                                </section>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="form-group row row_design" style="margin: 2px 30px;" align="right">
+
+                                            <div class="PrintReport">
+                                                <div class="form-group">
+                                                    <h4>Export Report</h4>
+
+
+                                                    <a target="_blank" data-bind="attr: { href: Link1, title1: 'PDF' }">PDF</a>
+                                                    <a target="_blank" data-bind="attr: { href: Link2, title2: 'Excel' }">Excel</a>
+                                                    <a target="_blank" data-bind="attr: { href: Link3, title3: 'Word' }">Word</a>
+
+                                                </div>
+                                                <br />
+                                                <div class="form-group table-responsive">
+                                                    <table class="table table-striped table-bordered" id="datatable-default">
+                                                        <thead class="headcolor">
+                                                            <tr>
+                                                                <th class="center">Sl. No.</th>
+                                                                <th>Date</th>
+                                                                <th>Voucher No</th>
+                                                                <th>A/C Group</th>
+                                                                <th>A/C Code</th>
+                                                                <th>Particulars</th>
+                                                                <th>Description</th>
+                                                                <th class="center">Debit (BDT)</th>
+                                                                <th class="center">Credit (BDT)</th>
+                                                                <th class="center">Balance (BDT)</th>
+
+
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody data-bind="foreach:reportCashBookData">
+
+                                                            <tr>
+                                                                <td data-bind="text: $index() + 1"></td>
+                                                                <td data-bind="text: moment(VoucherDate).format('DD/MM/YYYY')"></td>
+                                                                <td data-bind="text: VoucherNo"></td>
+                                                                <td data-bind="text: AccountGroupName"></td>
+                                                                <td data-bind="text: AccountHeadCode"></td>
+                                                                <td data-bind="text: AccountHeadCodeName" class="center"></td>
+                                                                <td data-bind="text: Description"></td>
+                                                                <td data-bind="text: Debit" class="right"></td>
+                                                                <td data-bind="text: Credit" class="right"></td>
+                                                                <td data-bind="text: Balance" class="right"></td>
+
+                                                            </tr>
+                                                        </tbody>
+
+
+
+                                                    </table>
+
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                @*Modified Part*@
+                                <div class="form-group">
+
+                                    <div id="successModal" class="modal fade" role="dialog">
+                                        <div class="modal-dialog modal-sm">
+
+                                            <!-- Modal content-->
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                    <h4 class="modal-title">Response</h4>
+                                                </div>
+                                                <div class="modal-body" align="center">
+                                                    <p id="successModalText"></p>
+
+                                                    <button type="button" class="btn btn-success" data-dismiss="modal">Ok</button>
+
+                                                </div>
+                                                <div class="modal-footer">
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <!-- loading Modal -->
+                                    <div id="loadingModal" class="modal fade" role="dialog">
+                                        <div class="modal-dialog">
+
+                                            <!-- Modal content-->
+                                            <div class="loading-modal-content">
+
+                                                <div class="loading" align="center">
+                                                    <img src="~/Images/loadingTwo.gif" style="max-width:100%;" />
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <!-- loading modal ends-->
+                                </div>
+                                @*Modified Part*@
+
+                            </div>
+
+                                </div>
+                            </div>
+
+                </div>
+            </fieldset>
+</div>
+    </div>
+</section>

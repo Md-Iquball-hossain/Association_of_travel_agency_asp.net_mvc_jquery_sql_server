@@ -1,0 +1,68 @@
+﻿@{
+    ViewBag.Title = "Retained Earnings";
+    Layout = "~/Views/Shared/_LayoutjqGrid.cshtml";
+    var CompanyId = ViewBag.CompanyId;
+    var jss = new System.Web.Script.Serialization.JavaScriptSerializer();
+    var Companies = jss.Serialize(ViewBag.Companies);
+    var count = ViewBag.CompanyCount;
+}
+<script>
+    var userCompanyId = parseInt(@CompanyId);
+    var Companies = JSON.parse('@Html.Raw(Companies)');
+</script>
+<div class="col-sm-10">
+
+    <div class="row">
+        <div class="col-sm-11">
+
+            <section class="panel bodycontent">
+                <header class="panel-heading bodytitle ">
+                    <h2 class="panel-title font ">
+                        <b>Asset Schedule Report</b>
+                    </h2>
+
+                </header>
+
+                <br />
+                <div id="AssetDepreciationDiv" class="purchase1">
+                    <div class="form-group">
+                        <label class="col-sm-2"><span class="select"><b>From Date</b></span></label>
+                        <div class="col-sm-3">
+                            <input type="date" class="form-control" data-bind="value:FromDate, valueUpdate:'keyup' " />
+                        </div>
+                        <label class="col-sm-2"><span class="select"><b>To Date</b></span></label>
+                        <div class="col-sm-3">
+                            <input type="date" class="form-control" data-bind="value:ToDate, valueUpdate:'keyup' " />
+                        </div>
+                        <div class="col-sm-2">
+                            <button type="button" class="btn btn-success" data-bind="click:getReport"><span class="glyphicon glyphicon-refresh"></span></button>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+<script>
+
+    function AssetDepreciationVm() {
+        var currentDate = (new Date()).toISOString().split('T')[0];
+        var self = this;
+        self.FromDate = ko.observable(currentDate);
+        self.ToDate = ko.observable(currentDate);
+
+
+        self.getReport = function () {
+            window.open('/ReportAccount/GetRetainedEarningsSchedule?reportTypeId=PDF&fromDate=' + moment(self.FromDate()).format('DD/MM/YYYY') + '&toDate=' + moment(self.ToDate()).format('DD/MM/YYYY'), '_blank');
+        }
+
+    }
+
+    var vm = new AssetDepreciationVm();
+    //vm.InitialValueLoad();
+
+
+    ko.applyBindings(vm, $('#AssetDepreciationDiv')[0]);
+</script>
+

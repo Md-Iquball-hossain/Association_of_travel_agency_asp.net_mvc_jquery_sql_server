@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="ReportTrialBalanceDataSet" targetNamespace="http://tempuri.org/ReportTrialBalanceDataSet.xsd" xmlns:mstns="http://tempuri.org/ReportTrialBalanceDataSet.xsd" xmlns="http://tempuri.org/ReportTrialBalanceDataSet.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="ReportTrialBalanceDataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="ReportTrialBalanceDataSet" msprop:Generator_UserDSName="ReportTrialBalanceDataSet">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="rptTrialBalance" msprop:Generator_TableClassName="rptTrialBalanceDataTable" msprop:Generator_TableVarName="tablerptTrialBalance" msprop:Generator_RowChangedName="rptTrialBalanceRowChanged" msprop:Generator_TablePropName="rptTrialBalance" msprop:Generator_RowDeletingName="rptTrialBalanceRowDeleting" msprop:Generator_RowChangingName="rptTrialBalanceRowChanging" msprop:Generator_RowEvHandlerName="rptTrialBalanceRowChangeEventHandler" msprop:Generator_RowDeletedName="rptTrialBalanceRowDeleted" msprop:Generator_RowClassName="rptTrialBalanceRow" msprop:Generator_UserTableName="rptTrialBalance" msprop:Generator_RowEvArgName="rptTrialBalanceRowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="AccountHeadCode" msprop:Generator_ColumnVarNameInTable="columnAccountHeadCode" msprop:Generator_ColumnPropNameInRow="AccountHeadCode" msprop:Generator_ColumnPropNameInTable="AccountHeadCodeColumn" msprop:Generator_UserColumnName="AccountHeadCode" type="xs:string" minOccurs="0" />
+              <xs:element name="AccountHeadCodeName" msprop:Generator_ColumnVarNameInTable="columnAccountHeadCodeName" msprop:Generator_ColumnPropNameInRow="AccountHeadCodeName" msprop:Generator_ColumnPropNameInTable="AccountHeadCodeNameColumn" msprop:Generator_UserColumnName="AccountHeadCodeName" type="xs:string" minOccurs="0" />
+              <xs:element name="Debit" msprop:Generator_ColumnVarNameInTable="columnDebit" msprop:Generator_ColumnPropNameInRow="Debit" msprop:Generator_ColumnPropNameInTable="DebitColumn" msprop:Generator_UserColumnName="Debit" type="xs:string" minOccurs="0" />
+              <xs:element name="Credit" msprop:Generator_ColumnVarNameInTable="columnCredit" msprop:Generator_ColumnPropNameInRow="Credit" msprop:Generator_ColumnPropNameInTable="CreditColumn" msprop:Generator_UserColumnName="Credit" type="xs:string" minOccurs="0" />
+              <xs:element name="AccountGroupName" msprop:Generator_ColumnVarNameInTable="columnAccountGroupName" msprop:Generator_ColumnPropNameInRow="AccountGroupName" msprop:Generator_ColumnPropNameInTable="AccountGroupNameColumn" msprop:Generator_UserColumnName="AccountGroupName" type="xs:string" minOccurs="0" />
+              <xs:element name="SelectedAccountHeadCode" msprop:Generator_ColumnVarNameInTable="columnSelectedAccountHeadCode" msprop:Generator_ColumnPropNameInRow="SelectedAccountHeadCode" msprop:Generator_ColumnPropNameInTable="SelectedAccountHeadCodeColumn" msprop:Generator_UserColumnName="SelectedAccountHeadCode" type="xs:string" minOccurs="0" />
+              <xs:element name="SelectedAccountHeadName" msprop:Generator_ColumnVarNameInTable="columnSelectedAccountHeadName" msprop:Generator_ColumnPropNameInRow="SelectedAccountHeadName" msprop:Generator_ColumnPropNameInTable="SelectedAccountHeadNameColumn" msprop:Generator_UserColumnName="SelectedAccountHeadName" type="xs:string" minOccurs="0" />
+              <xs:element name="TransactionNo" msprop:Generator_ColumnVarNameInTable="columnTransactionNo" msprop:Generator_ColumnPropNameInRow="TransactionNo" msprop:Generator_ColumnPropNameInTable="TransactionNoColumn" msprop:Generator_UserColumnName="TransactionNo" type="xs:string" minOccurs="0" />
+              <xs:element name="AccountSubGroupName" msprop:Generator_ColumnVarNameInTable="columnAccountSubGroupName" msprop:Generator_ColumnPropNameInRow="AccountSubGroupName" msprop:Generator_ColumnPropNameInTable="AccountSubGroupNameColumn" msprop:Generator_UserColumnName="AccountSubGroupName" type="xs:string" minOccurs="0" />
+              <xs:element name="AccountHeadGroupName" msprop:Generator_ColumnVarNameInTable="columnAccountHeadGroupName" msprop:Generator_ColumnPropNameInRow="AccountHeadGroupName" msprop:Generator_ColumnPropNameInTable="AccountHeadGroupNameColumn" msprop:Generator_UserColumnName="AccountHeadGroupName" type="xs:string" minOccurs="0" />
+              <xs:element name="AccountHeadSubGroupName" msprop:Generator_ColumnVarNameInTable="columnAccountHeadSubGroupName" msprop:Generator_ColumnPropNameInRow="AccountHeadSubGroupName" msprop:Generator_ColumnPropNameInTable="AccountHeadSubGroupNameColumn" msprop:Generator_UserColumnName="AccountHeadSubGroupName" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

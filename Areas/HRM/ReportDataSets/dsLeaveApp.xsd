@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="dsLeaveApp" targetNamespace="http://tempuri.org/dsLeaveApp.xsd" xmlns:mstns="http://tempuri.org/dsLeaveApp.xsd" xmlns="http://tempuri.org/dsLeaveApp.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="dsLeaveApp" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="dsLeaveApp" msprop:Generator_UserDSName="dsLeaveApp">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="dsLeaveApp" msprop:Generator_TableClassName="dsLeaveAppDataTable" msprop:Generator_TableVarName="tabledsLeaveApp" msprop:Generator_TablePropName="_dsLeaveApp" msprop:Generator_RowDeletingName="dsLeaveAppRowDeleting" msprop:Generator_RowChangingName="dsLeaveAppRowChanging" msprop:Generator_RowEvHandlerName="dsLeaveAppRowChangeEventHandler" msprop:Generator_RowDeletedName="dsLeaveAppRowDeleted" msprop:Generator_UserTableName="dsLeaveApp" msprop:Generator_RowChangedName="dsLeaveAppRowChanged" msprop:Generator_RowEvArgName="dsLeaveAppRowChangeEvent" msprop:Generator_RowClassName="dsLeaveAppRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Id" msprop:Generator_ColumnVarNameInTable="columnId" msprop:Generator_ColumnPropNameInRow="Id" msprop:Generator_ColumnPropNameInTable="IdColumn" msprop:Generator_UserColumnName="Id" type="xs:string" minOccurs="0" />
+              <xs:element name="EmployeeId" msprop:Generator_ColumnVarNameInTable="columnEmployeeId" msprop:Generator_ColumnPropNameInRow="EmployeeId" msprop:Generator_ColumnPropNameInTable="EmployeeIdColumn" msprop:Generator_UserColumnName="EmployeeId" type="xs:string" minOccurs="0" />
+              <xs:element name="EmployeeName" msprop:Generator_ColumnVarNameInTable="columnEmployeeName" msprop:Generator_ColumnPropNameInRow="EmployeeName" msprop:Generator_ColumnPropNameInTable="EmployeeNameColumn" msprop:Generator_UserColumnName="EmployeeName" type="xs:string" minOccurs="0" />
+              <xs:element name="OfficeUnitName" msprop:Generator_ColumnVarNameInTable="columnOfficeUnitName" msprop:Generator_ColumnPropNameInRow="OfficeUnitName" msprop:Generator_ColumnPropNameInTable="OfficeUnitNameColumn" msprop:Generator_UserColumnName="OfficeUnitName" type="xs:string" minOccurs="0" />
+              <xs:element name="Range" msprop:Generator_ColumnVarNameInTable="columnRange" msprop:Generator_ColumnPropNameInRow="Range" msprop:Generator_ColumnPropNameInTable="RangeColumn" msprop:Generator_UserColumnName="Range" type="xs:string" minOccurs="0" />
+              <xs:element name="FromDate" msprop:Generator_ColumnVarNameInTable="columnFromDate" msprop:Generator_ColumnPropNameInRow="FromDate" msprop:Generator_ColumnPropNameInTable="FromDateColumn" msprop:Generator_UserColumnName="FromDate" type="xs:string" minOccurs="0" />
+              <xs:element name="ToDate" msprop:Generator_ColumnVarNameInTable="columnToDate" msprop:Generator_ColumnPropNameInRow="ToDate" msprop:Generator_ColumnPropNameInTable="ToDateColumn" msprop:Generator_UserColumnName="ToDate" type="xs:string" minOccurs="0" />
+              <xs:element name="TotalDays" msprop:Generator_ColumnVarNameInTable="columnTotalDays" msprop:Generator_ColumnPropNameInRow="TotalDays" msprop:Generator_ColumnPropNameInTable="TotalDaysColumn" msprop:Generator_UserColumnName="TotalDays" type="xs:string" minOccurs="0" />
+              <xs:element name="EntitledLeaveDays" msprop:Generator_ColumnVarNameInTable="columnEntitledLeaveDays" msprop:Generator_ColumnPropNameInRow="EntitledLeaveDays" msprop:Generator_ColumnPropNameInTable="EntitledLeaveDaysColumn" msprop:Generator_UserColumnName="EntitledLeaveDays" type="xs:string" minOccurs="0" />
+              <xs:element name="LeaveTaken" msprop:Generator_ColumnVarNameInTable="columnLeaveTaken" msprop:Generator_ColumnPropNameInRow="LeaveTaken" msprop:Generator_ColumnPropNameInTable="LeaveTakenColumn" msprop:Generator_UserColumnName="LeaveTaken" type="xs:string" minOccurs="0" />
+              <xs:element name="LeaveTypeId" msprop:Generator_ColumnVarNameInTable="columnLeaveTypeId" msprop:Generator_ColumnPropNameInRow="LeaveTypeId" msprop:Generator_ColumnPropNameInTable="LeaveTypeIdColumn" msprop:Generator_UserColumnName="LeaveTypeId" type="xs:string" minOccurs="0" />
+              <xs:element name="LeaveTypeName" msprop:Generator_ColumnVarNameInTable="columnLeaveTypeName" msprop:Generator_ColumnPropNameInRow="LeaveTypeName" msprop:Generator_ColumnPropNameInTable="LeaveTypeNameColumn" msprop:Generator_UserColumnName="LeaveTypeName" type="xs:string" minOccurs="0" />
+              <xs:element name="Description" msprop:Generator_ColumnVarNameInTable="columnDescription" msprop:Generator_ColumnPropNameInRow="Description" msprop:Generator_ColumnPropNameInTable="DescriptionColumn" msprop:Generator_UserColumnName="Description" type="xs:string" minOccurs="0" />
+              <xs:element name="CurrentLeaveStatus" msprop:Generator_ColumnVarNameInTable="columnCurrentLeaveStatus" msprop:Generator_ColumnPropNameInRow="CurrentLeaveStatus" msprop:Generator_ColumnPropNameInTable="CurrentLeaveStatusColumn" msprop:Generator_UserColumnName="CurrentLeaveStatus" type="xs:string" minOccurs="0" />
+              <xs:element name="CurrentLeaveStatusName" msprop:Generator_ColumnVarNameInTable="columnCurrentLeaveStatusName" msprop:Generator_ColumnPropNameInRow="CurrentLeaveStatusName" msprop:Generator_ColumnPropNameInTable="CurrentLeaveStatusNameColumn" msprop:Generator_UserColumnName="CurrentLeaveStatusName" type="xs:string" minOccurs="0" />
+              <xs:element name="SubstitutorId" msprop:Generator_ColumnVarNameInTable="columnSubstitutorId" msprop:Generator_ColumnPropNameInRow="SubstitutorId" msprop:Generator_ColumnPropNameInTable="SubstitutorIdColumn" msprop:Generator_UserColumnName="SubstitutorId" type="xs:string" minOccurs="0" />
+              <xs:element name="SubstitutorName" msprop:Generator_ColumnVarNameInTable="columnSubstitutorName" msprop:Generator_ColumnPropNameInRow="SubstitutorName" msprop:Generator_ColumnPropNameInTable="SubstitutorNameColumn" msprop:Generator_UserColumnName="SubstitutorName" type="xs:string" minOccurs="0" />
+              <xs:element name="Address" msprop:Generator_ColumnVarNameInTable="columnAddress" msprop:Generator_ColumnPropNameInRow="Address" msprop:Generator_ColumnPropNameInTable="AddressColumn" msprop:Generator_UserColumnName="Address" type="xs:string" minOccurs="0" />
+              <xs:element name="Email" msprop:Generator_ColumnVarNameInTable="columnEmail" msprop:Generator_ColumnPropNameInRow="Email" msprop:Generator_ColumnPropNameInTable="EmailColumn" msprop:Generator_UserColumnName="Email" type="xs:string" minOccurs="0" />
+              <xs:element name="Phone" msprop:Generator_ColumnVarNameInTable="columnPhone" msprop:Generator_ColumnPropNameInRow="Phone" msprop:Generator_ColumnPropNameInTable="PhoneColumn" msprop:Generator_UserColumnName="Phone" type="xs:string" minOccurs="0" />
+              <xs:element name="Comments" msprop:Generator_ColumnVarNameInTable="columnComments" msprop:Generator_ColumnPropNameInRow="Comments" msprop:Generator_ColumnPropNameInTable="CommentsColumn" msprop:Generator_UserColumnName="Comments" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

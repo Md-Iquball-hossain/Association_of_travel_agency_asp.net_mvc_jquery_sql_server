@@ -1,0 +1,57 @@
+﻿<script src="~/Areas/HRM/Scripts/AppScripts/SalaryProcessEdit.js"></script>
+<script src="~/Scripts/AppScripts/validate.js"></script>
+<style>
+    .white-with-blue-shadow {
+        /*//text-shadow: 1px 1px 2px black, 0 0 1em blue, 0 0 0.2em blue;
+        //color: white;*/
+        font: 1.5em Georgia, "Bitstream Charter", "URW Bookman L", "Century Schoolbook L", serif;
+        font-size: x-large;
+        margin-bottom: 30px;
+    }
+</style>
+@{
+    ViewBag.Title = "Salary Process";
+    Layout = "~/Views/Shared/_LayoutjqGrid.cshtml";
+}
+
+<h2 style="text-align:center;">Salary Process</h2>
+
+<div id="salaryprocess">
+    <form class="form-horizontal" role="form">
+        <div class="form-group row row_design">
+            <div class="col-sm-1"></div>
+            <div class="col-sm-2">
+                <label for="YearMonthId">Time Period<span class="required">*</span></label>
+            </div>
+            <div class="col-sm-3" data-bind="validationElement:YearMonthId">
+                <select id="time" data-bind="
+                    options:YearMonthList,
+                    optionsValue: 'Key',
+                    optionsText:'Value',
+                    optionsCaption:'--Select--',
+                    value:YearMonthId
+                "></select>
+            </div>
+            <div class="col-sm-1"></div>
+            <div class="col-sm-2">
+                <label for="EmployeeId">Employee<span class="required">*</span></label>
+            </div>
+            <div class="col-sm-3" data-bind="validationElement:EmployeeId">
+                <select id="employee" data-bind="
+                    options:EmployeeList,
+                    optionsValue:'Id',
+                    optionsText:'Name',
+                    optionsCaption:'--Select--',
+                    value:EmployeeId
+                "></select>
+            </div>
+        </div>
+    </form>
+    
+    <div>
+        <table id="jqGrid"></table>
+        <div id="jqControls"></div>
+    </div>
+    <div style="text-align:right;margin-right:250px;"><b>Calculated Salary: <span data-bind="text:TotalSal"></span></b></div>
+    <div style="text-align:right;margin-right:250px;"><b>Edited Salary: <span data-bind="text:EditedSal"></span></b></div>
+</div>

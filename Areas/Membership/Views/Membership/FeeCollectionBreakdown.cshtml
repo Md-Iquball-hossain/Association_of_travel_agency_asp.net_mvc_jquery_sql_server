@@ -1,0 +1,139 @@
+﻿
+@{
+    ViewBag.Title = "FeeCollectionBreakdown";
+    Layout = "~/Views/Shared/_LayoutjqGrid.cshtml";
+}
+
+<link href="~/Content/bootstrap-datetimepicker.css" rel="stylesheet" />
+<script src="~/Scripts/bootstrap-datetimepicker.js"></script>
+<script src="~/Scripts/KoCustomDateTimePicker.js"></script>
+<link href="~/Content/bootstrap-multiselect.css" rel="stylesheet" />
+<script src="~/Scripts/bootstrap-multiselect.js"></script>
+<link href="~/Content/customassets/css/Cart.css" rel="stylesheet" />
+<script src="~/Scripts/knockout-jqAutocomplete.min.js"></script>
+<script src="~/Areas/Membership/Scripts/Membership/Membership.js"></script>
+
+<style>
+    .form-control {
+        width: 100% !important;
+    }
+
+    .btnLarge {
+        width: 140px !important;
+    }
+
+    .input-group-addon {
+        padding: 0 5px;
+    }
+
+    .rm {
+        background-color: #F8F8F8;
+        border-radius: 0px 0px 0px 0px !important;
+    }
+
+    span.required {
+        color: red;
+        /*font-weight: bold;*/
+    }
+
+    .label-default {
+        font-size: 12px;
+    }
+</style>
+
+
+<div class="container rm" @*id="membershipId"*@>
+    <div class="panel bodycontent">
+        <br />
+
+        <div class="form-group row row_design">
+
+            <label class="control-label col-sm-2 col-sm-offset-1">From Date :</label>
+            <div class="col-sm-3" style="padding-left: 15px; padding-right: 15px;" data-bind="validationElement: LicenseDate">
+                <div class="input-group">
+                    <input type="text" id="LicenseDate" data-bind="datepicker:LicenseDate, datepickerOptions: {format: 'DD/MM/YYYY'}, valueUpdate: 'keyup'" class="form-control" />
+                    <span class="help-block" style="display: none;"></span>
+                    <div class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-2">
+                <label class="control-label">To Date :</label>
+            </div>
+            <div class="col-sm-3" style="padding-left: 15px; padding-right: 15px;" data-bind="validationElement: LicenseDate">
+                <div class="input-group">
+                    <input type="text" id="LicenseDate" data-bind="datepicker:LicenseDate, datepickerOptions: {format: 'DD/MM/YYYY'}, valueUpdate: 'keyup'" class="form-control" />
+                    <span class="help-block" style="display: none;"></span>
+                    <div class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <br />
+
+
+        <div class="button col-sm-offset-9">
+            <button type="submit" @*data-bind="click:saveMembership"*@ class="btn btn-deepgreen">Search</button>
+            <button type="submit" @*data-bind="click:saveMembership"*@ class="btn btn-default">Print</button>
+
+        </div>
+
+
+        <br />
+
+    </div>  
+
+
+    <hr class="horizontal">
+    <div class="panel-body">
+
+        <div class="table-responsive">
+            <table class="table table-striped table-bordered">
+                <thead class="headcolor">
+                    <tr>
+                        <th class="center">Fee Type</th>
+                        <th class="center">Year</th>
+
+                        <th class="center">Count</th>
+                        <th class="center">Amount</th>
+                    </tr>
+                </thead>
+                <tbody @*data-bind="foreach:OwnerList"*@>
+                    <tr>
+                        <td class="center" @*data-bind="text: Name"*@></td>
+                        <td class="center" @*data-bind="text: Designation"*@></td>
+
+                        <td class="center" @*data-bind="text: NID"*@></td>
+                        <td class="center" @*data-bind="text: Phone"*@></td>
+
+                    </tr>
+                </tbody>
+            </table>
+
+          
+
+        </div>
+
+        <div class="form-group row row_design">
+
+            <label class="control-label col-sm-2 col-sm-offset-8">Total Amount :</label>
+            <div class="col-sm-2">
+                <span class="label label-default">20000</span>
+            </div>
+
+        </div>
+        <div class="pagination-centered">
+            @*Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+                @Html.PagedListPager(Model, page => Url.Action("PartiallyDisbursedList",
+                    new { page, sortOrder = ViewBag.CurrentSort, searchString = ViewBag.SearchString }))*@
+        </div>
+    </div>
+</div>
+
+

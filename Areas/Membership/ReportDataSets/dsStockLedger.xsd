@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="dsStockLedger" targetNamespace="http://tempuri.org/dsStockLedger.xsd" xmlns:mstns="http://tempuri.org/dsStockLedger.xsd" xmlns="http://tempuri.org/dsStockLedger.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="dsStockLedger" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="dsStockLedger" msprop:Generator_UserDSName="dsStockLedger">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="StockTran" msprop:Generator_TableClassName="StockTranDataTable" msprop:Generator_TableVarName="tableStockTran" msprop:Generator_TablePropName="StockTran" msprop:Generator_RowDeletingName="StockTranRowDeleting" msprop:Generator_RowChangingName="StockTranRowChanging" msprop:Generator_RowEvHandlerName="StockTranRowChangeEventHandler" msprop:Generator_RowDeletedName="StockTranRowDeleted" msprop:Generator_UserTableName="StockTran" msprop:Generator_RowChangedName="StockTranRowChanged" msprop:Generator_RowEvArgName="StockTranRowChangeEvent" msprop:Generator_RowClassName="StockTranRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ProductName" msprop:Generator_ColumnVarNameInTable="columnProductName" msprop:Generator_ColumnPropNameInRow="ProductName" msprop:Generator_ColumnPropNameInTable="ProductNameColumn" msprop:Generator_UserColumnName="ProductName" type="xs:string" minOccurs="0" />
+              <xs:element name="OpeningQuantity" msprop:Generator_ColumnVarNameInTable="columnOpeningQuantity" msprop:Generator_ColumnPropNameInRow="OpeningQuantity" msprop:Generator_ColumnPropNameInTable="OpeningQuantityColumn" msprop:Generator_UserColumnName="OpeningQuantity" type="xs:string" minOccurs="0" />
+              <xs:element name="ReceivedQuantity" msprop:Generator_ColumnVarNameInTable="columnReceivedQuantity" msprop:Generator_ColumnPropNameInRow="ReceivedQuantity" msprop:Generator_ColumnPropNameInTable="ReceivedQuantityColumn" msprop:Generator_UserColumnName="ReceivedQuantity" type="xs:string" minOccurs="0" />
+              <xs:element name="ClosingQuantity" msprop:Generator_ColumnVarNameInTable="columnClosingQuantity" msprop:Generator_ColumnPropNameInRow="ClosingQuantity" msprop:Generator_ColumnPropNameInTable="ClosingQuantityColumn" msprop:Generator_UserColumnName="ClosingQuantity" type="xs:string" minOccurs="0" />
+              <xs:element name="IssuedQuantity" msprop:Generator_ColumnVarNameInTable="columnIssuedQuantity" msprop:Generator_ColumnPropNameInRow="IssuedQuantity" msprop:Generator_ColumnPropNameInTable="IssuedQuantityColumn" msprop:Generator_UserColumnName="IssuedQuantity" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

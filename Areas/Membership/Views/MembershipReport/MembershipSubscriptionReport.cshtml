@@ -1,0 +1,110 @@
+﻿
+@{
+    ViewBag.Title = "MembershipSubscriptionReport";
+    Layout = "~/Views/Shared/_LayoutjqGrid.cshtml";
+}
+
+<link href="~/Content/bootstrap-datetimepicker.css" rel="stylesheet" />
+<script src="~/Scripts/bootstrap-datetimepicker.js"></script>
+<script src="~/Scripts/jquery-ui-1.11.4.min.js"></script>
+@*<script src="~/Scripts/moment.js"></script>*@
+<script src="~/Scripts/KoCustomDateTimePicker.js"></script>
+<link href="~/Content/customassets/css/Cart.css" rel="stylesheet" />
+<script src="~/Areas/Membership/Scripts/MembershipReport/MembershipSubscriptionReport.js"></script>
+<style>
+    .form-control {
+        width: 100% !important;
+        padding: 2px 3px;
+    }
+
+    .btnLarge {
+        width: 140px !important;
+    }
+
+    .input-group-addon {
+        padding: 0 5px;
+    }
+</style>
+<section class="rm" id="rptSubscription">
+    <div class="panel-body">
+        <div class="container-fluid">
+            <div class="row">
+                <!---vvvvvvv----Body Main Starts here---vvvvvv----->
+                <div class="col-sm-12">
+                    <div>
+                        <div class="panel bodycontent">
+                            <div class="form-group row row_design">
+                                <div class="col-sm-2 col-sm-offset-1">
+                                    <label class="control-label">From Date :</label>
+                                </div>
+                                <div class="col-sm-2" style="padding-left: 15px; padding-right: 15px;">
+                                    <div class="input-group">
+                                        <input type="text" id="FromDate" data-bind="datepicker:FromDate, datepickerOptions: {format: 'YYYY', keepInvalid: false}, valueUpdate: 'keyup'" class="form-control" />
+
+                                        <span class="help-block" style="display: none;"></span>
+                                        <div class="input-group-addon">
+                                            <span class="glyphicon glyphicon-calendar"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-2">
+                                    <label class="control-label">To Date :</label>
+                                </div>
+                                <div class="col-sm-2" style="padding-left: 15px; padding-right: 15px;">
+                                    <div class="input-group">
+                                        <input type="text" id="ToDate" data-bind="value:ToDate" class="form-control" readonly />
+
+                                        <span class="help-block" style="display: none;"></span>
+                                        <div class="input-group-addon">
+                                            <span class="glyphicon glyphicon-calendar"></span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <br />
+                            <div class="form-group row row_design">
+                                <div class="col-sm-2 col-sm-offset-8">
+                                    <button type="submit" class="btn btn-primary" data-bind="click:ShowSubscriptionReport">Show Subscription Report</button>
+                                </div>
+
+                            </div>
+                            <hr />
+                            <div class="form-group row row_design">
+                                <div class="col-sm-2 col-sm-offset-1">
+                                    <label class="control-label">Year :</label>
+                                </div>
+                                <div class="col-sm-2" style="padding-left: 15px; padding-right: 15px;">
+                                    <div class="input-group">
+                                        <input type="text" id="Year" data-bind="datepicker:Year, datepickerOptions: {format: 'YYYY', keepInvalid: false}, valueUpdate: 'keyup'" class="form-control" />
+
+                                        <span class="help-block" style="display: none;"></span>
+                                        <div class="input-group-addon">
+                                            <span class="glyphicon glyphicon-calendar"></span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-2">
+                                    <label class="control-label">Zone :</label>
+                                </div>
+                                <div class="col-sm-2" style="padding-left: 15px; padding-right: 15px;">
+                                    <select data-bind="options: Zones, value: ZoneId, optionsCaption:'--Zone--', optionsValue:'Id',optionsText: 'Name',  valueUpdate: 'keyup'" class="form-control"></select>
+                                </div>
+                                <br />
+                                <br />
+                                <div class="form-group row row_design">
+                                    <div class="col-sm-2 col-sm-offset-8">
+                                        <button type="submit" class="btn btn-deepgreen" data-bind="click:ShowAnnualSubscriptionReport">Show Annual Report</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+

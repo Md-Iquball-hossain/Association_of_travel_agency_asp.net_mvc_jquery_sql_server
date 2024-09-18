@@ -1,0 +1,120 @@
+﻿
+@{
+    ViewBag.Title = "AreaEntryNew";
+    Layout = "~/Views/Shared/_LayoutjqGrid.cshtml";
+}
+
+
+<link href="~/Content/bootstrap-datetimepicker.css" rel="stylesheet" />
+<script src="~/Scripts/bootstrap-datetimepicker.js"></script>
+<script src="~/Scripts/jquery-ui-1.11.4.min.js"></script>
+<script src="~/Scripts/moment.js"></script>
+<script src="~/Scripts/KoCustomDateTimePicker.js"></script>
+<link href="~/Content/customassets/css/Cart.css" rel="stylesheet" />
+<link href="~/Content/PagedList.css" rel="stylesheet" />
+<script src="~/Areas/Membership/Scripts/Settings/AreaEntryNew.js"></script>
+
+<style>
+    .form-control {
+        width: 100% !important;
+        padding: 2px 3px;
+    }
+
+    .btnLarge {
+        width: 140px !important;
+    }
+
+    .input-group-addon {
+        padding: 0 5px;
+    }
+</style>
+<h2>AreaEntryNew</h2>
+<section class="rm">
+    <div class="panel-body">
+        <div class="container-fluid">
+            <div class="row">
+                <!---vvvvvvv----Body Main Starts here---vvvvvv----->
+                <div class="col-sm-12">
+                    <div id="AreaVm">
+                        <div class="form-group row row_design">
+                            <div class="col-sm-offset-1 col-sm-2">
+                                <label class="control-label">Division :</label>
+                            </div>
+                            <div class="col-sm-3">
+                                <select class="form-control" id="DivisionId" data-bind="options:DivisionList, optionsValue: 'Id', optionsText:'DivisionNameEng', optionsCaption:'--Select--',value:DivisionId, event:{change:LoadDistrictList}"></select>
+                            </div>
+                            <div class="col-sm-2">
+                                <label class="control-label">District:</label>
+                            </div>
+                            <div class="col-sm-3" data-bind="validationElement:DistrictId">
+                                <select class="form-control" id="DistrictId" data-bind="options:DistrictList, optionsValue: 'Id', optionsText:'DistrictNameEng', optionsCaption:'--Select--',value:DistrictId, event:{change:LoadThanaList}"></select>
+                            </div>
+                        </div>
+                        <div class="form-group row row_design">
+                            <div class="col-sm-2 col-sm-offset-1">
+                                <label class="control-label">Thana :</label>
+                            </div>
+                            <div class="col-sm-3" data-bind="validationElement:ThanaId">
+                                <select class="form-control" id="ThanaId" data-bind="options:ThanaList, optionsValue: 'Id', optionsText:'ThanaNameEng', optionsCaption:'--Select--',value:ThanaId"></select>
+                            </div>
+                        </div>
+                        <div class="form-group row row_design">
+                            <div class="col-sm-offset-1 col-sm-2">
+                                <label class="control-label">Area Name:</label>
+                            </div>
+                            <div class="col-sm-3">
+                                <input type="text" data-bind="value: Name" class="form-control">
+                            </div>
+                        </div>
+                        <br />
+                        <div class="form-group row row_design">
+                            <div class="col-sm-2 col-sm-offset-10">
+                                <button type="button" id="btnSubmit" class="btn btn-success" data-toggle="modal" data-target="#submitConfirmation">Save</button>
+                            </div>
+                        </div>
+                        <div id="submitConfirmation" class="modal fade" role="dialog">
+                            <div class="modal-dialog modal-sm">
+                                <!-- Modal content-->
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        <h4 class="modal-title">Confirmation</h4>
+                                    </div>
+                                    <div class="modal-body" align="center">
+                                        <p>Do you want to Create Area ?</p>
+                                        <button type="submit" class="btn btn-success" data-bind="click: saveArea" data-dismiss="modal">Yes</button>
+                                        <button type="button" class="btn btn-success" data-dismiss="modal">No</button>
+                                    </div>
+                                    <div class="modal-footer">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div id="successModal" class="modal fade" role="dialog">
+                                <div class="modal-dialog modal-sm">
+                                    <!-- Modal content-->
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                            <h4 class="modal-title">Response</h4>
+                                        </div>
+                                        <div class="modal-body" align="center">
+                                            <p id="successModalText"></p>
+
+                                            <button type="button" class="btn btn-success" data-dismiss="modal">Ok</button>
+
+                                        </div>
+                                        <div class="modal-footer">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+

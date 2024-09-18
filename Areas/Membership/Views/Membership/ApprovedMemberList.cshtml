@@ -1,0 +1,387 @@
+﻿
+@using PagedList.Mvc;
+@model PagedList.IPagedList<Finix.Membership.DTO.MemberDto>
+
+@{
+    ViewBag.Title = "ApprovedMemberList";
+    Layout = "~/Views/Shared/_LayoutjqGrid.cshtml";
+    var jss = new System.Web.Script.Serialization.JavaScriptSerializer();
+    var pageDataJson = jss.Serialize(Model);
+    var zonesJson = jss.Serialize(ViewBag.Zones);
+    var bcsJson = jss.Serialize(ViewBag.BusinessTypes);
+    var divisionsJson = jss.Serialize(ViewBag.Divisions); //Code by Maruf
+    var districtsJson = jss.Serialize(ViewBag.Districts); //Code by Maruf
+    var thanasJson = jss.Serialize(ViewBag.Thanas); //Code by Maruf
+    var areasJson = jss.Serialize(ViewBag.Areas); //Code by Maruf
+}
+
+<link href="~/Content/bootstrap-datetimepicker.css" rel="stylesheet" />
+<script src="~/Scripts/bootstrap-datetimepicker.js"></script>
+<script src="~/Scripts/jquery-ui-1.11.4.min.js"></script>
+<script src="~/Scripts/moment.js"></script>
+<script src="~/Scripts/KoCustomDateTimePicker.js"></script>
+<link href="~/Content/customassets/css/Cart.css" rel="stylesheet" />
+<link href="~/Content/PagedList.css" rel="stylesheet" />
+
+<script src="~/Areas/Membership/Scripts/Membership/ApprovedMemberList.js"></script>
+
+
+<script>
+    var pageData = JSON.parse('@Html.Raw(pageDataJson)');
+    var zones = JSON.parse('@Html.Raw(zonesJson)');
+    var zone = '@ViewBag.Zone';
+    var businessType = '@ViewBag.BusinessType';
+    var bcs = JSON.parse('@Html.Raw(bcsJson)');
+    var fromDate = '@ViewBag.FromDateText';
+    var toDate = '@ViewBag.ToDateText';
+
+    var Divisions = JSON.parse('@Html.Raw(divisionsJson)'); //Code by Maruf
+    var Districts = JSON.parse('@Html.Raw(districtsJson)'); //Code by Maruf
+    var Thanas = JSON.parse('@Html.Raw(thanasJson)'); //Code by Maruf
+    var Areas = JSON.parse('@Html.Raw(areasJson)'); //Code by Maruf
+
+    var DivisionId = '@ViewBag.DivisionId'; //Code by Maruf
+    var DistrictId = '@ViewBag.DistrictId'; //Code by Maruf
+    var ThanaId = '@ViewBag.ThanaId'; //Code by Maruf
+    var AreaId = '@ViewBag.AreaId'; //Code by Maruf
+    var searchString = '@ViewBag.SearchString' //Code by Maruf
+    var count = @Model.TotalItemCount; //Code by Maruf
+</script>
+
+<style>
+    .form-control {
+        width: 100% !important;
+        padding: 2px 3px;
+    }
+
+    .btnLarge {
+        width: 140px !important;
+    }
+
+    .input-group-addon {
+        padding: 0 5px;
+    }
+ 
+    .textarea-modified {
+        height: 1em;
+        width: 50%;
+        padding: 3px;
+        transition: all 0.5s ease;
+    }
+
+    textarea:focus {
+        height: 4em;
+    }
+
+
+    
+</style>
+
+<section class="rm">
+    <div class="panel-body">
+        <div class="container-fluid">
+            <div class="row">
+                <!---vvvvvvv----Body Main Starts here---vvvvvv----->
+                <div class="col-sm-12">
+                    <div id="ApprovedMemberList">
+                        <div class="panel bodycontent">
+                            @using (Ajax.BeginForm("ApprovedMemberList", "Membership", null))
+                            {
+                                <div class="form-group row row_design">
+                                    <div class="col-sm-offset-1 col-sm-2">
+                                        <label class="control-label">Name :</label>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <input type="text" name="searchString" class="form-control" id="searchString" placeholder="Organization Name/ Member No" @*value="@(ViewBag.SearchString ?? String.Empty)"*@ data-bind="value:searchString">
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <label class="control-label">Business Type :</label>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <select class="form-control" name="businessType" data-bind="options: BusinessTypes, value: BusinessType, optionsCaption:'Choose One..', optionsValue:'Id', optionsText: 'Name',valueUpdate: 'keyup'"><option value="">Choose One..</option></select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row row_design">
+                                    <div class="col-sm-2 col-sm-offset-1">
+                                        <label class="control-label">From Date :</label>
+                                    </div>
+                                    <div class="col-sm-3" style="padding-left: 15px; padding-right: 15px;">
+                                        <div class="input-group">
+                                            <input type="text" id="fromDateField" data-bind="datepicker:FromDate, datepickerOptions: {format: 'DD/MM/YYYY'}, valueUpdate: 'keyup'" class="form-control" />
+                                            <input type="hidden" name="fromDate" id="fromDate" value="@ViewBag.FromDateText" />
+                                            <span class="help-block" style="display: none;"></span>
+                                            <div class="input-group-addon">
+                                                <span class="glyphicon glyphicon-calendar"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <label class="control-label">To Date :</label>
+                                    </div>
+                                    <div class="col-sm-3" style="padding-left: 15px; padding-right: 15px;">
+                                        <div class="input-group">
+                                            <input type="text" id="toDateField" data-bind="datepicker:ToDate, datepickerOptions: {format: 'DD/MM/YYYY'}, valueUpdate: 'keyup'" class="form-control" />
+                                            <input type="hidden" name="toDate" id="toDate" value="@ViewBag.ToDateText" />
+                                            <span class="help-block" style="display: none;"></span>
+                                            <div class="input-group-addon">
+                                                <span class="glyphicon glyphicon-calendar"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="form-group row row_design">
+                                    <div class="col-sm-offset-1 col-sm-2">
+                                        <label class="control-label">Zone :</label>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <select class="form-control" name="zone" data-bind="options: Zones, value: Zone, optionsCaption:'Choose One..', optionsValue:'Id', optionsText: 'Name',valueUpdate: 'keyup'"><option value="">Choose One..</option></select>
+                                    </div>
+
+                                </div>
+                                <div class="form-group row row_design">
+                                    <div class="col-sm-offset-1 col-sm-2">
+                                        <label class="control-label">Division :</label>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <select class="form-control" name="DivisionId" data-bind="options: DivisionList, value: DivisionId, optionsCaption:'Choose One..', optionsValue:'Id', optionsText: 'DivisionNameEng', event:{change:LoadDistrictList},valueUpdate: 'keyup'"><option value="">Choose One..</option></select>
+                                    </div>
+
+                                    <div class="col-sm-2">
+                                        <label class="control-label">District :</label>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <select class="form-control" name="DistrictId" data-bind="options: DistrictList, value: DistrictId, optionsCaption:'Choose One..', optionsValue:'Id', optionsText: 'DistrictNameEng', event:{change:LoadThanaList},valueUpdate: 'keyup'"><option value="">Choose One..</option></select>
+                                    </div>
+
+                                </div>
+                                <div class="form-group row row_design">
+                                    <div class="col-sm-offset-1 col-sm-2">
+                                        <label class="control-label">Thana :</label>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <select class="form-control" name="ThanaId" data-bind="options: ThanaList, value: ThanaId, optionsCaption:'Choose One..', optionsValue:'Id', optionsText: 'ThanaNameEng',event:{change:LoadAreaList},valueUpdate: 'keyup'"><option value="">Choose One..</option></select>
+                                    </div>
+
+                                    <div class="col-sm-2">
+                                        <label class="control-label">Area :</label>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <select class="form-control" name="AreaId" data-bind="options: AreaList, value: AreaId, optionsCaption:'Choose One..', optionsValue:'Id', optionsText: 'Name',valueUpdate: 'keyup'"><option value="">Choose One..</option></select>
+                                    </div>
+
+                                </div>
+                                <div class="form-group row row_design">
+
+                                    <div class="col-sm-2 col-sm-offset-10">
+                                        <button type="submit" @*data-bind="click:Search"*@ class="btn btn-deepgreen">Search</button>
+                                        <button type="submit" class="btn btn-primary" data-bind="click:GetMemberListWithPhotoReport">Print</button>
+                                    </div>
+                                    
+                                    <div class="col-sm-2 col-sm-offset-10">
+                                        <h4>Export Report</h4>
+                                        <a target="_blank" data-bind="attr: { href: Link1, title1: 'PDF' }">PDF</a>
+                                        <a data-bind="attr: { href: Link2, title2: 'Excel' }">Excel</a>
+                                        <a data-bind="attr: { href: Link3, title3: 'Word' }">Word</a>
+
+                                    </div>
+                                </div>
+                                <div class="form-group row row_design">
+
+                                </div>
+
+                            }
+                            <hr class="horizontal">
+
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="table-responsive">
+                                        <table class="table table-striped table-bordered" id="MemberTable">
+                                            <thead class="headcolor">
+                                                <tr>
+                                                    <th class="center"> Sl No </th>
+                                                    <th class="center"> Member No </th>
+                                                    <th class="center">Name</th>
+                                                    <th class="center">Ownership Status</th>
+                                                    <th class="center">Zone</th>
+                                                    <th class="center">Subscription Date</th>
+                                                    <th class="center">Blacklist Reason</th>
+
+                                                    <th>Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody data-bind="foreach:PageData">
+                                                <tr>                                                    
+                                                    <td style="display:none"><input type="hidden" data-bind="value:Id" /></td>
+                                                    <td data-bind="text: $index() + 1"></td>
+                                                    @*<td data-bind="text: Count"></td>*@
+                                                    <td class="center" data-bind="text: MemberNo"></td>
+                                                    <td class="center" data-bind="text: NameOfOrganization"></td>
+                                                    <td class="center" data-bind="text: OwnershipStatusName"></td>
+
+                                                    <td class="center" data-bind="text: ZoneName"></td>
+                                                    <td class="center" data-bind="text: moment(IssueDate).format('DD/MM/YYYY')"></td>
+                                                    <td class="center"><textarea type="text" data-bind="value: BlacklistReason" class="textarea-modified"></textarea></td>
+                                                    @*<td class="center"><input type="text" data-bind="value: BlacklistReason"/></td>*@
+
+                                                    <td>
+                                                        <button type="button" data-bind="click:$parent.Details" title="Details">
+                                                            Details
+                                                        </button>
+                                                        <button type="button" data-bind='click: $parent.PaymentDetails' title="Payment History">
+                                                            Payment History
+                                                        </button>
+                                                        <button type="button" data-bind='click: $parent.MoneyReceipt' title="Money Receipt">
+                                                            Money Receipts
+                                                        </button>
+                                                        <button type="button" data-bind='click: $parent.PrintCertificate' title="Certificate">
+                                                            Certificate
+                                                        </button>
+                                                        <button type="button" data-bind="click: $parent.ToggleBlacklisted, visible:!Blacklisted" style="color:red;"><span class="glyphicon glyphicon-remove" title="Mark as Blacklisted"></span></button>
+                                                        @*<button type="button" data-bind="click: $parent.ToggleBlacklisted, visible:Blacklisted" style="color:green;"><span class="glyphicon glyphicon-ok" title="Mark as Blacklisted"></span></button>*@
+                                                        @*<button type="button" data-bind="click: $parent.ToggleBlacklisted, visible:!Blacklisted" style="color:red;"><span class="glyphicon glyphicon-remove" title="Mark as Blacklisted"></span></button>
+            <button type="button" data-bind="click: $parent.ToggleBlacklisted, visible:Blacklisted" style="color:green;"><span class="glyphicon glyphicon-ok" title="Mark as Blacklisted"></span></button>*@
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+
+                                    </div>
+                                    <div class="pagination-centered">
+                                        Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+                                        @Html.PagedListPager(Model, page => Url.Action("ApprovedMemberList",
+                                                        new
+                                                        {
+                                                            page,
+                                                            sortOrder = ViewBag.CurrentSort,
+                                                            searchString = ViewBag.SearchString,
+                                                            fromDate = ViewBag.FromDateText,
+                                                            toDate = ViewBag.ToDateText,
+                                                            zone = ViewBag.Zone,
+                                                            businessType = ViewBag.BusinessType,
+                                                            DivisionId = ViewBag.DivisionId, //Code by Maruf
+                                                            DistrictId = ViewBag.DistrictId, //Code by Maruf
+                                                            ThanaId = ViewBag.ThanaId, //Code by Maruf
+                                                            AreaId = ViewBag.AreaId //Code by Maruf
+                                                        }))
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div id="successModal" class="modal fade" role="dialog">
+                                <div class="modal-dialog modal-sm">
+                                    <!-- Modal content-->
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                            <h4 class="modal-title">Response</h4>
+                                        </div>
+                                        <div class="modal-body" align="center">
+                                            <p id="successModalText"></p>
+                                            <button type="button" class="btn btn-success" data-dismiss="modal" data-bind="click:Reload">Ok</button>
+                                        </div>
+                                        <div class="modal-footer">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="confirmModal" class="modal fade" role="dialog">
+                                <div class="modal-dialog modal-sm">
+                                    <!-- Modal content-->
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                            <h4 class="modal-title">Response</h4>
+                                        </div>
+                                        <div class="modal-body" align="center">
+                                            <p> Are You sure, to cancel this Application...</p>
+                                            <button type="button" class="btn btn-success" data-dismiss="modal" data-toggle="modal" data-target="#RejectionModal">Yes</button>
+                                            <button type="button" class="btn btn-success" data-dismiss="modal">No</button>
+
+                                        </div>
+                                        <div class="modal-footer">
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div id="RejectionModal" class="modal fade" role="dialog">
+                                <div class="modal-dialog modal-md">
+                                    <!-- Modal content-->
+                                    <div class="modal-content modalWidth">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                            <h4 class="modal-title">Response</h4>
+                                        </div>
+                                        <div class="modal-body" align="center">
+                                            <div class="form-group row row_design">
+                                                <div class="col-sm-4">
+                                                    <label class="control-label">Rejection Reason</label>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <textarea type="text" @*data-bind="value: RejectionReason"*@ class="form-control"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <div class="col-sm-12">
+                                                <div class="form-group row row_design">
+                                                    <div>
+                                                        <button type="button" @*data-bind="click:CancelApplication"*@ data-bind="click: ToggleBlacklisted" class="btn-q btn-danger" data-dismiss="modal">Reject</button>
+                                                        <button type="button" class="btn-q btn-default" data-dismiss="modal">Cancel</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            @*Code by Maruf*@
+                            <div id="BlacklistModal" class="modal fade" role="dialog">
+                                <div class="modal-dialog modal-md">
+                                    <!-- Modal content-->
+                                    <div class="modal-content modalWidth">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                            <h4 class="modal-title">BlackList</h4>
+                                        </div>
+                                        <div class="modal-body" align="center">
+                                            @*<div class="form-group row">
+                          Hi <span id="modal-myvalue"></span>
+                        </div>*@
+                                            <div class="form-group row row_design">
+                                                <div class="col-sm-4">
+
+                                                    <label class="control-label"> Reason of Blacklisting </label>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <textarea type="text" @*data-bind="value: RejectionReason"*@ data-bind="value: BlacklistReason" class="form-control"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <div class="col-sm-12 ">
+                                                <div class="form-group row row_design">
+                                                    <div>
+                                                        <button type="submit" data-bind="click:ToggleBlacklisted" class="btn-q btn-success">Confirm</button>
+                                                        <button type="button" @*data-bind="click:CancelApplication"*@ class="btn-q btn-danger" data-dismiss="modal">Cancel</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
